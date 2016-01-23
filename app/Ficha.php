@@ -6,5 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ficha extends Model
 {
-    //
+    public function cliente()
+    {
+        return $this->belongsTo('App\Cliente');
+    }
+
+    public function uf()
+    {
+        return $this->belongsTo('App\Uf');
+    }
 }

@@ -6,13 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Filial extends Model
 {
-    public function agenda()
-    {
-        return $this->belongsTo('Agenda');
-    }
+
+    protected $table = 'filiais';
 
     public function uf()
     {
-        return $this->hasOne('Uf');
+        return $this->belongsTo('App\Uf');
+    }
+
+    public function agendas()
+    {
+        return $this->hasMany('App\Agenda');
     }
 }
