@@ -19,3 +19,35 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'remember_token' => str_random(10),
     ];
 });
+
+$factory->define(App\Agenda::class, function (Faker\Generator $faker) {
+   return [
+//       'cliente_id' => factory(App\Cliente::class)->create()->id,
+       'filial_id' => factory(App\Filial::class)->create()->id,
+       'data' => $faker->date(),
+       'periodo' => 'Semestral',
+       'inicio' => $faker->time(),
+       'pecas' => $faker->numerify()
+   ];
+});
+
+$factory->define(App\Filial::class, function (Faker\Generator $faker) {
+    return [
+        'uf_id' => App\Uf::all()->random(1)->id,
+        'nome' => $faker->name
+    ];
+});
+
+$factory->define(App\Cargo::class, function (Faker\Generator $faker) {
+    return [
+        'nome' => $faker->name
+    ];
+});
+
+$factory->define(App\Vendedor::class, function (Faker\Generator $faker) {
+    return [
+        'cargo_id' => factory(App\Cargo::class)->create()->id,
+        'nome' => $faker->name,
+        'password' => $faker->password()
+    ];
+});

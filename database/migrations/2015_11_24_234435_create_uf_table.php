@@ -27,6 +27,6 @@ class CreateUfTable extends Migration
      */
     public function down()
     {
-        Schema::drop('uf');
+        Schema::drop('ufs');
     }
 }

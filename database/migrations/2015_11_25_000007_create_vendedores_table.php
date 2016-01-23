@@ -16,7 +16,7 @@ class CreateVendedoresTable extends Migration
             $table->increments('id');
             $table->integer('cargo_id');
             $table->string('nome');
-            $table->string('senha');
+            $table->string('password');
             $table->timestamps();
         });
     }
