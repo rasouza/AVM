@@ -152,8 +152,29 @@
         <div id="content">
             <div class="inner">
                 <div class="text">
+                    <h2 class="title-page">@yield('title')</h2>
                     @yield('content')
+                </div><!-- .text -->
+
+                @section('sidebar')
+                <!-- START SIDEBAR -->
+                <div class="sidebar">
+
+                    <!-- SHORTCODE MENU -->
+                    <div class="widget">
+                        <h2>Opções</h2>
+
+                        <ul class="menu">
+                            <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(\w+)/i', '\\1@create', Route::current()->getActionName())) }}">Novo</a></li>
+                            <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(\w+)/i', '\\1@index', Route::current()->getActionName())) }}">Consulta</a></li>
+                        </ul>
+                    </div>
+                    <!-- END SHORTCODE MENU -->
+
                 </div>
+                <!-- END SIDEBAR -->
+                @show
+
             </div>
         </div>
         <!-- END CONTENT -->
