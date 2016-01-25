@@ -24,7 +24,7 @@ class CreatePrecosTable extends Migration
             $table->integer('trimestral_qtd');
             $table->decimal('trimestral_preco');
             $table->integer('bimestral_qtd');
-            $table->decimal('bimestral');
+            $table->decimal('bimestral_preco');
             $table->integer('mensal_qtd');
             $table->decimal('mensal_preco');
             $table->timestamps();

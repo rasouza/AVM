@@ -64,10 +64,7 @@ jQuery(document).ready(function($){
     $('#perc').mask('99,99 %');
     $('#numero').mask('999',{placeholder:' '});
     $('#peca, #excedente').mask('99,99');
-//    $('#esporadico, #semestral, #quadrimestral, #trimestral, #bimestral, #mensal').mask('9999,99');
-    $('#esporadico, #semestral, #quadrimestral, #trimestral, #bimestral, #mensal').maskMoney();
-//    $('#esporadico2, #semestral2, #quadrimestral2, #trimestral2, #bimestral2, #mensal2').mask('99,99');
-    $('#esporadico2, #semestral2, #quadrimestral2, #trimestral2, #bimestral2, #mensal2').maskMoney();
+    $('.money').maskMoney();
     $('#horario').mask('99:99');
     $('#cnpj').mask('99.999.999/9999-99');
     $('#cep').mask('99999-999');

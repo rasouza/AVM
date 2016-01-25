@@ -29,6 +29,7 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot($router);
 
         $router->model('filiais', 'App\Filial');
+        $router->model('precos', 'App\Preco');
     }
 
     /**

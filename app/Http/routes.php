@@ -15,11 +15,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'administracao'], function() {
     Route::resource('filiais', 'FiliaisController');
-
-    Route::resource('precos', 'PrecosController@index');
-    Route::resource('funcionarios', 'FuncionariosController@index');
-    Route::resource('cargos', 'CargosController@index');
-    Route::resource('vendedores', 'VendedoresController@index');
+    Route::resource('precos', 'PrecosController');
+    Route::resource('funcionarios', 'FuncionariosController');
+    Route::resource('cargos', 'CargosController');
+    Route::resource('vendedores', 'VendedoresController');
 });
 
 

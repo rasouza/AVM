@@ -7,8 +7,6 @@ use App\Uf;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\App;
 
 class FiliaisController extends Controller
 {
@@ -35,7 +33,6 @@ class FiliaisController extends Controller
         $ufs = Uf::orderBy('sigla', 'asc')
             ->get()
             ->lists('sigla', 'id');
-        echo 'ae';
         return view('administracao.filiais.form', compact('filial', 'ufs', 'action'));
     }
 

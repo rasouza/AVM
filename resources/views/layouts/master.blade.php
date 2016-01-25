@@ -153,6 +153,7 @@
             <div class="inner">
                 <div class="text">
                     <h2 class="title-page">@yield('title')</h2>
+
                     @yield('content')
                 </div><!-- .text -->
 
@@ -165,8 +166,9 @@
                         <h2>Opções</h2>
 
                         <ul class="menu">
-                            <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(\w+)/i', '\\1@create', Route::current()->getActionName())) }}">Novo</a></li>
-                            <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(\w+)/i', '\\1@index', Route::current()->getActionName())) }}">Consulta</a></li>
+
+                            <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(.+)/i', '\\1@create', Route::current()->getActionName())) }}">Novo</a></li>
+                            <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(.+)/', '\\1@index', Route::current()->getActionName())) }}">Consulta</a></li>
                         </ul>
                     </div>
                     <!-- END SHORTCODE MENU -->
@@ -176,6 +178,8 @@
                 @show
 
             </div>
+            <div class="clear"></div>
+
         </div>
         <!-- END CONTENT -->
 
