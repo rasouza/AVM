@@ -8,6 +8,7 @@ class Filial extends Model
 {
 
     protected $table = 'filiais';
+    protected $fillable = ['nome'];
 
     public function uf()
     {
