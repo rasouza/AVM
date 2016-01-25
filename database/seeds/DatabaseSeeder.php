@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
         Model::unguard();
 
         $this->call(UfsTableSeeder::class);
+        $this->call(CargosTableSeeder::class);
 
         Model::reguard();
     }
