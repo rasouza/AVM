@@ -6,6 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 class Funcionario extends Model
 {
+    protected $fillable = [
+        'nome',
+        'endereco',
+        'bairro',
+        'cep',
+        'cidade',
+        'telefone',
+        'email',
+        'cpf',
+        'rg',
+        'pis'
+    ];
+
+    public function vendedor()
+    {
+        return $this->hasOne('App\Vendedor');
+    }
     public function processos()
     {
         return $this->hasMany('App\Processo');

@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedor extends Model
 {
     protected $table = "vendedores";
+    protected $fillable = ['senha'];
+
+    public function funcionario()
+    {
+        return $this->belongsTo('App\Funcionario');
+    }
+
     public function cargo()
     {
         return $this->belongsTo('App\Cargo');
