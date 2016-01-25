@@ -10,6 +10,11 @@ class Filial extends Model
     protected $table = 'filiais';
     protected $fillable = ['nome'];
 
+    public function vendedores()
+    {
+        return $this->hasMany('App\Vendedor');
+    }
+
     public function uf()
     {
         return $this->belongsTo('App\Uf');

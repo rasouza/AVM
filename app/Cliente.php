@@ -9,7 +9,7 @@ class Cliente extends Model
     // fichas agenda
     public function fichas()
     {
-        return $this->hasMany('App\Ficha');
+        return $this->hasOne('App\Ficha');
     }
 
     public function agendas()

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Vendedor extends Model
 {
     protected $table = "vendedores";
-    protected $fillable = ['senha'];
+    protected $fillable = ['password'];
 
     public function funcionario()
     {
@@ -17,6 +17,11 @@ class Vendedor extends Model
     public function cargo()
     {
         return $this->belongsTo('App\Cargo');
+    }
+
+    public function filial()
+    {
+        return $this->belongsTo('App\Filial');
     }
 
     public function os()
