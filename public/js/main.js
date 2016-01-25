@@ -60,15 +60,15 @@ jQuery(document).ready(function($){
     // ------- END operacional-os-novo.php
     
     // Mask Input
-    $('#telefone').mask('99 - 9999.9999?9');
-    $('#perc').mask('99,99 %');
+    $('[name=telefone]').mask('(99) 9999-9999?9');
+    $('[name=perc]').mask('99,99 %');
     $('#numero').mask('999',{placeholder:' '});
     $('#peca, #excedente').mask('99,99');
     $('.money').maskMoney();
-    $('#horario').mask('99:99');
-    $('#cnpj').mask('99.999.999/9999-99');
-    $('#cep').mask('99999-999');
-    $('#cpf').mask('999.999.999-99');
-    $('#rg').mask('99.999.999-*');
+    $('[name=horario]').mask('99:99');
+    $('[name=cnpj]').mask('99.999.999/9999-99');
+    $('[name=cep]').mask('99999-999');
+    $('[name=cpf]').mask('999.999.999-99');
+    $('[name=rg]').mask('99.999.999-*');
     
 });

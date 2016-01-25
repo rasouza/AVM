@@ -12,6 +12,7 @@
 */
 
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@create')->name('home');
 
 Route::group(['prefix' => 'administracao'], function() {
     Route::resource('filiais', 'FiliaisController');
