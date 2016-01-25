@@ -8,7 +8,6 @@
         <ol class="cf-ol">
             <li>
                 <label for="nome"><span>Nome</span></label>
-                {{--<input type="text" name="nome" id="nome" class="required" />--}}
                 {!! Form::text('nome', null, ['class' => 'required']  ) !!}
                 <span class="reqtxt">(obrigat&oacute;rio)</span>
             </li>

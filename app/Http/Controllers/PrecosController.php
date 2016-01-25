@@ -64,12 +64,12 @@ class PrecosController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Preco  $preco
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Preco $preco)
     {
-        //
+        return view('administracao.precos.show', compact('preco'));
     }
 
     /**

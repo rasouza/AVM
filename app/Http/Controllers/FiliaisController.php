@@ -17,7 +17,7 @@ class FiliaisController extends Controller
      */
     public function index()
     {
-        $filial = Filial::orderBy('nome', 'asc')->get();
+        $filial = Filial::with('uf')->orderBy('nome', 'asc')->get();
         return view('administracao.filiais.index', [ 'filiais' => $filial ]);
     }
 
@@ -92,6 +92,7 @@ class FiliaisController extends Controller
      */
     public function destroy(Filial $filial)
     {
+        $filial->vendedores()->delete();
         $filial->delete();
         return redirect()->action('FiliaisController@index');
     }

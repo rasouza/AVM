@@ -5,10 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-use App\Http\Controllers\Controller;
+use App\Cargo;
 
 class CargosController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +17,8 @@ class CargosController extends Controller
      */
     public function index()
     {
-        //
+        $cargo = Cargo::orderBy('nome', 'asc')->get();
+        return view('administracao.cargos.index', [ 'cargos' => $cargo ]);
     }
 
     /**
@@ -26,7 +28,10 @@ class CargosController extends Controller
      */
     public function create()
     {
-        //
+        $action = 'CargosController@store';
+        $cargo = new Cargo();
+
+        return view('administracao.cargos.form', compact('cargo', 'action'));
     }
 
     /**
@@ -37,51 +42,62 @@ class CargosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        Cargo::create([
+            'nome' => $request->nome
+        ]);
+
+        echo 'Cargo cadastrado';
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Cargo $cargo)
     {
-        //
+        return view('administracao.cargos.show', compact('cargo'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Cargo $cargo)
     {
-        //
+        $action = 'CargosController@update';
+
+        return view('administracao.cargos.form', compact('cargo', 'action'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Cargo $cargo)
     {
-        //
+        $cargo->nome = $request->nome;
+        $cargo->save();
+
+        echo 'Cargo editado';
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Cargo  $cargo
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Cargo $cargo)
     {
-        //
+        $cargo->vendedores()->delete();
+        $cargo->delete();
+        return redirect()->action('CargosController@index');
     }
 }
