@@ -59,6 +59,16 @@
                     <td>{{ $funcionario->pis }}</td>
                 </tr>
 
+                <tr>
+                    <th class="features">Criado em</th>
+                    <td>{{ $funcionario->created_at->format('d/m/Y') }}</td>
+                </tr>
+
+                <tr>
+                    <th class="features">Modificado em</th>
+                    <td>{{ $funcionario->updated_at->format('d/m/Y') }}</td>
+                </tr>
+
             </tbody>
     </table>
 @endsection

@@ -166,9 +166,9 @@
                         <h2>Opções</h2>
 
                         <ul class="menu">
-
                             <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(.+)/i', '\\1@create', Route::current()->getActionName())) }}">Novo</a></li>
                             <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(.+)/', '\\1@index', Route::current()->getActionName())) }}">Consulta</a></li>
+                            @yield('sidebar-items')
                         </ul>
                     </div>
                     <!-- END SHORTCODE MENU -->
