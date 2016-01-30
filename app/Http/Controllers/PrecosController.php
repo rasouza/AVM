@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Preco;
+use Illuminate\Support\Facades\Auth;
 
 class PrecosController extends Controller
 {
+    function __construct()
+    {
+        $this->authorize('administrador', Auth::user());
+    }
 
     /**
      * Display a listing of the resource.

@@ -6,9 +6,14 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Cargo;
+use Illuminate\Support\Facades\Auth;
 
 class CargosController extends Controller
 {
+    function __construct()
+    {
+        $this->authorize('gerente', Auth::user());
+    }
 
     /**
      * Display a listing of the resource.

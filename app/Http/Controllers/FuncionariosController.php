@@ -7,9 +7,15 @@ use App\Uf;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class FuncionariosController extends Controller
 {
+    function __construct()
+    {
+        $this->authorize('gerente', Auth::user());
+    }
+
     /**
      * Display a listing of the resource.
      *

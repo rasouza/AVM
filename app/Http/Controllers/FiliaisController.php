@@ -7,9 +7,15 @@ use App\Uf;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class FiliaisController extends Controller
 {
+    function __construct()
+    {
+        $this->authorize('administrador', Auth::user());
+    }
+
     /**
      * Display a listing of the resource.
      *

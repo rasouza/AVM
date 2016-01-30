@@ -9,9 +9,15 @@ use App\Filial;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Facades\Auth;
 
 class VendedoresController extends Controller
 {
+    function __construct()
+    {
+        $this->authorize('gerente', Auth::user());
+    }
+
     /**
      * Display a listing of the resource.
      *
