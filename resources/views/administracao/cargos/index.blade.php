@@ -11,7 +11,6 @@
             <thead>
                 <tr>
                     <th></th>
-                    {{--<th style="width: 100px;">Visualizar</th>--}}
                     <th style="width: 100px;">Editar</th>
                     <th style="width: 100px;"></th>
                 </tr>
@@ -21,7 +20,6 @@
             @foreach($cargos as $cargo)
                 <tr>
                     <th class="features">{{ $cargo->nome }}</th>
-                    {{--<td><a href="{{ action('CargosController@show', ['cargos' => $cargo]) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>--}}
                     <td><a href="{{ action('CargosController@edit', ['cargos' => $cargo]) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>
                         {!! Form::open(['action' => ['CargosController@destroy', $cargo], 'method' => 'delete']) !!}

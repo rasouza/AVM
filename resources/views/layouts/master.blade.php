@@ -78,7 +78,7 @@
 
                 <!-- START LOGO -->
                 <div id="logo">
-                    <a href="{{ route('home') }}" title="AVM Inventários">AVM invent&aacute;rios</a>
+                    <a href="{{ route('home') }}" title="AVM Inventários">AVM inventários</a>
                 </div>
                 <!-- END LOGO -->
 
@@ -90,17 +90,17 @@
                                 <ul class="sub-menu">
                                     @can('administrador', Auth::user())
                                         <li><a href="{{ url('administracao/filiais') }}">Filiais</a></li>
-                                        <li><a href="{{ url('administracao/precos') }}">Tabela de Pre&ccedil;os</a></li>
+                                        <li><a href="{{ url('administracao/precos') }}">Tabela de Preços</a></li>
                                     @endcan
-                                    <li><a href="{{ url('administracao/funcionarios') }}">Funcion&aacute;rios</a></li>
-                                    <li><a href="{{ url('administracao/cargos') }}">Cargos e Fun&ccedil;&otilde;es</a></li>
+                                    <li><a href="{{ url('administracao/funcionarios') }}">Funcionários</a></li>
+                                    <li><a href="{{ url('administracao/cargos') }}">Cargos e Funçes</a></li>
                                     <li><a href="{{ url('administracao/vendedores') }}">Vendedores e Gerentes</a></li>
                                     <li><a href="#">Cash</a>
                                         <ul class="sub-menu">
                                             <li><a href="#">Listagem de Cash</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Premia&ccedil;&atilde;o</a></li>
+                                    <li><a href="#">Premiação</a></li>
                                 </ul>
                             </li>
                         @endcan
@@ -108,8 +108,8 @@
                         @can('gerente', Auth::user())
                             <li><a href="#">Comercial</a>
                                 <ul class="sub-menu">
-                                    <li><a href="{{ url('comercial-cliente-novo.php') }}">Cliente</a></li>
-                                    <li><a href="{{ url('comercial-ficha-consulta.php') }}">Ficha cadastral</a></li>
+                                    <li><a href="{{ url('comercial/clientes') }}">Clientes</a></li>
+                                    <li><a href="{{ url('comercial/fichas') }}">Ficha cadastral</a></li>
 
                                 </ul>
                             </li>
@@ -122,7 +122,7 @@
                                     <li><a href="{{ url('operacional-agenda-novo.php') }}">Agenda</a></li>
                                     <li><a href="{{ url('operacional-os-consulta.php') }}">Ordem de Serviço</a></li>
                                     <li><a href="{{ url('operacional-backup.php') }}">Backup</a></li>
-                                    <li><a href="#">Invent&aacute;rio</a>
+                                    <li><a href="#">Inventário</a>
                                         <ul class="sub-menu">
                                             <li><a href="{{ url('operacional-ambiente-consulta.php') }}">Cadastro de Ambientes</a></li>
                                             <li><a href="{{ url('operacional-processo-consulta.php') }}">Processo</a></li>

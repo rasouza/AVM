@@ -22,16 +22,16 @@ jQuery(document).ready(function($){
     
     // Hide/Show options based on select box choose
     $('[name=cobranca]').change(function() {
-    	$('#peca, #pessoa, #tabela, #pecaEsp, #valorEsp, #excedente').parent('li').hide();
+    	$('[name=peca], [name=pessoa], [name=tabela], [name=pecaEsp], [name=valorEsp], [name=excedente]').parent('li').hide();
     	
     	if ($(this).val() == 'peca') {
-    		$('#peca').parent('li').show();
+    		$('[name=peca]').parent('li').show();
     	} else if ($(this).val() == 'pessoa') {
-    		$('#pessoa').parent('li').show();
+    		$('[name=pessoa]').parent('li').show();
     	} else if ($(this).val() == 'tabela') {
-    		$('#tabela').parent('li').show();
+    		$('[name=tabela]').parent('li').show();
     	} else if ($(this).val() == 'especial') {
-    		$('#pecaEsp, #valorEsp, #excedente').parent('li').show();
+    		$('[name=pecaEsp], [name=valorEsp], [name=excedente]').parent('li').show();
     	}
     }).change();    
     
@@ -63,7 +63,7 @@ jQuery(document).ready(function($){
     $('[name=telefone]').mask('(99) 9999-9999?9');
     $('[name=perc]').mask('99,99 %');
     $('#numero').mask('999',{placeholder:' '});
-    $('#peca, #excedente').mask('99,99');
+    $('[name=peca], [name=excedente]').mask('99,99');
     $('.money').maskMoney();
     $('[name=horario]').mask('99:99');
     $('[name=cnpj]').mask('99.999.999/9999-99');

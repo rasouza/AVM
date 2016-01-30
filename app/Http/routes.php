@@ -13,7 +13,6 @@
 
 Route::get('/', ['middleware' => 'auth','uses' => 'HomeController@index'])->name('home');
 
-
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@authenticate');
@@ -26,6 +25,12 @@ Route::group(['prefix' => 'administracao', 'middleware' => 'auth'], function() {
     Route::resource('funcionarios', 'FuncionariosController');
     Route::resource('cargos', 'CargosController');
     Route::resource('vendedores', 'VendedoresController');
+});
+
+// Comercial
+Route::group(['prefix' => 'comercial', 'middleware' => 'auth'], function() {
+    Route::resource('clientes', 'ClientesController');
+    Route::resource('fichas', 'FichasController');
 });
 
 

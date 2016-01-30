@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
-    // fichas agenda
+    protected $guarded = [];
     public function fichas()
     {
         return $this->hasOne('App\Ficha');
