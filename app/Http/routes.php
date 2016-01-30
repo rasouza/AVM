@@ -11,10 +11,16 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->name('home');
-Route::get('/', 'HomeController@create')->name('home');
+Route::get('/', ['middleware' => 'auth','uses' => 'HomeController@index'])->name('home');
 
-Route::group(['prefix' => 'administracao'], function() {
+
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@authenticate');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+
+// Administração
+Route::group(['prefix' => 'administracao', 'middleware' => 'auth'], function() {
     Route::resource('filiais', 'FiliaisController');
     Route::resource('precos', 'PrecosController');
     Route::resource('funcionarios', 'FuncionariosController');

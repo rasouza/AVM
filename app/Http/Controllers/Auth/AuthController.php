@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth;
+use App\Vendedor;
 use App\User;
+use App\Funcionario;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
@@ -23,6 +27,8 @@ class AuthController extends Controller
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
+    protected $redirectPath = '/';
+
     /**
      * Create a new authentication controller instance.
      *
@@ -31,6 +37,25 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
+    }
+
+    /**
+     * Handle an authentication attempt.
+     *
+     * @return Response
+     */
+    public function authenticate(Request $request)
+    {
+        $funcionario = Funcionario::where('nome', $request->input('login'))->first();
+        if (isset($funcionario) && md5($request->input('password')) == $funcionario->vendedor->password) {
+            Auth::login($funcionario->vendedor);
+            return redirect()->intended('/');
+        }
+        else
+            return redirect('auth/login')
+                ->withInput()
+                ->with('erro', true);
+
     }
 
     /**

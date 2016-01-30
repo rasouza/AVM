@@ -23,7 +23,7 @@ class RelationshipsTest extends TestCase
 
     public function testAgenda()
     {
-        $agenda = factory(App\Agenda::class)->create();
+        $agenda = factory(App\Agenda::class)->make();
         $this->assertContains($agenda->filial->uf->sigla, App\Uf::all()->lists('sigla'));
     }
 

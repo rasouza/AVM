@@ -17,7 +17,8 @@ class CreateVendedoresTable extends Migration
             $table->integer('cargo_id');
             $table->integer('filial_id');
             $table->integer('funcionario_id');
-            $table->string('password');
+            $table->string('password', 60);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

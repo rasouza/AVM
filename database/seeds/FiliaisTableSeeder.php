@@ -11,6 +11,6 @@ class FiliaisTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('cargos')->insert(['nome' => 'Matriz', 'uf_id' => 25]);
+        DB::table('filiais')->insert(['nome' => 'Matriz', 'uf_id' => 25]);
     }
 }

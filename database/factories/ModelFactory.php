@@ -44,10 +44,10 @@ $factory->define(App\Cargo::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Vendedor::class, function (Faker\Generator $faker) {
-    return [
-        'cargo_id' => factory(App\Cargo::class)->create()->id,
-        'nome' => $faker->name,
-        'password' => $faker->password()
-    ];
-});
+//$factory->define(App\Vendedor::class, function (Faker\Generator $faker) {
+//    return [
+//        'cargo_id' => factory(App\Cargo::class)->create()->id,
+//        'nome' => $faker->name,
+//        'password' => $faker->password()
+//    ];
+//});
