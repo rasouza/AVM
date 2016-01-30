@@ -1,5 +1,5 @@
 @extends('layouts.master')
 
-@section('title') Home @endsection
+@section('title') {{ Auth::user()->cargo->nome }} {{ Auth::user()->funcionario->nome }} @endsection
 
 @section('content') @endsection

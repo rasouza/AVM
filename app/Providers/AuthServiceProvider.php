@@ -26,6 +26,9 @@ class AuthServiceProvider extends ServiceProvider
     {
         parent::registerPolicies($gate);
 
-        //
+        $gate->before(function ($user) { if ($user->cargo->nome == 'Administrador') return true; });
+        $gate->define('gerente', function($user) { return $user->cargo->nome == 'Gerente'; });
+        $gate->define('administrador', function($user) { return $user->cargo->nome == 'Administrador'; });
+        $gate->define('coordenador', function($user) { return $user->cargo->nome == 'Coordenador'; });
     }
 }

@@ -85,55 +85,69 @@
                 <!-- START NAV -->
                 <div id="nav">
                     <ul class="level-1 black">
-                        <li><a href="#">Administra&ccedil;&atilde;o</a>
-                            <ul class="sub-menu">
-                                <li><a href="{{ url('administracao/filiais') }}">Filiais</a></li>
-                                <li><a href="{{ url('administracao/precos') }}">Tabela de Pre&ccedil;os</a></li>
-                                <li><a href="{{ url('administracao/funcionarios') }}">Funcion&aacute;rios</a></li>
-                                <li><a href="{{ url('administracao/cargos') }}">Cargos e Fun&ccedil;&otilde;es</a></li>
-                                <li><a href="{{ url('administracao/vendedores') }}">Vendedores e Gerentes</a></li>
-                                <li><a href="#">Cash</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="#">Listagem de Cash</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Premia&ccedil;&atilde;o</a></li>
-                            </ul>
-                        </li>
+                        @can('gerente', Auth::user())
+                            <li><a href="#">Administra&ccedil;&atilde;o</a>
+                                <ul class="sub-menu">
+                                    @can('administrador', Auth::user())
+                                        <li><a href="{{ url('administracao/filiais') }}">Filiais</a></li>
+                                        <li><a href="{{ url('administracao/precos') }}">Tabela de Pre&ccedil;os</a></li>
+                                    @endcan
+                                    <li><a href="{{ url('administracao/funcionarios') }}">Funcion&aacute;rios</a></li>
+                                    <li><a href="{{ url('administracao/cargos') }}">Cargos e Fun&ccedil;&otilde;es</a></li>
+                                    <li><a href="{{ url('administracao/vendedores') }}">Vendedores e Gerentes</a></li>
+                                    <li><a href="#">Cash</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">Listagem de Cash</a></li>
+                                        </ul>
+                                    </li>
+                                    <li><a href="#">Premia&ccedil;&atilde;o</a></li>
+                                </ul>
+                            </li>
+                        @endcan
 
-                        <li><a href="#">Comercial</a>
-                            <ul class="sub-menu">
-                                <li><a href="{{ url('comercial-cliente-novo.php') }}">Cliente</a></li>
-                                <li><a href="{{ url('comercial-ficha-consulta.php') }}">Ficha cadastral</a></li>
+                        @can('gerente', Auth::user())
+                            <li><a href="#">Comercial</a>
+                                <ul class="sub-menu">
+                                    <li><a href="{{ url('comercial-cliente-novo.php') }}">Cliente</a></li>
+                                    <li><a href="{{ url('comercial-ficha-consulta.php') }}">Ficha cadastral</a></li>
 
-                            </ul>
-                        </li>
+                                </ul>
+                            </li>
+                        @endcan
+
 
                         <li><a href="#">Operacional</a>
                             <ul class="sub-menu">
-                                <li><a href="{{ url('operacional-agenda-novo.php') }}">Agenda</a></li>
-                                <li><a href="{{ url('operacional-os-consulta.php') }}">Ordem de Servi&ccedil;o</a></li>
-                                <li><a href="{{ url('operacional-backup.php') }}">Backup</a></li>
-                                <li><a href="#">Invent&aacute;rio</a>
-                                    <ul class="sub-menu">
-                                        <li><a href="{{ url('operacional-ambiente-consulta.php') }}">Cadastro de Ambientes</a></li>
-                                        <li><a href="{{ url('operacional-processo-consulta.php') }}">Processo</a></li>
-                                        <li><a href="{{ url('comercial-relatorios-consulta.php') }}">Relat&oacute;rios</a></li>
-                                    </ul>
-                                </li>
+                                @can('gerente', Auth::user())
+                                    <li><a href="{{ url('operacional-agenda-novo.php') }}">Agenda</a></li>
+                                    <li><a href="{{ url('operacional-os-consulta.php') }}">Ordem de Serviço</a></li>
+                                    <li><a href="{{ url('operacional-backup.php') }}">Backup</a></li>
+                                    <li><a href="#">Invent&aacute;rio</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="{{ url('operacional-ambiente-consulta.php') }}">Cadastro de Ambientes</a></li>
+                                            <li><a href="{{ url('operacional-processo-consulta.php') }}">Processo</a></li>
+                                            <li><a href="{{ url('comercial-relatorios-consulta.php') }}">Relatórios</a></li>
+                                        </ul>
+                                    </li>
+                                @else
+                                    <li><a href="{{ url('operacional-processo-consulta.php') }}">Processo</a></li>
+                                    <li><a href="{{ url('comercial-relatorios-consulta.php') }}">Relatórios</a></li>
+                                @endcan
                             </ul>
                         </li>
 
-                        <li><a href="#">Financeiro</a>
-                            <ul class="sub-menu">
-                                <li><a href="#">Fornecedor</a></li>
-                                <li><a href="#">Centro de custo</a></li>
-                                <li><a href="#">Bancos</a></li>
-                                <li><a href="#">Faturamentos</a></li>
-                                <li><a href="#">Contas a pagar</a></li>
-                                <li><a href="#">Contas a receber</a></li>
-                            </ul>
-                        </li>
+                        @can('administrador', Auth::user())
+                            <li><a href="#">Financeiro</a>
+                                <ul class="sub-menu">
+                                    <li><a href="#">Fornecedor</a></li>
+                                    <li><a href="#">Centro de custo</a></li>
+                                    <li><a href="#">Bancos</a></li>
+                                    <li><a href="#">Faturamentos</a></li>
+                                    <li><a href="#">Contas a pagar</a></li>
+                                    <li><a href="#">Contas a receber</a></li>
+                                </ul>
+                            </li>
+                        @endcan
 
                         <li><a href="{{ url('auth/logout') }}">Logout</a></li>
 
@@ -158,7 +172,7 @@
                 </div><!-- .text -->
 
                 @section('sidebar')
-                    @unless(strpos(Route::current()->getActionName(), 'HomeController'))
+                    @unless(str_contains(Route::current()->getActionName(), 'HomeController'))
                         <!-- START SIDEBAR -->
                         <div class="sidebar">
 
@@ -167,8 +181,8 @@
                                 <h2>Opções</h2>
 
                                 <ul class="menu">
-                                    <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(.+)/i', '\\1@create', Route::current()->getActionName())) }}">Novo</a></li>
-                                    <li><a href="{{ action(preg_replace('/App\\\\Http\\\\Controllers\\\\(\w+)@(.+)/', '\\1@index', Route::current()->getActionName())) }}">Consulta</a></li>
+                                    <li><a href="{{ action(preg_replace('/(\w+)@(.+)/i', '\\1@create', class_basename(Route::current()->getActionName()))) }}">Novo</a></li>
+                                    <li><a href="{{ action(preg_replace('/(\w+)@(.+)/', '\\1@index', class_basename(Route::current()->getActionName()))) }}">Consulta</a></li>
                                     @yield('sidebar-items')
                                 </ul>
                             </div>
