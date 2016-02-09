@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Ficha extends Model
 {
+    protected $guarded = [];
     public function cliente()
     {
         return $this->belongsTo('App\Cliente');

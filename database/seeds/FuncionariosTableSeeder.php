@@ -11,6 +11,6 @@ class FuncionariosTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('funcionarios')->insert(['nome' => 'Rodrigo']);
+        DB::table('funcionarios')->insert(['nome' => 'Rodrigo', 'uf_id' => 25]);
     }
 }
