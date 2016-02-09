@@ -28,36 +28,6 @@ jQuery(document).ready(function($){
         });
     });
     
-    // ------- comercial-cliente-novo.php
-    
-    // Hide/Show options based on select box choose
-    $('[name=faturamento]').change(function() {
-    	if ($(this).val() == '2') {
-    		$('#perc').parent('li').hide('fast');
-    	} else if ($(this).val() == '1') {
-    		$('#perc').parent('li').show('fast');
-    	}
-    }).change();
-    
-    // Hide/Show options based on select box choose
-    $('[name=cobranca]').change(function() {
-    	$('[name=peca], [name=pessoa], [name=tabela], [name=pecaEsp], [name=valorEsp], [name=excedente]').parent('li').hide();
-    	
-    	if ($(this).val() == 'peca') {
-    		$('[name=peca]').parent('li').show();
-    	} else if ($(this).val() == 'pessoa') {
-    		$('[name=pessoa]').parent('li').show();
-    	} else if ($(this).val() == 'tabela') {
-    		$('[name=tabela]').parent('li').show();
-    	} else if ($(this).val() == 'especial') {
-    		$('[name=pecaEsp], [name=valorEsp], [name=excedente]').parent('li').show();
-    	}
-    }).change();    
-    
-    
-    
-    // ------- END comercial-cliente-novo.php
-    
     // ------- operacional-os-novo.php
     
     $('.adicionar').click(function() {

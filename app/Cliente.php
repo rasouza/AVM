@@ -20,7 +20,7 @@ class Cliente extends Model
     public function getPecaAttribute($v) { return str_replace('.', ',', $v); }
     public function setPecaAttribute($v) { $this->attributes['peca'] = str_replace(',', '.', $v); }
 
-    public function fichas()
+    public function ficha()
     {
         return $this->hasOne('App\Ficha');
     }

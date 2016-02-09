@@ -146,6 +146,8 @@ class ClientesController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->ficha()->delete();
+        $cliente->delete();
+        return redirect()->action('ClientesController@index');
     }
 }

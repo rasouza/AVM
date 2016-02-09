@@ -135,3 +135,34 @@
         </p>
     {!! Form::close() !!}
 @endsection
+
+@section('js')
+    <script type="text/javascript">
+        jQuery(function($) {
+            // Hide/Show options based on select box choose
+            $('[name=faturamento]').change(function() {
+                if ($(this).val() == '1') {
+                    $('[name=percentual]').parent('li').show('fast');
+                } else {
+                    $('[name=percentual]').parent('li').hide('fast');
+                }
+            });
+
+            // Hide/Show options based on select box choose
+            $('[name=cobranca]').change(function() {
+                $('[name=peca], [name=pessoa], [name=tabela], [name=pecaEsp], [name=valorEsp], [name=excedente]').parent('li').hide();
+
+                if ($(this).val() == 'peca') {
+                    $('[name=peca]').parent('li').show();
+                } else if ($(this).val() == 'pessoa') {
+                    $('[name=pessoa]').parent('li').show();
+                } else if ($(this).val() == 'tabela') {
+                    $('[name=tabela]').parent('li').show();
+                } else if ($(this).val() == 'especial') {
+                    $('[name=pecaEsp], [name=valorEsp], [name=excedente]').parent('li').show();
+                }
+            }).change();
+        });
+
+    </script>
+@endsection
