@@ -70,7 +70,7 @@
 
             <li>
                 <label for="periodicidade"><span>Periodicidade</span></label>
-                {!! Form::select('faturamento', [
+                {!! Form::select('periodicidade', [
                     0 => "Esporadico",
                     6 => "Semestral",
                     4 => "Quadrimestral",
@@ -146,7 +146,7 @@
                 } else {
                     $('[name=percentual]').parent('li').hide('fast');
                 }
-            });
+            }).change();
 
             // Hide/Show options based on select box choose
             $('[name=cobranca]').change(function() {
