@@ -62,6 +62,10 @@ class VendedoresController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'password' => 'required'
+        ]);
+
         $vendedor = Vendedor::create([
             'password' => md5($request->password)
         ]);

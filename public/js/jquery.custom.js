@@ -101,12 +101,12 @@ jQuery(document).ready(function($){
     
     function addLoading()
     {
-		$('#sendbutton').val('wait...').attr('disabled', true);
+		$('#sendbutton').val('espere...').attr('disabled', true);
 	}    
     
     function removeLoading()
     {
-		$('#sendbutton').val('Send').attr('disabled', false);
+		$('#sendbutton').val('Enviar').attr('disabled', false);
 	}
 	
 	function addError(msg, e)

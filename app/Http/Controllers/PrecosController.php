@@ -47,6 +47,15 @@ class PrecosController extends Controller
      */
     public function store(Request $request)
     {
+//        $this->validate($request, [
+//            'esporadico_qtd' => 'numeric',
+//            'semestral_qtd' => 'numeric',
+//            'quadrimestral_qtd' => 'numeric',
+//            'trimestral_qtd' => 'numeric',
+//            'bimestral_qtd' => 'numeric',
+//            'mensal_qtd' => 'numeric'
+//        ]);
+
         Preco::create([
             'nome' => $request->nome,
             'esporadico_qtd' => $request->esporadico_qtd,

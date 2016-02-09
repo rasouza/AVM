@@ -50,6 +50,10 @@ class FuncionariosController extends Controller
      */
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'nome' => 'required|unique:funcionarios'
+        ]);
+
         $funcionario = Funcionario::create([
             'nome' => $request->nome,
             'endereco' => $request->endereco,
