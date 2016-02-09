@@ -98,7 +98,7 @@ class FiliaisController extends Controller
      */
     public function destroy(Filial $filial)
     {
-        $filial->vendedores()->delete();
+        $filial->vendedores()->update(['filial_id' => 0]);
         $filial->delete();
         return redirect()->action('FiliaisController@index');
     }
