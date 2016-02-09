@@ -111,7 +111,8 @@ class VendedoresController extends Controller
      */
     public function update(Request $request, Vendedor $vendedor)
     {
-        $vendedor->password = md5($request->password);
+        if ($request->password != "")
+            $vendedor->password = md5($request->password);
 
         $vendedor->funcionario()->associate(Funcionario::find($request->funcionario));
         $vendedor->filial()->associate(Filial::find($request->filial));

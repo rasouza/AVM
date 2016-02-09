@@ -8,6 +8,25 @@ jQuery(document).ready(function($){
         monthNames: ['Janeiro', 'Fevereiro', 'Mar&ccedil;o', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
         onSelect: function() { $(this).focus(); }
     });
+
+    // DELETE Dialog
+    $('button.delete').click(function(event) {
+        var form = $(this).parent('form');
+        event.preventDefault();
+        $( "#dialog-confirm" ).dialog({
+            resizable: false,
+            height:200,
+            modal: true,
+            buttons: {
+                "Deletar": function() {
+                    form.submit();
+                },
+                "Cancelar": function() {
+                    $( this ).dialog( "close" );
+                }
+            }
+        });
+    });
     
     // ------- comercial-cliente-novo.php
     

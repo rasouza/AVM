@@ -101,7 +101,7 @@ class CargosController extends Controller
      */
     public function destroy(Cargo $cargo)
     {
-        $cargo->vendedores()->delete();
+        $cargo->vendedores()->update(['cargo_id' => 0]);
         $cargo->delete();
         return redirect()->action('CargosController@index');
     }
