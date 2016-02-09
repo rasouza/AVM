@@ -32,6 +32,11 @@ class Funcionario extends Model
         return $this->belongsTo('App\Uf');
     }
 
+    public function cargo()
+    {
+        return $this->vendedor->cargo();
+    }
+
     public function os()
     {
         // @TODO: Listar todas as O.S. que o funcionario participou

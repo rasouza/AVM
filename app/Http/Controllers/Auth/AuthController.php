@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Auth;
 
 use Auth;
-use App\Vendedor;
 use App\User;
 use App\Funcionario;
 use Validator;
@@ -47,15 +46,22 @@ class AuthController extends Controller
     public function authenticate(Request $request)
     {
         $funcionario = Funcionario::where('nome', $request->input('login'))->first();
-        if (isset($funcionario) && md5($request->input('password')) == $funcionario->vendedor->password) {
+        if (!isset($funcionario))
+            return redirect('auth/login')
+                ->withInput()
+                ->withErrors('Funcionário não existe', 'msg');
+        elseif (is_null($funcionario->cargo))
+            return redirect('auth/login')
+                ->withInput()
+                ->withErrors('Funcionário sem cargo atribuído. Favor consultar sessão Vendedores e Gerentes do sistema', 'msg');
+        elseif(md5($request->input('password')) != $funcionario->vendedor->password)
+            return redirect('auth/login')
+                ->withInput()
+                ->withErrors('Senha inválida', 'msg');
+        else {
             Auth::login($funcionario->vendedor);
             return redirect()->intended('/');
         }
-        else
-            return redirect('auth/login')
-                ->withInput()
-                ->with('erro', true);
-
     }
 
     /**
