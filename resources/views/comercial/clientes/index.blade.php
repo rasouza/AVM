@@ -25,7 +25,7 @@
                     <td><a href="{{ action('ClientesController@edit', ['clientes' => $cliente]) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>
                         {!! Form::open(['action' => ['ClientesController@destroy', $cliente], 'method' => 'delete']) !!}
-                        <button class="small button red" style="border: none">Excluir</button>
+                        <button class="small button red delete" style="border: none">Excluir</button>
                         {!! Form::close() !!}
                     </td>
                 </tr>
@@ -33,4 +33,12 @@
             @endforeach
         @endif
     </table>
+
+    <div id="dialog-confirm" title="Deletar cliente?" class="hide">
+        <p>
+            <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px;"></span>
+            A ficha cadastral atrelada a este cliente também será removida.
+        </p>
+        <p>Tem certeza que deseja exluir este cliente?</p>
+    </div>
 @endsection

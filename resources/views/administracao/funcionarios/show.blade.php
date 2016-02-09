@@ -2,6 +2,7 @@
 
 @section('title') Funcionario: {{ $funcionario->nome }} @endsection
 @section('sidebar-items')
+    @parent
     <li>{!! link_to_action('FuncionariosController@edit', 'Editar', ['funcionarios' => $funcionario]) !!}</li>
 @endsection
 @section('content')

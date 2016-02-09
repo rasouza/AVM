@@ -181,9 +181,10 @@
                                 <h2>Opções</h2>
 
                                 <ul class="menu">
-                                    <li><a href="{{ action(preg_replace('/(\w+)@(.+)/i', '\\1@create', class_basename(Route::current()->getActionName()))) }}">Novo</a></li>
-                                    <li><a href="{{ action(preg_replace('/(\w+)@(.+)/', '\\1@index', class_basename(Route::current()->getActionName()))) }}">Consulta</a></li>
-                                    @yield('sidebar-items')
+                                    @section('sidebar-items')
+                                        <li><a href="{{ action(preg_replace('/(\w+)@(.+)/i', '\\1@create', class_basename(Route::current()->getActionName()))) }}">Novo</a></li>
+                                        <li><a href="{{ action(preg_replace('/(\w+)@(.+)/', '\\1@index', class_basename(Route::current()->getActionName()))) }}">Consulta</a></li>
+                                    @show
                                 </ul>
                             </div>
                             <!-- END SHORTCODE MENU -->

@@ -2,6 +2,7 @@
 
 @section('title') Tabela de preço: {{ $preco->nome }} @endsection
 @section('sidebar-items')
+    @parent
     <li>{!! link_to_action('PrecosController@edit', 'Editar', ['precos' => $preco]) !!}</li>
 @endsection
 @section('content')

@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
 @section('title') Vendedores @endsection
+@section('sidebar') @endsection
 @section('content')
     <table width="100%" class="short-table">
         @if($funcionarios->count() == 0)
@@ -38,7 +39,6 @@
                     @else
                         <td>{!! link_to_action('VendedoresController@create', 'Atribuir', ['funcionario' => $funcionario], ['class' => 'small green button']) !!}</td>
                         <td colspan="4"></td>
-
                     @endif
 
                 </tr>
