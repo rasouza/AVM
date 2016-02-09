@@ -50,7 +50,7 @@
 
             <li>
                 <label for="propostaEnd"><span>Validade da proposta</span></label>
-                {!! Form::text('propostaBegin', null, ['class' => 'datepicker', 'style' => 'width: 100px']) !!}
+                {!! Form::text('propostaEnd', null, ['class' => 'datepicker', 'style' => 'width: 100px']) !!}
             </li>
 
             <li>
@@ -60,12 +60,12 @@
 
             <li>
                 <label for="faturamento"><span>Faturamento</span></label>
-                {!! Form::select('faturamento', [1 => 'Tipo 1 - Nota Fiscal', 2 => 'Tipo 2 - Sem Nota Fiscal']) !!}
+                {!! Form::select('faturamento', [1 => 'Tipo 1 - Nota Fiscal', 0 => 'Tipo 2 - Sem Nota Fiscal']) !!}
             </li>
 
             <li>
                 <label for="percentual"><span>PERC.N.F.%</span></label>
-                {!! Form::text('percentual', null, ['id' => 'perc', 'style' => 'width: 100px']) !!}
+                {!! Form::text('percentual', null, ['id' => 'perc', 'style' => 'width: 100px']) !!} %
             </li>
 
             <li>

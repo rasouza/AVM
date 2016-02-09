@@ -93,7 +93,7 @@
                                         <li><a href="{{ url('administracao/precos') }}">Tabela de Preços</a></li>
                                     @endcan
                                     <li><a href="{{ url('administracao/funcionarios') }}">Funcionários</a></li>
-                                    <li><a href="{{ url('administracao/cargos') }}">Cargos e Funçes</a></li>
+                                    <li><a href="{{ url('administracao/cargos') }}">Cargos e Funções</a></li>
                                     <li><a href="{{ url('administracao/vendedores') }}">Vendedores e Gerentes</a></li>
                                     <li><a href="#">Cash</a>
                                         <ul class="sub-menu">

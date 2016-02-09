@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call(UfsTableSeeder::class);
         $this->call(CargosTableSeeder::class);
         $this->call(FiliaisTableSeeder::class);
+        $this->call(FuncionariosTableSeeder::class);
+        $this->call(VendedoresTableSeeder::class);
 
         Model::reguard();
     }

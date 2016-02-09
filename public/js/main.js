@@ -80,9 +80,8 @@ jQuery(document).ready(function($){
     
     // Mask Input
     $('[name=telefone]').mask('(99) 9999-9999?9');
-    $('[name=perc]').mask('99,99 %');
     $('#numero').mask('999',{placeholder:' '});
-    $('[name=peca], [name=excedente]').mask('99,99');
+    $('[name=percentual]').mask('99,99');
     $('.money').maskMoney();
     $('[name=horario]').mask('99:99');
     $('[name=cnpj]').mask('99.999.999/9999-99');

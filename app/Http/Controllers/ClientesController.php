@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Cliente;
+use App\Funcionario;
 use App\Preco;
 use Illuminate\Http\Request;
 
@@ -64,7 +65,15 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        Cliente::create($request->except('pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
+        $cliente = Cliente::create($request->except('percentual', 'vendedor', 'gerente', 'pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
+        $cliente->especial = $request->only('pecaEsp', 'valorEsp', 'excedente');
+
+        if ($request->vendedor != '')
+            $cliente->vendedor()->associate(Funcionario::find($request->vendedor));
+        if ($request->gerente != '')
+            $cliente->gerente()->associate(Funcionario::find($request->gerente));
+
+        $cliente->save();
         echo "Cliente cadastrado";
     }
 
@@ -76,7 +85,7 @@ class ClientesController extends Controller
      */
     public function show(Cliente $cliente)
     {
-        //
+        return view('comercial.clientes.show', compact('cliente'));
     }
 
     /**
@@ -87,7 +96,7 @@ class ClientesController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        $action = 'ClientesController@store';
+        $action = 'ClientesController@update';
         $gerentes = DB::table('vendedores')
             ->join('cargos', 'cargos.id', '=', 'vendedores.cargo_id')
             ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
@@ -116,7 +125,17 @@ class ClientesController extends Controller
      */
     public function update(Request $request, Cliente $cliente)
     {
-        //
+
+        $cliente->update($request->except('vendedor', 'gerente', 'pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
+        $cliente->especial = $request->only('pecaEsp', 'valorEsp', 'excedente');
+
+        if ($request->vendedor != '')
+            $cliente->vendedor()->associate(Funcionario::find($request->vendedor));
+        if ($request->gerente != '')
+            $cliente->gerente()->associate(Funcionario::find($request->gerente));
+
+        $cliente->save();
+        echo "Cliente editado";
     }
 
     /**

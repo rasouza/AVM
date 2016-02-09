@@ -6,32 +6,30 @@
 @endsection
 @section('content')
     <table width="100%" class="short-table">
-
-
             <tbody>
                 <tr>
-                    <th class="features">Estado</th>
-                    <td>{{ $cliente->uf->sigla }}</td>
+                    <th class="features">Nome</th>
+                    <td>{{ $cliente->nome }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">Endereço</th>
-                    <td>{{ $cliente->endereco }}</td>
+                    <th class="features">email</th>
+                    <td>{{ $cliente->email }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">Bairro</th>
-                    <td>{{ $cliente->bairro }}</td>
+                    <th class="features">Vendedor</th>
+                    <td>{{ $cliente->vendedor }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">CEP</th>
-                    <td>{{ $cliente->cep }}</td>
+                    <th class="features">Gerente</th>
+                    <td>{{ $cliente->gerente }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">Cidade</th>
-                    <td>{{ $cliente->cidade }}</td>
+                    <th class="features">Contato</th>
+                    <td>{{ $cliente->contato }}</td>
                 </tr>
 
                 <tr>
@@ -40,35 +38,89 @@
                 </tr>
 
                 <tr>
-                    <th class="features">E-mail</th>
-                    <td>{{ $cliente->email }}</td>
+                    <th class="features">Lojas</th>
+                    <td>{{ $cliente->lojas }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">CPF</th>
-                    <td>{{ $cliente->cpf }}</td>
+                    <th class="features">Proposta</th>
+                    <td>
+                        <strong>{{ $cliente->propostaBegin->format('d/m/Y') }}</strong> até
+                        <strong>{{ $cliente->propostaEnd->format('d/m/Y') }}</strong>
+                    </td>
                 </tr>
 
                 <tr>
-                    <th class="features">RG</th>
-                    <td>{{ $cliente->rg }}</td>
+                    <th class="features">Obs</th>
+                    <td>{{ $cliente->obs }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">PIS</th>
-                    <td>{{ $cliente->pis }}</td>
+                    <th class="features">Faturamento</th>
+                    <td>
+                        @if($cliente->faturamento)
+                            Tipo 1 - Nota Fiscal
+                        @else
+                            Tipo 2 - Sem Nota Fiscal
+                        @endif
+                    </td>
                 </tr>
 
                 <tr>
-                    <th class="features">Criado em</th>
-                    <td>{{ $cliente->created_at->format('d/m/Y') }}</td>
+                    <th class="features">Percentual</th>
+                    <td>{{ $cliente->percentual }}</td>
                 </tr>
 
                 <tr>
-                    <th class="features">Modificado em</th>
-                    <td>{{ $cliente->updated_at->format('d/m/Y') }}</td>
+                    <th class="features">Periodicidade</th>
+                    <td>{{ $cliente->periodicidade }}</td>
                 </tr>
 
+                <tr>
+                    <th class="features">Vencimento</th>
+                    <td>{{ $cliente->vencimento }} dias</td>
+                </tr>
+
+                <tr>
+                    <th class="features">Cobrança</th>
+                    <td>{{ $cliente->cobranca }}</td>
+                </tr>
+
+                @if($cliente->cobranca == 'peca')
+                    <tr>
+                        <th class="features">Peça</th>
+                        <td>{{ $cliente->peca }}</td>
+                    </tr>
+                @elseif($cliente->cobranca == 'pessoa')
+                    <tr>
+                        <th class="features">Pessoa</th>
+                        <td>{{ $cliente->pessoa }}</td>
+                    </tr>
+                @elseif($cliente->cobranca == 'tabela')
+                    <tr>
+                        <th class="features">Tabela</th>
+                        <td>{{ $cliente->tabela }}</td>
+                    </tr>
+                @elseif($cliente->cobranca == 'especial')
+                    <tr>
+                        <th class="features">Peça</th>
+                        <td>
+                            {{ $cliente->especial['pecaEsp'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="features">Valor</th>
+                        <td>
+                            {{ $cliente->especial['valorEsp'] }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th class="features">Excedente</th>
+                        <td>
+                            {{ $cliente->especial['excedente'] }}
+                        </td>
+                    </tr>
+                @endif
             </tbody>
     </table>
 @endsection
