@@ -15,7 +15,7 @@ class Os extends Model
 
     public function coordenador()
     {
-        return $this->belongsTo('App\Vendedor', 'coordenador_id');
+        return $this->belongsTo('App\Funcionario', 'coordenador_id');
     }
 
     public function agenda()

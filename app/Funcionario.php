@@ -39,6 +39,6 @@ class Funcionario extends Model
 
     public function os()
     {
-        // @TODO: Listar todas as O.S. que o funcionario participou
+        return $this->hasMany('App\Os', 'coordenador_id');
     }
 }

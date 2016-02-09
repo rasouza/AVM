@@ -33,9 +33,4 @@ class Vendedor extends Model implements AuthenticatableContract,
     {
         return $this->belongsTo('App\Filial');
     }
-
-    public function os()
-    {
-        return $this->hasMany('App\Os', 'coordenador_id');
-    }
 }
