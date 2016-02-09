@@ -119,19 +119,19 @@
                         <li><a href="#">Operacional</a>
                             <ul class="sub-menu">
                                 @can('gerente', Auth::user())
-                                    <li><a href="{{ url('operacional-agenda-novo.php') }}">Agenda</a></li>
-                                    <li><a href="{{ url('operacional-os-consulta.php') }}">Ordem de Serviço</a></li>
-                                    <li><a href="{{ url('operacional-backup.php') }}">Backup</a></li>
+                                    <li><a href="{{ url('operacional/agenda') }}">Agenda</a></li>
+                                    <li><a href="{{ url('operacional/os') }}">Ordem de Serviço</a></li>
+                                    <li><a href="{{ url('operacional/backups') }}">Backup</a></li>
                                     <li><a href="#">Inventário</a>
                                         <ul class="sub-menu">
-                                            <li><a href="{{ url('operacional-ambiente-consulta.php') }}">Cadastro de Ambientes</a></li>
-                                            <li><a href="{{ url('operacional-processo-consulta.php') }}">Processo</a></li>
-                                            <li><a href="{{ url('comercial-relatorios-consulta.php') }}">Relatórios</a></li>
+                                            <li><a href="{{ url('operacional/ambientes') }}">Cadastro de Ambientes</a></li>
+                                            <li><a href="{{ url('operacional/processo') }}">Processo</a></li>
+                                            <li><a href="{{ url('operacional/relatorios') }}">Relatórios</a></li>
                                         </ul>
                                     </li>
                                 @else
-                                    <li><a href="{{ url('operacional-processo-consulta.php') }}">Processo</a></li>
-                                    <li><a href="{{ url('comercial-relatorios-consulta.php') }}">Relatórios</a></li>
+                                    <li><a href="{{ url('operacional/processos') }}">Processo</a></li>
+                                    <li><a href="{{ url('operacional/relatorios') }}">Relatórios</a></li>
                                 @endcan
                             </ul>
                         </li>

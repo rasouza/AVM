@@ -13,7 +13,7 @@
 
 Route::get('/', ['middleware' => 'auth','uses' => 'HomeController@index'])->name('home');
 
-// Authentication routes...
+// Authentication
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@authenticate');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
@@ -31,6 +31,15 @@ Route::group(['prefix' => 'administracao', 'middleware' => 'auth'], function() {
 Route::group(['prefix' => 'comercial', 'middleware' => 'auth'], function() {
     Route::resource('clientes', 'ClientesController');
     Route::resource('fichas', 'FichasController');
+});
+
+// Operacional
+Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
+    Route::resource('agenda', 'AgendaController');
+    Route::resource('os', 'OsController');
+    Route::resource('processos', 'ProcessosController');
+    Route::resource('ambientes', 'AmbientesController');
+    Route::get('relatorios', 'RelatoriosController');
 });
 
 
