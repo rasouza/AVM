@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
@@ -13,6 +14,12 @@ class Cliente extends Model
         'faturamento' => 'boolean',
         'especial'  => 'array'
     ];
+
+
+    public function getPropostaEndAttribute($v) { if(!is_null($v)) return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
+    public function setPropostaEndAttribute($v) { $this->attributes['propostaEnd'] = Carbon::createFromFormat('d/m/Y', $v)->format('Y-m-d'); }
+    public function getPropostaBeginAttribute($v) { if(!is_null($v)) return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
+    public function setPropostaBeginAttribute($v) { $this->attributes['propostaBegin'] = Carbon::createFromFormat('d/m/Y', $v)->format('Y-m-d'); }
 
     public function getPercentualAttribute($v) { return str_replace('.', ',', sprintf("%05.2f", $v)); }
     public function setPercentualAttribute($v) { $this->attributes['percentual'] = str_replace(',', '.', $v); }

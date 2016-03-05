@@ -53,7 +53,7 @@ jQuery(document).ready(function($){
     $('#numero').mask('999',{placeholder:' '});
     $('[name=percentual]').mask('99,99');
     $('.money').maskMoney();
-    $('[name=horario]').mask('99:99');
+    $('.horario').mask('99:99');
     $('[name=cnpj]').mask('99.999.999/9999-99');
     $('[name=cep]').mask('99999-999');
     $('[name=cpf]').mask('999.999.999-99');
