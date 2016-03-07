@@ -26,6 +26,6 @@ class Agenda extends Model
 
     public function os()
     {
-        return $this->hasMany('App\Os');
+        return $this->hasOne('App\Os');
     }
 }

@@ -26,8 +26,10 @@ class VendedoresController extends Controller
     public function index()
     {
         $funcionario = Funcionario::with('vendedor.filial', 'vendedor.cargo')->orderBy('nome', 'asc')->get();
-
-
+//        $funcionarios = Vendedor::with('filial', 'cargo')
+//            ->with(['funcionario' => function ($q) {
+//                $q->orderBy('nome', 'asc');
+//            }])->get();
 
         return view('administracao.vendedores.index', [ 'funcionarios' => $funcionario ]);
     }

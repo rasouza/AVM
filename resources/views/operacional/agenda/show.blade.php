@@ -4,6 +4,7 @@
 @section('sidebar-items')
     @parent
     <li>{!! link_to_action('AgendaController@edit', 'Editar', ['agenda' => $agenda]) !!}</li>
+    <li>{!! link_to_action('OsController@create', 'O.S.', ['agenda' => $agenda]) !!}</li>
 @endsection
 @section('content')
     <table width="100%" class="short-table">
