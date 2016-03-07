@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Os extends Model
 {
     protected $table = 'os';
+    protected $guarded = [];
+    protected $casts = ['inventariantes' => 'array'];
 
     public function layout()
     {

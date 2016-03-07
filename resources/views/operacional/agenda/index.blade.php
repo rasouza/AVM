@@ -23,9 +23,9 @@
                 <tr>
 
                     <th class="features">{{ $agenda->cliente->nome }} {{ $agenda->data }}</th>
-                    <td><a href="{{ action('OsController@create', ['agendas' => $agenda]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
-                    <td><a href="{{ action('AgendaController@show', ['agendas' => $agenda]) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
-                    <td><a href="{{ action('AgendaController@edit', ['agendas' => $agenda]) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
+                    <td><a href="{{ action('OsController@edit', ['agenda' => $agenda]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
+                    <td><a href="{{ action('AgendaController@show', $agenda) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
+                    <td><a href="{{ action('AgendaController@edit', $agenda) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>
                         {!! Form::open(['action' => ['AgendaController@destroy', $agenda], 'method' => 'delete']) !!}
                         <button class="small button red delete" style="border: none">Excluir</button>
@@ -40,7 +40,7 @@
     <div id="dialog-confirm" title="Deletar agenda?" class="hide">
         <p>
             <span class="ui-icon ui-icon-alert" style="float:left; margin:0 7px;"></span>
-            Se esta agenda conter uma O.S. cadastrada, ela também sera excluída.
+            A O.S. associada a esta agenda também será deletada.
         </p>
         <p>Tem certeza que deseja exluir esta agenda?</p>
     </div>
