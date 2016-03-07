@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Agenda;
 use App\Cliente;
 use App\Filial;
+use App\Os;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,7 +19,10 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $agendas = Agenda::orderBy('data', 'asc')->get();
+        $agendas = Agenda::join('os', 'os.agenda_id', '=', 'agenda.id')
+            ->where('os.status', '<>' ,'concluido')
+            ->orderBy('data', 'asc')
+            ->get();
         return view('operacional.agenda.index', compact('agendas'));
     }
 
@@ -45,7 +49,8 @@ class AgendaController extends Controller
      */
     public function store(Request $request)
     {
-        Agenda::create($request->except('action', 'sendbutton'));
+        $agenda = Agenda::create($request->except('action', 'sendbutton'));
+        $agenda->os()->create([]);
 
         echo "Agenda cadastrada";
     }
