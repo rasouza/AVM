@@ -17,6 +17,7 @@ class CreateOsTable extends Migration
             $table->integer('coordenador_id');
             $table->integer('agenda_id');
             $table->string('status');
+            $table->string('inventariantes');
             $table->string('email')->nullable();
             $table->timestamps();
         });
