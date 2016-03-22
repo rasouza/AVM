@@ -125,7 +125,7 @@
                                     <li><a href="#">Inventário</a>
                                         <ul class="sub-menu">
                                             <li><a href="{{  url('operacional/os') }}">Cadastro de Ambientes</a></li>
-                                            <li><a href="{{ url('operacional/processo') }}">Processo</a></li>
+                                            <li><a href="{{ url('operacional/processos') }}">Processo</a></li>
                                             <li><a href="{{ url('operacional/relatorios') }}">Relatórios</a></li>
                                         </ul>
                                     </li>

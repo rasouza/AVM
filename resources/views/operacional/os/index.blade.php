@@ -8,7 +8,7 @@
     <table width="100%" class="short-table">
         @if($oses->count() == 0)
             <tr>
-                <th class="features" colspan="4">Nenhuma os foi cadastrada.</th>
+                <th class="features" colspan="4">Nenhuma O.S. foi cadastrada.</th>
             </tr>
         @else
             <thead>

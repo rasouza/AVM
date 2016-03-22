@@ -8,7 +8,7 @@ class Processo extends Model
 {
     public function os()
     {
-        return $this->hasManyThrough('App\Os', 'App\Ambiente');
+        return $this->ambiente->os();
     }
 
     public function ambiente()
