@@ -26,7 +26,7 @@
                 <tr>
 
                     <th class="features">{{ $os->agenda->cliente->nome }} {{ $os->agenda->data }}</th>
-                    <td><a href="{{ action('AmbientesController@create', ['os' => $os]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
+                    <td><a href="{{ action('AmbientesController@edit', ['os' => $os]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
                     <td><a href="{{ action('OsController@show', $os) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
                     <td><a href="{{ action('OsController@edit', $os) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>

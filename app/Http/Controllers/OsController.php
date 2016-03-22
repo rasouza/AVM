@@ -54,7 +54,7 @@ class OsController extends Controller
         $coordenadores = Vendedor::join('cargos', 'vendedores.cargo_id', '=', 'cargos.id')
             ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
             ->where('cargos.nome', 'Coordenador')
-            ->select('vendedores.id', 'funcionarios.nome')
+            ->select('funcionarios.id', 'funcionarios.nome')
             ->get()->lists('nome','id');
 
         return view('operacional.os.form', compact('necessarios', 'inventariantes', 'coordenadores', 'os', 'action'));
@@ -69,7 +69,10 @@ class OsController extends Controller
      */
     public function update(Request $request, Os $os)
     {
-        $os->update($request->except('action', 'sendbutton'));
+
+        $req = $request->except('action', 'sendbutton');
+        $req['inventariantes'] = array_unique($req['inventariantes']);
+        $os->update($req);
         echo "O.S. editada";
     }
 

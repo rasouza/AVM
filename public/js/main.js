@@ -35,7 +35,8 @@ jQuery(document).ready(function($){
     	$('ul.inventariantes').append(container);
     });
     $('.remover').live('click', function() {
-    	$(this).parent('li').remove();
+        if ($('ul.inventariantes').children().length > 1)
+    	    $(this).parent('li').remove();
     });
     
     $('#status').change(function() {

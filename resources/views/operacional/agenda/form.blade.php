@@ -1,6 +1,10 @@
 @extends('layouts.master')
 
 @section('title') Agenda @endsection
+@section('sidebar-items')
+    @parent
+    <li><a href="{{ action('OsController@edit', ['os'=> $agenda->os]) }}">O.S.</a></li>
+@endsection
 @section('content')
     <div id="usermessagea"></div>
 

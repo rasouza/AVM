@@ -2,7 +2,8 @@
 
 @section('title') Os @endsection
 @section('sidebar-items')
-    Nenhuma
+    <li><a href="{{ action('OsController@index') }}">Consulta</a></li>
+    <li><a href="{{ action('AgendaController@edit', ['agenda'=> $os->agenda]) }}">Agenda</a></li>
 @endsection
 @section('content')
     <div id="usermessagea"></div>
@@ -59,10 +60,12 @@
                     <div class="clear"></div>
                     <ul class="inventariantes">
                         @if(is_null($os->inventariantes))
-                            <li>
-                                {!! Form::select('inventariantes[]', $inventariantes) !!}
-                                <a class="remover"><img src="{{ asset('images/icons/remove16.png') }}" style="border: none;"/></a>
-                            </li>
+                            @for($i = 0; $i < $necessarios; $i++)
+                                <li>
+                                    {!! Form::select('inventariantes[]', $inventariantes) !!}
+                                    <a class="remover"><img src="{{ asset('images/icons/remove16.png') }}" style="border: none;"/></a>
+                                </li>
+                            @endfor
                         @else
                             @foreach($os->inventariantes as $inventariante)
                                 <li>
