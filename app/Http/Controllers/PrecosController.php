@@ -56,21 +56,7 @@ class PrecosController extends Controller
 //            'mensal_qtd' => 'numeric'
 //        ]);
 
-        Preco::create([
-            'nome' => $request->nome,
-            'esporadico_qtd' => $request->esporadico_qtd,
-            'esporadico_preco' => $request->esporadico_preco,
-            'semestral_qtd' => $request->semestral_qtd,
-            'semestral_preco' => $request->semestral_preco,
-            'quadrimestral_qtd' => $request->quadrimestral_qtd,
-            'quadrimestral_preco' => $request->quadrimestral_preco,
-            'trimestral_qtd' => $request->trimestral_qtd,
-            'trimestral_preco' => $request->trimestral_preco,
-            'bimestral_qtd' => $request->bimestral_qtd,
-            'bimestral_preco' => $request->bimestral_preco,
-            'mensal_qtd' => $request->mensal_qtd,
-            'mensal_preco' => $request->mensal_preco
-        ]);
+        Preco::create($request->except('action', 'sendbutton'));
 
         echo 'Tabela de preço cadastrada';
     }
@@ -108,22 +94,7 @@ class PrecosController extends Controller
      */
     public function update(Request $request, Preco $preco)
     {
-        $preco->nome = $request->nome;
-        $preco->esporadico_qtd = $request->esporadico_qtd;
-        $preco->esporadico_preco = $request->esporadico_preco;
-        $preco->semestral_qtd = $request->semestral_qtd;
-        $preco->semestral_preco = $request->semestral_preco;
-        $preco->quadrimestral_qtd = $request->quadrimestral_qtd;
-        $preco->quadrimestral_preco = $request->quadrimestral_preco;
-        $preco->trimestral_qtd = $request->trimestral_qtd;
-        $preco->trimestral_preco = $request->trimestral_preco;
-        $preco->bimestral_qtd = $request->bimestral_qtd;
-        $preco->bimestral_preco = $request->bimestral_preco;
-        $preco->mensal_qtd = $request->mensal_qtd;
-        $preco->mensal_preco = $request->mensal_preco;
-
-        $preco->save();
-
+        $preco->update($request->except('action', 'sendbutton'));
         echo 'Tabela de preço editada';
     }
 

@@ -1,9 +1,7 @@
 @extends('layouts.master')
 
 @section('title') O.S. @endsection
-@section('sidebar-items')
-    Nenhuma
-@endsection
+@section('sidebar') @endsection
 @section('content')
     <table width="100%" class="short-table">
         @if($oses->count() == 0)
@@ -13,11 +11,12 @@
         @else
             <thead>
                 <tr>
+                    <th style="width: auto"></th>
+                    <th>Ambientes</th>
+                    <th>Agenda</th>
+                    <th>Visualizar</th>
+                    <th>Editar</th>
                     <th></th>
-                    <th style="width: 100px;">Ambientes</th>
-                    <th style="width: 100px;">Visualizar</th>
-                    <th style="width: 100px;">Editar</th>
-                    <th style="width: 100px;"></th>
                 </tr>
             </thead>
 
@@ -27,6 +26,7 @@
 
                     <th class="features">{{ $os->agenda->cliente->nome }} {{ $os->agenda->data }}</th>
                     <td><a href="{{ action('AmbientesController@edit', ['os' => $os]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
+                    <td><a href="{{ action('AgendaController@edit', [$os->agenda]) }}"><img src="{{ asset('images/icons/moleskine32.png') }}" alt="Agenda"/></a></td>
                     <td><a href="{{ action('OsController@show', $os) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
                     <td><a href="{{ action('OsController@edit', $os) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>

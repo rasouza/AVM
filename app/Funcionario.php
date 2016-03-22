@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Funcionario extends Model
 {
     protected $fillable = [
+        'uf_id',
         'nome',
         'endereco',
         'bairro',
@@ -40,5 +41,14 @@ class Funcionario extends Model
     public function os()
     {
         return $this->hasMany('App\Os', 'coordenador_id');
+    }
+
+    public static function getAllByCargo($cargo)
+    {
+        return self::join('vendedores', 'vendedores.funcionario_id', '=', 'funcionarios.id')
+            ->join('cargos', 'vendedores.cargo_id', '=', 'cargos.id')
+            ->where('cargos.nome', ucfirst($cargo))
+            ->select('funcionarios.*')
+            ->get();
     }
 }

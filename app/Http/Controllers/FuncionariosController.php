@@ -54,20 +54,7 @@ class FuncionariosController extends Controller
             'nome' => 'required|unique:funcionarios'
         ]);
 
-        $funcionario = Funcionario::create([
-            'nome' => $request->nome,
-            'endereco' => $request->endereco,
-            'bairro' => $request->bairro,
-            'cep' => $request->cep,
-            'cidade' => $request->cidade,
-            'telefone' => $request->telefone,
-            'email' => $request->email,
-            'cpf' => $request->cpf,
-            'rg' => $request->rg,
-            'pis' => $request->pis
-        ]);
-
-        $funcionario->uf()->associate(Uf::find($request->uf))->save();
+        Funcionario::create($request->except('action', 'sendbutton'));
 
         echo 'Funcionário cadastrado';
     }
@@ -108,18 +95,7 @@ class FuncionariosController extends Controller
      */
     public function update(Request $request, Funcionario $funcionario)
     {
-        $funcionario->nome = $request->nome;
-        $funcionario->endereco = $request->endereco;
-        $funcionario->bairro = $request->bairro;
-        $funcionario->cep = $request->cep;
-        $funcionario->cidade = $request->cidade;
-        $funcionario->telefone = $request->telefone;
-        $funcionario->email = $request->email;
-        $funcionario->cpf = $request->cpf;
-        $funcionario->rg = $request->rg;
-        $funcionario->pis = $request->pis;
-        $funcionario->uf()->associate(Uf::find($request->uf))->save();
-
+        $funcionario->update($request->except('action', 'sendbutton'));
         echo 'Funcionário editado';
     }
 

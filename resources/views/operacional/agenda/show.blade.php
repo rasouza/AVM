@@ -4,11 +4,14 @@
 @section('sidebar-items')
     @parent
     <li>{!! link_to_action('AgendaController@edit', 'Editar', ['agenda' => $agenda]) !!}</li>
-    <li>{!! link_to_action('OsController@edit', 'O.S.', ['os' => $agenda->os]) !!}</li>
 @endsection
 @section('content')
     <table width="100%" class="short-table">
         <tbody>
+            <tr>
+                <th class="features">O.S.</th>
+                <td>{!! link_to_action('OsController@show', 'Ver', [$agenda->os], ['class' => 'small green button']) !!}</td>
+            </tr>
             <tr>
                 <th class="features">Filial</th>
                 <td>{{ $agenda->filial->nome }}</td>

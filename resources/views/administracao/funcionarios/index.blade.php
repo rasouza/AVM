@@ -22,7 +22,7 @@
             @foreach($funcionarios as $funcionario)
                 <tr>
                     <th class="features">{{ $funcionario->nome }}</th>
-                    <th class="features">{{ $funcionario->uf->sigla }}</th>
+                    <th class="features">{{ $funcionario->uf->sigla or '-' }}</th>
                     <td><a href="{{ action('FuncionariosController@show', ['funcionarios' => $funcionario]) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
                     <td><a href="{{ action('FuncionariosController@edit', ['funcionarios' => $funcionario]) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>

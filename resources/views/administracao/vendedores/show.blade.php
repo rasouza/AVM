@@ -2,22 +2,21 @@
 
 @section('title') Vendedor: {{ $vendedor->funcionario->nome }} @endsection
 @section('sidebar-items')
-    @parent
+    <li>{!! link_to_action('VendedoresController@index', 'Consultar') !!}</li>
     <li>{!! link_to_action('VendedoresController@edit', 'Editar', ['vendedores' => $vendedor]) !!}</li>
 @endsection
 @section('content')
     <table width="100%" class="short-table">
-
-
             <tbody>
                 <tr>
                     <th class="features">Cargo</th>
-                    <td>{{ ($vendedor->cargo)?$vendedor->cargo->nome:'-' }}</td>
+                    <td>{{ $vendedor->cargo->nome or '-' }}</td>
+
                 </tr>
 
                 <tr>
                     <th class="features">Filial</th>
-                    <td>{{ ($vendedor->filial)?$vendedor->filial->nome:'-' }}</td>
+                    <td>{{ $vendedor->filial->nome or '-' }}</td>
                 </tr>
 
                 <tr>

@@ -19,13 +19,13 @@
             </li>
 
             <li>
-                <label for="vendedor"><span>Vendedor</span></label>
-                {!! Form::select('vendedor', $vendedores, $cliente->vendedor, ['placeholder' => 'Selecione um vendedor']) !!}
+                <label for="vendedor_id"><span>Vendedor</span></label>
+                {!! Form::select('vendedor_id', $vendedores, $cliente->vendedor, ['placeholder' => 'Selecione um vendedor']) !!}
             </li>
 
             <li>
-                <label for="gerente"><span>Gerente</span></label>
-                {!! Form::select('gerente', $gerentes, $cliente->gerente, ['placeholder' => 'Selecione um gerente']) !!}
+                <label for="gerente_id"><span>Gerente</span></label>
+                {!! Form::select('gerente_id', $gerentes, $cliente->gerente, ['placeholder' => 'Selecione um gerente']) !!}
             </li>
 
             <li>

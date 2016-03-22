@@ -6,10 +6,11 @@
 @endsection
 @section('content')
 
-    @include('operacional.processos.cabecalho')
+    @include('operacional.processos.cabecalho', ['link' => 'Auditoria'])
 
     <div id="divDT">
         {!! Form::open(['action' => ['ProcessosController@auditar', 'os' => $os], 'method' => 'post']) !!}
+        <a id="check-uncheck" href="#">Selecionar tudo</a>
         <table class="table table-hover">
             <thead>
                 <tr>
@@ -49,6 +50,19 @@
 
 @section('js')
     <script type="text/javascript">
+        jQuery('#check-uncheck').click(function() {
+            var link = jQuery(this);
+            if (link.text() == 'Selecionar tudo') {
+                jQuery('input[type=checkbox]').attr('checked', true);
+                link.text('Desmarcar tudo');
+            }
+            else {
+                jQuery('input[type=checkbox]').attr('checked', false);
+                link.text('Selecionar tudo');
+            }
+        });
+
+
         jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });

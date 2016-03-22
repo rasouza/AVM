@@ -25,13 +25,15 @@ class VendedoresController extends Controller
      */
     public function index()
     {
-        $funcionario = Funcionario::with('vendedor.filial', 'vendedor.cargo')->orderBy('nome', 'asc')->get();
-//        $funcionarios = Vendedor::with('filial', 'cargo')
-//            ->with(['funcionario' => function ($q) {
-//                $q->orderBy('nome', 'asc');
-//            }])->get();
+        // Todos os funcinarios não atribuidos
+        $funcionarios = Funcionario::leftJoin('vendedores', 'vendedores.funcionario_id', '=', 'funcionarios.id')
+            ->whereNull('vendedores.funcionario_id')
+            ->select('funcionarios.*')
+            ->get();
 
-        return view('administracao.vendedores.index', [ 'funcionarios' => $funcionario ]);
+        $vendedores = Vendedor::with('cargo', 'filial', 'funcionario')->get();
+
+        return view('administracao.vendedores.index', compact('vendedores', 'funcionarios'));
     }
 
     /**

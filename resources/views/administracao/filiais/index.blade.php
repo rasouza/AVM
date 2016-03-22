@@ -22,7 +22,7 @@
             @foreach($filiais as $filial)
                 <tr>
                     <th class="features">{{ $filial->nome }}</th>
-                    <th class="features">{{ $filial->uf->sigla }}</th>
+                    <th class="features">{{ $filial->uf->sigla or '-' }}</th>
                     {{--<td><a href="{{ action('FiliaisController@show', ['filiais' => $filial]) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>--}}
                     <td><a href="{{ action('FiliaisController@edit', ['filiais' => $filial]) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>

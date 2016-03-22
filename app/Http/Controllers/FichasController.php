@@ -56,12 +56,7 @@ class FichasController extends Controller
      */
     public function store(Request $request)
     {
-        $ficha = Ficha::create($request->except('uf', 'cliente', 'action', 'sendbutton'));
-
-        $ficha->cliente()->associate(Cliente::find($request->cliente));
-        $ficha->uf()->associate(Uf::find($request->uf));
-
-        $ficha->save();
+        Ficha::create($request->except('action', 'sendbutton'));
         echo "Ficha cadastrada";
     }
 
@@ -101,12 +96,7 @@ class FichasController extends Controller
      */
     public function update(Request $request, Ficha $ficha)
     {
-        $ficha->update($request->except('uf', 'cliente', 'action', 'sendbutton'));
-
-        $ficha->cliente()->associate(Cliente::find($request->cliente));
-        $ficha->uf()->associate(Uf::find($request->uf));
-
-        $ficha->save();
+        $ficha->update($request->except('action', 'sendbutton'));
         echo "Ficha editada";
     }
 

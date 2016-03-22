@@ -3,11 +3,14 @@
 @section('title') O.S.: {{ $os->agenda->cliente->nome }} {{ $os->agenda->data }} @endsection
 @section('sidebar-items')
     <li><a href="{{ action('OsController@index') }}">Consulta</a></li>
-    <li>{!! link_to_action('AgendaController@edit', 'Agenda', ['agenda' => $os->agenda]) !!}</li>
 @endsection
 @section('content')
     <table width="100%" class="short-table">
         <tbody>
+            <tr>
+                <th class="features">Agenda</th>
+                <td>{!! link_to_action('AgendaController@show', 'Ver', [$os->agenda], ['class' => 'small green button']) !!}</td>
+            </tr>
             <tr>
                 <th class="features">Filial</th>
                 <td>{{ $os->agenda->filial->nome }}</td>

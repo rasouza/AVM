@@ -11,12 +11,13 @@
         <ol class="cf-ol">
             <li>
                 <label for="cliente"><span>Cliente</span></label>
-                {!! Form::select('cliente', $clientes, ($ficha->cliente)?$ficha->cliente->id : null, ['placeholder' => 'Selecione um cliente']) !!}
+                {{ $ficha->cliente->nome }}
+                {!! Form::hidden('cliente_id', $ficha->cliente_id) !!}
             </li>
 
             <li>
                 <label for="gerente"><span>Estado</span></label>
-                {!! Form::select('uf', $ufs, ($ficha->uf)?$ficha->uf->id : null, ['style' => 'width: 50px']) !!}
+                {!! Form::select('uf_id', $ufs, ($ficha->uf)?$ficha->uf->id : null, ['style' => 'width: 50px']) !!}
             </li>
 
             <li>

@@ -6,7 +6,7 @@
 @endsection
 @section('content')
 
-    @include('operacional.processos.cabecalho')
+    @include('operacional.processos.cabecalho', ['link' => 'Principal'])
 
     <div id="divDT">
         <table class="table table-hover">
@@ -46,7 +46,7 @@
         jQuery('#divDT table').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "bPaginate": false,
-            "aaSorting": [[ 2, "asc" ]],
+            "aaSorting": [[ 1, "asc" ]],
             "bFilter": false,
             "bAutoWidth": true,
             "fnDrawCallback": function ( oSettings ) {

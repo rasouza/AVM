@@ -16,7 +16,7 @@ class ProcessosController extends Controller
      */
     public function index()
     {
-        $oses = Os::all();
+        $oses = Os::where('status', 'confirmado')->get();
         return view('operacional.processos.index', compact('oses'));
     }
 

@@ -36,9 +36,7 @@ class FiliaisController extends Controller
     {
         $action = 'FiliaisController@store';
         $filial = new Filial();
-        $ufs = Uf::orderBy('sigla', 'asc')
-            ->get()
-            ->lists('sigla', 'id');
+        $ufs = Uf::orderBy('sigla', 'asc')->get()->lists('sigla', 'id');
         return view('administracao.filiais.form', compact('filial', 'ufs', 'action'));
     }
 
@@ -69,9 +67,7 @@ class FiliaisController extends Controller
     {
         $action = 'FiliaisController@update';
 
-        $ufs = Uf::orderBy('sigla', 'asc')
-            ->get()
-            ->lists('sigla', 'id');
+        $ufs = Uf::orderBy('sigla', 'asc')->get()->lists('sigla', 'id');
         return view('administracao.filiais.form', compact('filial', 'ufs', 'action'));
     }
 

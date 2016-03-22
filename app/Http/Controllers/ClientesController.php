@@ -38,19 +38,9 @@ class ClientesController extends Controller
     {
         $action = 'ClientesController@store';
         $cliente = new Cliente();
-        $gerentes = DB::table('vendedores')
-            ->join('cargos', 'cargos.id', '=', 'vendedores.cargo_id')
-            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
-            ->where('cargos.nome', 'Gerente')
-            ->select('funcionarios.nome', 'funcionarios.id')
-            ->lists('funcionarios.nome', 'funcionarios.id');
 
-        $vendedores = DB::table('vendedores')
-            ->join('cargos', 'cargos.id', '=', 'vendedores.cargo_id')
-            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
-            ->where('cargos.nome', 'Vendedor')
-            ->select('funcionarios.nome', 'funcionarios.id')
-            ->lists('funcionarios.nome', 'funcionarios.id');
+        $gerentes = Funcionario::getAllByCargo('gerente')->lists('nome', 'id');;
+        $vendedores = Funcionario::getAllByCargo('vendedor')->lists('nome', 'id');
 
         $precos = Preco::orderBy('nome', 'asc')->lists('nome', 'id');
 
@@ -65,13 +55,8 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::create($request->except('percentual', 'vendedor', 'gerente', 'pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
+        $cliente = Cliente::create($request->except('action', 'sendbutton'));
         $cliente->especial = $request->only('pecaEsp', 'valorEsp', 'excedente');
-
-        if ($request->vendedor != '')
-            $cliente->vendedor()->associate(Funcionario::find($request->vendedor));
-        if ($request->gerente != '')
-            $cliente->gerente()->associate(Funcionario::find($request->gerente));
 
         $cliente->save();
         echo "Cliente cadastrado";
@@ -97,19 +82,13 @@ class ClientesController extends Controller
     public function edit(Cliente $cliente)
     {
         $action = 'ClientesController@update';
-        $gerentes = DB::table('vendedores')
-            ->join('cargos', 'cargos.id', '=', 'vendedores.cargo_id')
-            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
-            ->where('cargos.nome', 'Gerente')
-            ->select('funcionarios.nome', 'funcionarios.id')
-            ->lists('funcionarios.nome', 'funcionarios.id');
 
-        $vendedores = DB::table('vendedores')
-            ->join('cargos', 'cargos.id', '=', 'vendedores.cargo_id')
-            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
-            ->where('cargos.nome', 'Vendedor')
-            ->select('funcionarios.nome', 'funcionarios.id')
-            ->lists('funcionarios.nome', 'funcionarios.id');
+        $gerentes = Funcionario::getAllByCargo('gerente')->lists('nome', 'id');;
+        $vendedores = Funcionario::getAllByCargo('vendedor')->lists('nome', 'id');
+
+        $cliente->pecaEsp = $cliente->especial['pecaEsp'];
+        $cliente->valorEsp = $cliente->especial['valorEsp'];
+        $cliente->excedente = $cliente->especial['excedente'];
 
         $precos = Preco::orderBy('nome', 'asc')->lists('nome', 'id');
 
@@ -126,14 +105,9 @@ class ClientesController extends Controller
     public function update(Request $request, Cliente $cliente)
     {
 
-        $cliente->update($request->except('vendedor', 'gerente', 'pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
+        $cliente->update($request->except('pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
         $cliente->especial = $request->only('pecaEsp', 'valorEsp', 'excedente');
-
-        if ($request->vendedor != '')
-            $cliente->vendedor()->associate(Funcionario::find($request->vendedor));
-        if ($request->gerente != '')
-            $cliente->gerente()->associate(Funcionario::find($request->gerente));
-
+        
         $cliente->save();
         echo "Cliente editado";
     }

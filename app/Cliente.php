@@ -27,6 +27,23 @@ class Cliente extends Model
     public function getPecaAttribute($v) { return str_replace('.', ',', $v); }
     public function setPecaAttribute($v) { $this->attributes['peca'] = str_replace(',', '.', $v); }
 
+    public function getPeriodicidadeAttribute($v) {
+        switch ($v) {
+            case 0:
+                return 'Esporádico';
+            case 1:
+                return 'Mensal';
+            case 2:
+                return 'Bimestral';
+            case 3:
+                return 'Trimestral';
+            case 4:
+                return 'Quadrimetral';
+            case 6:
+                return 'Semestral';
+        }
+    }
+
     public function ficha()
     {
         return $this->hasOne('App\Ficha');

@@ -1,14 +1,8 @@
 {{-- Duplicados --}}
-<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <b>Cuidado!</b> Existem duplicidades no processo atual
-</div>
+<div class="alert alert-error"><b>Cuidado!</b> Existem duplicidades no processo atual</div>
 
 {{-- Arquivos de mesmo nome --}}
-<div class="alert alert-error">
-    <button type="button" class="close" data-dismiss="alert">×</button>
-    <b>Erro!</b> Esse arquivo já foi baixado
-</div>
+<div class="alert alert-error"><b>Erro!</b> Esse arquivo já foi baixado</div>
 
 <div class="container">
     <div class="row">
@@ -48,13 +42,27 @@
 
     <ul class="nav nav-pills">
 
-        <li>{!! link_to_action('ProcessosController@principal', 'Principal', ['os' => $os]) !!}</li>
-        <li>{!! link_to_action('ProcessosController@detalhe', 'Detalhe', ['os' => $os]) !!}</li>
-        <li>{!! link_to_action('ProcessosController@duplicidades', 'Duplicidades', ['os' => $os]) !!}</li>
-        <li>{!! link_to_action('ProcessosController@restantes', 'Setores Restantes', ['os' => $os]) !!}</li>
-        <li>{!! link_to_action('ProcessosController@auditoria', 'Auditoria', ['os' => $os]) !!}</li>
-        <li>{!! link_to_action('ProcessosController@operadores', 'Operadores', ['os' => $os]) !!}</li>
-        <li>{!! link_to_action('ProcessosController@divergencia', 'Divergência', ['os' => $os]) !!}</li>
+        <li @if($link == 'Principal') class="active" @endif>
+            {!! link_to_action('ProcessosController@principal', 'Principal', ['os' => $os]) !!}
+        </li>
+        <li @if($link == 'Detalhe') class="active" @endif>
+            {!! link_to_action('ProcessosController@detalhe', 'Detalhe', ['os' => $os]) !!}
+        </li>
+        <li @if($link == 'Duplicidades') class="active" @endif>
+            {!! link_to_action('ProcessosController@duplicidades', 'Duplicidades', ['os' => $os]) !!}
+        </li>
+        <li @if($link == 'Setores') class="active" @endif>
+            {!! link_to_action('ProcessosController@restantes', 'Setores Restantes', ['os' => $os]) !!}
+        </li>
+        <li @if($link == 'Auditoria') class="active" @endif>
+            {!! link_to_action('ProcessosController@auditoria', 'Auditoria', ['os' => $os]) !!}
+        </li>
+        <li @if($link == 'Operadores') class="active" @endif>
+            {!! link_to_action('ProcessosController@operadores', 'Operadores', ['os' => $os]) !!}
+        </li>
+        <li @if($link == 'Divergência') class="active" @endif>
+            {!! link_to_action('ProcessosController@divergencia', 'Divergência', ['os' => $os]) !!}
+        </li>
         <li @if ($auditados < $total) class="disabled" @endif>
             {!! link_to_action('ProcessosController@finalizar', 'Finalizar', ['os' => $os]) !!}
         </li>

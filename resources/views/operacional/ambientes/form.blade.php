@@ -3,6 +3,7 @@
 @section('title') Ambientes de {{ $os->agenda->cliente->nome }} ({{ $os->agenda->data }}) @endsection
 @section('sidebar-items')
     <li><a href="{{ action('OsController@edit', ['os' => $os]) }}">O.S.</a></li>
+    <li><a href="{{ action('AgendaController@edit', [$os->agenda]) }}">Agenda</a></li>
 @endsection
 @section('content')
     <div id="usermessagea"></div>

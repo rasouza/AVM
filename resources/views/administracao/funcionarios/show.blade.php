@@ -12,7 +12,7 @@
             <tbody>
                 <tr>
                     <th class="features">Estado</th>
-                    <td>{{ $funcionario->uf->sigla }}</td>
+                    <td>{{ $funcionario->uf->sigla or '-' }}</td>
                 </tr>
 
                 <tr>

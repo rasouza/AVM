@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Funcionario;
 use App\Vendedor;
 use App\Os;
 use Illuminate\Http\Request;
@@ -46,16 +47,8 @@ class OsController extends Controller
     {
         $action = 'OsController@update';
         $necessarios = ceil($os->agenda->pecas/(300*6));
-        $inventariantes = Vendedor::join('cargos', 'vendedores.cargo_id', '=', 'cargos.id')
-            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
-            ->where('cargos.nome', 'Inventariante')
-            ->select('vendedores.id', 'funcionarios.nome')
-            ->get()->lists('nome','id');
-        $coordenadores = Vendedor::join('cargos', 'vendedores.cargo_id', '=', 'cargos.id')
-            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
-            ->where('cargos.nome', 'Coordenador')
-            ->select('funcionarios.id', 'funcionarios.nome')
-            ->get()->lists('nome','id');
+        $inventariantes = Funcionario::getAllByCargo('inventariante')->lists('nome', 'id');
+        $coordenadores = Funcionario::getAllByCargo('coordenador')->lists('nome', 'id');
 
         return view('operacional.os.form', compact('necessarios', 'inventariantes', 'coordenadores', 'os', 'action'));
     }

@@ -4,7 +4,13 @@
 @section('content')
     <div id="usermessagea"></div>
 
-    {!! Form::model($funcionario, ['action' => [$action, $funcionario], 'method' => ($funcionario->exists)?'put':'post', 'class' => 'form-contact', 'id' => 'form-contact']) !!}
+    {!! Form::model($funcionario, [
+        'action' => [$action, $funcionario],
+        'method' => ($funcionario->exists)?'put':'post',
+        'class' => 'form-contact',
+        'id' => 'form-contact'
+    ]) !!}
+
         <ol class="cf-ol">
             <li>
                 <label for="nome"><span>Nome</span></label>
@@ -34,7 +40,7 @@
 
             <li>
                 <label for="uf"><span>UF</span></label>
-                {!! Form::select('uf', $ufs, ($funcionario->exists)?$funcionario->uf->id : null, ['style' => 'width: 50px']) !!}
+                {!! Form::select('uf_id', $ufs, $funcionario->uf_id, ['style' => 'width: 50px']) !!}
             </li>
 
             <li>
