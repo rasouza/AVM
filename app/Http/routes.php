@@ -37,9 +37,22 @@ Route::group(['prefix' => 'comercial', 'middleware' => 'auth'], function() {
 Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
     Route::resource('agenda', 'AgendaController');
     Route::resource('os', 'OsController');
-    Route::resource('processos', 'ProcessosController');
     Route::resource('ambientes', 'AmbientesController');
     Route::get('relatorios', 'RelatoriosController@index');
+
+    Route::get('processos', 'ProcessosController@create');
+    Route::get('processos', 'ProcessosController@index');
+    Route::get('processo/{os}', 'ProcessosController@principal');
+    Route::get('processo/{os}/detalhe', 'ProcessosController@detalhe');
+    Route::get('processo/{os}/duplicidades', 'ProcessosController@duplicidades');
+    Route::get('processo/{os}/restantes', 'ProcessosController@restantes');
+    Route::get('processo/{os}/auditoria', 'ProcessosController@auditoria');
+    Route::get('processo/{os}/operadores', 'ProcessosController@operadores');
+    Route::get('processo/{os}/divergencia', 'ProcessosController@divergencia');
+    Route::get('processo/{os}/finalizar', 'ProcessosController@finalizar');
+    Route::get('processo/{os}/parse', 'ProcessosController@parse');
+    Route::post('processo/{os}/auditar', 'ProcessosController@auditar');
+    Route::get('processo/{os}/excluir/{setor}', 'ProcessosController@destroy');
 });
 
 
