@@ -1,12 +1,9 @@
 @extends('layouts.processos')
 
-@section('title') @endsection
-@section('sidebar-items')
-    Nenhuma
-@endsection
+
 @section('content')
 
-    @include('operacional.processos.cabecalho', ['link' => 'Principal'])
+    @include('operacional.processo.cabecalho', ['link' => 'Principal'])
 
     <div id="divDT">
         <table class="table table-hover">

@@ -1,68 +1,39 @@
 @extends('layouts.processos')
-
-@section('title') @endsection
-@section('sidebar-items')
-    Nenhuma
-@endsection
 @section('content')
 
-    @include('operacional.processos.cabecalho', ['link' => 'Auditoria'])
-
+    @include('operacional.processo.cabecalho', ['link' => 'Duplicidades'])
     <div id="divDT">
-        {!! Form::open(['action' => ['ProcessosController@auditar', 'os' => $os], 'method' => 'post']) !!}
-        <a id="check-uncheck" href="#">Selecionar tudo</a>
         <table class="table table-hover">
             <thead>
                 <tr>
                     <th>Ambiente</th>
-                    <th></th>
                     <th>Setor</th>
+                    <th>Código</th>
                     <th>Quantidade</th>
                     <th>Operador</th>
-                    <th></th>
+                    <th style="width: 10px;"></th>
                 </tr>
             </thead>
 
             <tbody>
-                @foreach($processos as $processo)
-                    <tr>
-                        <td>{{ $processo->ambiente->nome }}</td>
-                        <td>
-                            {!! Form::checkbox('auditar[]', $processo->setor) !!}
-                        </td>
-                        <td>{{ $processo->setor }}</td>
-                        <td>{{ $processo->ambiente->soma($processo->setor) }}</td>
-                        <td>{{ $processo->ambiente->operador($processo->setor) }}</td>
-                        <td>
-                            <a href="{{ action('ProcessosController@destroy', ['os' => $os, 'setor' => $processo->setor]) }}">
-                                <img src="{{ asset('images/icons/remove16.png') }}" alt="Excluir" />
-                            </a>
-                        </td>
-                    </tr>
-                @endforeach
+            @foreach($duplicidades as $processo)
+                <tr>
+                    <td>{{ $processo->ambiente }}</td>
+                    <td>{{ $processo->setor }}</td>
+                    <td>{{ $processo->codigo }}</td>
+                    <td>{{ $processo->quantidade }}</td>
+                    <td>{{ $processo->operador }}</td>
+                    <td><a href="{{ action("ProcessoController@duplicidades", [$os, 'processo' => $processo->id]) }}"><img src="{{ asset('images/icons/remove16.png') }}" /></td>
+                </tr>
+
+            @endforeach
             </tbody>
         </table>
-        {!! Form::submit('Auditar', ['class' => 'button btn']) !!}
-        {!! Form::close() !!}
     </div>
-
 @endsection
 
 @section('js')
     <script type="text/javascript">
-        jQuery('#check-uncheck').click(function() {
-            var link = jQuery(this);
-            if (link.text() == 'Selecionar tudo') {
-                jQuery('input[type=checkbox]').attr('checked', true);
-                link.text('Desmarcar tudo');
-            }
-            else {
-                jQuery('input[type=checkbox]').attr('checked', false);
-                link.text('Selecionar tudo');
-            }
-        });
-
-
         jQuery.extend( jQuery.fn.dataTableExt.oStdClasses, {
             "sWrapper": "dataTables_wrapper form-inline"
         });

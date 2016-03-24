@@ -1,8 +1,12 @@
 {{-- Duplicados --}}
-<div class="alert alert-error"><b>Cuidado!</b> Existem duplicidades no processo atual</div>
+@if (!empty($duplicidades))
+    <div class="alert alert-error"><b>Cuidado!</b> Existem duplicidades no processo atual</div>
+@endif
 
 {{-- Arquivos de mesmo nome --}}
-<div class="alert alert-error"><b>Erro!</b> Esse arquivo já foi baixado</div>
+@if ($errors->has('file'))
+    <div class="alert alert-error"><b>Erro!</b> Esse arquivo já foi baixado</div>
+@endif
 
 <div class="container">
     <div class="row">
@@ -26,12 +30,12 @@
             </dl>
         </div>
         <div class="span5 offset1">
-            {!! Form::open(['action' => 'ProcessosController@parse', 'method' => 'post', 'files' => true]) !!}
+            {!! Form::open(['action' => ['ProcessoController@parse', $os], 'method' => 'post', 'files' => true]) !!}
             <div class="form-actions">
                 <label>Enviar carga do coletor</label>
                 {!! Form::hidden('os_id', $os->id) !!}
                 {!! Form::file('file') !!}
-                <button type="submit" class="btn">Abrir</button>
+                {!! Form::submit('Abrir') !!}
             </div>
             {!! Form::close() !!}
         </div>
@@ -43,28 +47,28 @@
     <ul class="nav nav-pills">
 
         <li @if($link == 'Principal') class="active" @endif>
-            {!! link_to_action('ProcessosController@principal', 'Principal', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@principal', 'Principal', ['os' => $os]) !!}
         </li>
         <li @if($link == 'Detalhe') class="active" @endif>
-            {!! link_to_action('ProcessosController@detalhe', 'Detalhe', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@detalhe', 'Detalhe', ['os' => $os]) !!}
         </li>
         <li @if($link == 'Duplicidades') class="active" @endif>
-            {!! link_to_action('ProcessosController@duplicidades', 'Duplicidades', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@duplicidades', 'Duplicidades', ['os' => $os]) !!}
         </li>
-        <li @if($link == 'Setores') class="active" @endif>
-            {!! link_to_action('ProcessosController@restantes', 'Setores Restantes', ['os' => $os]) !!}
+        <li @if($link == 'Restantes') class="active" @endif>
+            {!! link_to_action('ProcessoController@restantes', 'Setores Restantes', ['os' => $os]) !!}
         </li>
         <li @if($link == 'Auditoria') class="active" @endif>
-            {!! link_to_action('ProcessosController@auditoria', 'Auditoria', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@auditoria', 'Auditoria', ['os' => $os]) !!}
         </li>
         <li @if($link == 'Operadores') class="active" @endif>
-            {!! link_to_action('ProcessosController@operadores', 'Operadores', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@operadores', 'Operadores', ['os' => $os]) !!}
         </li>
         <li @if($link == 'Divergência') class="active" @endif>
-            {!! link_to_action('ProcessosController@divergencia', 'Divergência', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@divergencia', 'Divergência', ['os' => $os]) !!}
         </li>
         <li @if ($auditados < $total) class="disabled" @endif>
-            {!! link_to_action('ProcessosController@finalizar', 'Finalizar', ['os' => $os]) !!}
+            {!! link_to_action('ProcessoController@finalizar', 'Finalizar', ['os' => $os]) !!}
         </li>
     </ul>
 </div>

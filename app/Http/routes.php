@@ -38,21 +38,23 @@ Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
     Route::resource('agenda', 'AgendaController');
     Route::resource('os', 'OsController');
     Route::resource('ambientes', 'AmbientesController');
+    Route::resource('processos', 'ProcessosController');
     Route::get('relatorios', 'RelatoriosController@index');
 
-    Route::get('processos', 'ProcessosController@create');
-    Route::get('processos', 'ProcessosController@index');
-    Route::get('processo/{os}', 'ProcessosController@principal');
-    Route::get('processo/{os}/detalhe', 'ProcessosController@detalhe');
-    Route::get('processo/{os}/duplicidades', 'ProcessosController@duplicidades');
-    Route::get('processo/{os}/restantes', 'ProcessosController@restantes');
-    Route::get('processo/{os}/auditoria', 'ProcessosController@auditoria');
-    Route::get('processo/{os}/operadores', 'ProcessosController@operadores');
-    Route::get('processo/{os}/divergencia', 'ProcessosController@divergencia');
-    Route::get('processo/{os}/finalizar', 'ProcessosController@finalizar');
-    Route::get('processo/{os}/parse', 'ProcessosController@parse');
-    Route::post('processo/{os}/auditar', 'ProcessosController@auditar');
-    Route::get('processo/{os}/excluir/{setor}', 'ProcessosController@destroy');
+    Route::group(['prefix' => 'processo', 'middleware' => 'auth'], function() {
+
+        Route::post('{os}/parse', 'ProcessoController@parse');
+
+        Route::get('{os}', 'ProcessoController@principal');
+        Route::match(['get', 'post'], '{os}/detalhe', 'ProcessoController@detalhe');
+        Route::get('{os}/duplicidades', 'ProcessoController@duplicidades');
+        Route::get('{os}/restantes', 'ProcessoController@restantes');
+        Route::match(['get', 'post'], '{os}/auditoria', 'ProcessoController@auditoria');
+        Route::get('{os}/operadores', 'ProcessoController@operadores');
+        Route::get('{os}/divergencia', 'ProcessoController@divergencia');
+        Route::get('{os}/finalizar', 'ProcessoController@finalizar');
+        Route::get('{os}/excluir/{setor}', 'ProcessoController@destroy');
+    });
 });
 
 
