@@ -37,14 +37,7 @@
                     </td>
                 </tr>
             @endforeach
-            @foreach($funcionarios as $funcionario)
 
-                <tr>
-                    <th class="features">{{ $funcionario->nome }}</th>
-                    <td>{!! link_to_action('VendedoresController@create', 'Atribuir', ['funcionario' => $funcionario], ['class' => 'small green button']) !!}</td>
-                    <td colspan="4"></td>
-                </tr>
-            @endforeach
             </tbody>
         @endif
     </table>

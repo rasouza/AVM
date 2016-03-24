@@ -100,7 +100,11 @@
                                             <li><a href="#">Listagem de Cash</a></li>
                                         </ul>
                                     </li>
-                                    <li><a href="#">Premiação</a></li>
+                                    <li><a href="#">Premiação</a>
+                                        <ul class="sub-menu">
+                                            <li><a href="#">Listagem da Premiação</a></li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                         @endcan
