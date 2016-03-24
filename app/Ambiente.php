@@ -21,13 +21,11 @@ class Ambiente extends Model
         if ($this->processos()->where('setor', $setor)->count() == 0) return '-';
         return $this->processos()->where('setor', $setor)->sum('quantidade');
     }
-    
     public function operador($setor)
     {
         if ($this->processos()->where('setor', $setor)->count() == 0) return '-';
-        return ucfirst($this->processos()->where('setor', $setor)->orderBy('id', 'desc')->first()->operador);
+        return $this->processos()->where('setor', $setor)->orderBy('id', 'desc')->first()->operador;
     }
-
     public function inventariado($setor)
     {
         return ($this->processos()->where('setor', $setor)->count() != 0)?'Sim':'Não';
