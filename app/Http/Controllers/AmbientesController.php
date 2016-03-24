@@ -33,6 +33,8 @@ class AmbientesController extends Controller
     public function update(Request $request)
     {
         $os = Os::find($request->os_id);
+        $processos = $os->processos;
+
         $os->ambientes()->delete();
         $ambientes = [];
         for ($i = 0; $i < count($request->nome); $i++) {
@@ -45,6 +47,13 @@ class AmbientesController extends Controller
             }
         }
         $os->ambientes()->saveMany($ambientes);
+
+        // Reatribui todos os processos para os ambientes certos
+        foreach ($processos as $processo) {
+            $ambiente = $os->getAmbiente($processo->setor);
+            $processo->ambiente()->associate($ambiente)->save();
+        }
+
         echo "Ambientes cadastrados com sucesso";
     }
 
