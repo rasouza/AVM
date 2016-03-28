@@ -17,11 +17,6 @@
             </li>
 
             <li>
-                <label for="filial"><span>Filial</span></label>
-                {!! Form::select('filial', $filiais, ($vendedor->filial)?$vendedor->filial->id : null) !!}
-            </li>
-
-            <li>
                 <label for="password"><span>Senha</span></label>
                 {!! Form::password('password', null, ['class' => 'required']  ) !!}
                 <span class="reqtxt">(obrigat&oacute;rio)</span>

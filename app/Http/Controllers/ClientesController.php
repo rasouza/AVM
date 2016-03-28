@@ -55,7 +55,7 @@ class ClientesController extends Controller
      */
     public function store(Request $request)
     {
-        $cliente = Cliente::create($request->except('action', 'sendbutton'));
+        $cliente = Cliente::create($request->except('pecaEsp', 'valorEsp', 'excedente', 'action', 'sendbutton'));
         $cliente->especial = $request->only('pecaEsp', 'valorEsp', 'excedente');
 
         $cliente->save();

@@ -9,6 +9,10 @@
     <table width="100%" class="short-table">
         <tbody>
             <tr>
+                <th class="features">Filial</th>
+                <td>{{ $cliente->filial->nome or '-' }}</td>
+            </tr>
+            <tr>
                 <th class="features">Ficha Cadastral</th>
                 <td>{!! link_to_action('FichasController@show', 'Ver', [$cliente->ficha], ['class' => 'small green button']) !!}</td>
             </tr>
@@ -50,8 +54,8 @@
             <tr>
                 <th class="features">Proposta</th>
                 <td>
-                    <strong>{{ $cliente->propostaBegin }}</strong> até
-                    <strong>{{ $cliente->propostaEnd }}</strong>
+                    <strong>{{ $cliente->propostaBegin or '-' }}</strong> até
+                    <strong>{{ $cliente->propostaEnd or '-' }}</strong>
                 </td>
             </tr>
 
@@ -86,27 +90,38 @@
                 <td>{{ $cliente->vencimento }} dias</td>
             </tr>
 
-            <tr>
-                <th class="features">Cobrança</th>
-                <td>{{ $cliente->cobranca }}</td>
-            </tr>
-
             @if($cliente->cobranca == 'peca')
+                <tr>
+                    <th class="features">Cobrança</th>
+                    <td>Peça</td>
+                </tr>
                 <tr>
                     <th class="features">Peça</th>
                     <td>{{ $cliente->peca }}</td>
                 </tr>
             @elseif($cliente->cobranca == 'pessoa')
                 <tr>
+                    <th class="features">Cobrança</th>
+                    <td>Pessoa</td>
+                </tr>
+                <tr>
                     <th class="features">Pessoa</th>
                     <td>{{ $cliente->pessoa }}</td>
                 </tr>
             @elseif($cliente->cobranca == 'tabela')
                 <tr>
+                    <th class="features">Cobrança</th>
+                    <td>Tabela</td>
+                </tr>
+                <tr>
                     <th class="features">Tabela</th>
                     <td>{{ $cliente->tabela }}</td>
                 </tr>
             @elseif($cliente->cobranca == 'especial')
+                <tr>
+                    <th class="features">Cobrança</th>
+                    <td>Especial</td>
+                </tr>
                 <tr>
                     <th class="features">Peça</th>
                     <td>

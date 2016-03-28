@@ -3,7 +3,9 @@
 @section('title') Agenda @endsection
 @section('sidebar-items')
     @parent
-    <li><a href="{{ action('OsController@edit', ['os'=> $agenda->os]) }}">O.S.</a></li>
+    @if($action == 'AgendaController@update')
+        <li><a href="{{ action('OsController@edit', ['os'=> $agenda->os]) }}">O.S.</a></li>
+    @endif
 @endsection
 @section('content')
     <div id="usermessagea"></div>
@@ -23,15 +25,6 @@
             <li>
                 <label for="data"><span>Data</span></label>
                 {!! Form::text('data', null, ['class' => 'single datepicker']  ) !!}
-            </li>
-
-            <li>
-                <label for="filial"><span>Filial</span></label>
-                {!! Form::select(
-                        'filial_id',
-                        $filiais,
-                        ($agenda->exists)?$agenda->filial->id : null
-                ) !!}
             </li>
 
             <li>

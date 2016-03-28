@@ -19,8 +19,10 @@ class OsController extends Controller
     public function index()
     {
         $oses = Os::join('agenda', 'agenda.id', '=', 'os.agenda_id')
+            ->join('clientes', 'clientes.id', '=', 'agenda.cliente_id')
             ->where('os.status', '<>', 'concluido')
             ->orderBy('agenda.data', 'asc')
+            ->orderBy('clientes.nome', 'asc')
             ->select('os.*')
             ->get();
         return view('operacional.os.index', compact('oses'));
@@ -64,7 +66,8 @@ class OsController extends Controller
     {
 
         $req = $request->except('action', 'sendbutton');
-        $req['inventariantes'] = array_unique($req['inventariantes']);
+        if (isset($req['inventariantes']))
+            $req['inventariantes'] = array_unique($req['inventariantes']);
         $os->update($req);
         echo "O.S. editada";
     }

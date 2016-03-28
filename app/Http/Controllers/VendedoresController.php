@@ -25,13 +25,7 @@ class VendedoresController extends Controller
      */
     public function index()
     {
-        // Todos os funcinarios não atribuidos
-        $funcionarios = Funcionario::leftJoin('vendedores', 'vendedores.funcionario_id', '=', 'funcionarios.id')
-            ->whereNull('vendedores.funcionario_id')
-            ->select('funcionarios.*')
-            ->get();
-
-        $vendedores = Vendedor::with('cargo', 'filial', 'funcionario')->get();
+        $vendedores = Vendedor::with('cargo', 'funcionario')->get();
 
         return view('administracao.vendedores.index', compact('vendedores', 'funcionarios'));
     }
@@ -50,12 +44,11 @@ class VendedoresController extends Controller
             $vendedor->funcionario()->associate(Funcionario::find($request->funcionario));
 
         $cargos = Cargo::orderBy('nome', 'asc')->get()->lists('nome', 'id');
-        $filiais = Filial::orderBy('nome', 'asc')->get()->lists('nome', 'id');
         $funcionarios = Funcionario::orderBy('nome', 'asc')->get()->lists('nome', 'id');
 
 
 
-        return view('administracao.vendedores.form', compact('vendedor', 'action', 'cargos', 'filiais', 'funcionarios'));
+        return view('administracao.vendedores.form', compact('vendedor', 'action', 'cargos', 'funcionarios'));
     }
 
     /**
@@ -75,7 +68,6 @@ class VendedoresController extends Controller
         ]);
 
         $vendedor->funcionario()->associate(Funcionario::find($request->funcionario));
-        $vendedor->filial()->associate(Filial::find($request->filial));
         $vendedor->cargo()->associate(Cargo::find($request->cargo));
         $vendedor->save();
 
@@ -104,10 +96,9 @@ class VendedoresController extends Controller
         $action = 'VendedoresController@update';
 
         $cargos = Cargo::orderBy('nome', 'asc')->get()->lists('nome', 'id');
-        $filiais = Filial::orderBy('nome', 'asc')->get()->lists('nome', 'id');
         $funcionarios = Funcionario::orderBy('nome', 'asc')->get()->lists('nome', 'id');
 
-        return view('administracao.vendedores.form', compact('vendedor', 'action', 'cargos', 'filiais', 'funcionarios'));
+        return view('administracao.vendedores.form', compact('vendedor', 'action', 'cargos', 'funcionarios'));
     }
 
     /**
@@ -123,7 +114,6 @@ class VendedoresController extends Controller
             $vendedor->password = md5($request->password);
 
         $vendedor->funcionario()->associate(Funcionario::find($request->funcionario));
-        $vendedor->filial()->associate(Filial::find($request->filial));
         $vendedor->cargo()->associate(Cargo::find($request->cargo));
         $vendedor->save();
 

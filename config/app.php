@@ -149,6 +149,7 @@ return [
          * Custom
          */
         Collective\Html\HtmlServiceProvider::class,
+        App\Providers\FilialServiceProvider::class,
 
     ],
 

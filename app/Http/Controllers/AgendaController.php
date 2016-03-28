@@ -35,10 +35,9 @@ class AgendaController extends Controller
     {
         $action = 'AgendaController@store';
         $agenda = new Agenda();
-        $filiais = Filial::orderBy('nome', 'asc')->get()->lists('nome', 'id');
         $clientes = Cliente::orderBy('nome', 'asc')->get()->lists('nome', 'id');
 
-        return view('operacional.agenda.form', compact('filiais', 'agenda', 'clientes', 'action'));
+        return view('operacional.agenda.form', compact('agenda', 'clientes', 'action'));
     }
 
     /**
@@ -75,10 +74,9 @@ class AgendaController extends Controller
     public function edit(Agenda $agenda)
     {
         $action = 'AgendaController@update';
-        $filiais = Filial::orderBy('nome', 'asc')->get()->lists('nome', 'id');
         $clientes = Cliente::orderBy('nome', 'asc')->get()->lists('nome', 'id');
 
-        return view('operacional.agenda.form', compact('filiais', 'agenda', 'clientes', 'action'));
+        return view('operacional.agenda.form', compact('agenda', 'clientes', 'action'));
     }
 
     /**
