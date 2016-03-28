@@ -11,31 +11,12 @@ class Os extends Model
     protected $guarded = [];
     protected $casts = ['inventariantes' => 'array'];
 
-    public function layout()
-    {
-        return $this->belongsTo('App\Layout');
-    }
-
-    public function coordenador()
-    {
-        return $this->belongsTo('App\Funcionario', 'coordenador_id');
-    }
-
-    public function agenda()
-    {
-        return $this->belongsTo('App\Agenda');
-    }
-
-    public function processos()
-    {
-        return $this->hasManyThrough('App\Processo', 'App\Ambiente');
-    }
-
-    public function ambientes()
-    {
-        return $this->hasMany('App\Ambiente');
-    }
-
+    public function layout() { return $this->belongsTo('App\Layout'); }
+    public function coordenador() { return $this->belongsTo('App\Funcionario', 'coordenador_id'); }
+    public function agenda() { return $this->belongsTo('App\Agenda'); }
+    public function processos() { return $this->hasManyThrough('App\Processo', 'App\Ambiente'); }
+    public function ambientes() { return $this->hasMany('App\Ambiente'); }
+    
     public function getAmbiente($setor) {
         foreach ($this->ambientes as $ambiente)
             if ($setor >= $ambiente->inicio && $setor <= $ambiente->fim)

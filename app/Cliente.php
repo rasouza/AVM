@@ -44,23 +44,9 @@ class Cliente extends Model
         }
     }
 
-    public function ficha()
-    {
-        return $this->hasOne('App\Ficha');
-    }
-
-    public function agendas()
-    {
-        return $this->hasMany('App\Agenda');
-    }
-
-    public function vendedor()
-    {
-        return $this->belongsTo('App\Funcionario', 'vendedor_id');
-    }
-
-    public function gerente()
-    {
-        return $this->belongsTo('App\Funcionario', 'gerente_id');
-    }
+    public function filial() { return $this->belongsTo('App\Filial'); }
+    public function ficha() { return $this->hasOne('App\Ficha'); }
+    public function agendas() { return $this->hasMany('App\Agenda'); }
+    public function vendedor() { return $this->belongsTo('App\Funcionario', 'vendedor_id'); }
+    public function gerente() { return $this->belongsTo('App\Funcionario', 'gerente_id'); }
 }

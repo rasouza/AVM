@@ -14,6 +14,7 @@ class CreatePrecosTable extends Migration
     {
         Schema::create('precos', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('filial_id');
             $table->string('nome');
             $table->integer('esporadico_qtd');
             $table->decimal('esporadico_preco');

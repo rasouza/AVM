@@ -19,18 +19,6 @@ class Vendedor extends Model implements AuthenticatableContract,
     protected $fillable = ['password'];
     protected $hidden = ['password', 'remember_token'];
 
-    public function funcionario()
-    {
-        return $this->belongsTo('App\Funcionario');
-    }
-
-    public function cargo()
-    {
-        return $this->belongsTo('App\Cargo');
-    }
-
-    public function filial()
-    {
-        return $this->belongsTo('App\Filial');
-    }
+    public function funcionario() { return $this->belongsTo('App\Funcionario'); }
+    public function cargo() { return $this->belongsTo('App\Cargo'); }
 }

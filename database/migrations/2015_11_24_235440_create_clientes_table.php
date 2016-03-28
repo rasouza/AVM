@@ -16,6 +16,7 @@ class CreateClientesTable extends Migration
             $table->increments('id');
             $table->string('nome');
             $table->string('email');
+            $table->integer('filial_id');
             $table->integer('vendedor_id');
             $table->integer('gerente_id');
             $table->string('contato')->nullable();

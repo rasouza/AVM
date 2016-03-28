@@ -14,7 +14,6 @@ class VendedoresTableSeeder extends Seeder
         DB::table('vendedores')->insert([
             'cargo_id' => '1',
             'funcionario_id' => '1',
-            'filial_id' => 1,
             'password' => md5('dbzhpg123')
         ]);
 

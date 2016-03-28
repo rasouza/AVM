@@ -19,9 +19,8 @@ class CreateProcessosTable extends Migration
             $table->integer('setor');
             $table->string('codigo');
             $table->integer('quantidade');
-            $table->boolean('inventariado');
+            $table->boolean('divergencia');
             $table->boolean('auditado');
-            $table->string('operador');
             $table->timestamps();
         });
     }
