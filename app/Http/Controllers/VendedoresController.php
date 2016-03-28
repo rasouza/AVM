@@ -26,10 +26,13 @@ class VendedoresController extends Controller
     public function index()
     {
         $vendedores = Vendedor::with(['cargo', 'funcionario'])
+            ->join('funcionarios', 'funcionarios.id', '=', 'vendedores.funcionario_id')
             ->whereHas('funcionario', function($q) {
                 $q->active();
             })
-            ->get();
+            ->orderBy('funcionarios.filial_id')
+            ->orderBy('funcionarios.nome')
+            ->get(['vendedores.*']);
 
         return view('administracao.vendedores.index', compact('vendedores', 'funcionarios'));
     }
