@@ -88,8 +88,9 @@ return [
     */
 
     'custom' => [
-        'attribute-name' => [
-            'rule-name' => 'custom-message',
+        'file' => [
+            'operador_exists'   => 'O operador não está na lista de inventariantes desta O.S.',
+            'non_exists'        => 'Este arquivo já foi baixado'
         ],
     ],
 

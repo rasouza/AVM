@@ -9,4 +9,10 @@ class Uf extends Model
     public function filiais() { return $this->hasMany('App\Filial'); }
     public function fichas() { return $this->hasMany('App\Fichas'); }
     public function funcionarios() { return $this->hasMany('App\Funcionario'); }
+
+    public static function dropdown() {
+        return self::orderBy('sigla', 'asc')
+            ->get()
+            ->lists('sigla', 'id');
+    }
 }

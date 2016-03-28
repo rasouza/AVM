@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cliente extends Model
 {
+    use Traits\ActiveScope;
+
     protected $guarded = [];
     protected $casts = [
         'propostaBegin' => 'date',
@@ -52,4 +54,8 @@ class Cliente extends Model
     public function agendas() { return $this->hasMany('App\Agenda'); }
     public function vendedor() { return $this->belongsTo('App\Funcionario', 'vendedor_id'); }
     public function gerente() { return $this->belongsTo('App\Funcionario', 'gerente_id'); }
+
+    public static function dropdown() {
+        return self::active()->orderBy('nome', 'asc')->lists('nome', 'id');
+    }
 }

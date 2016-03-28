@@ -4,14 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Agenda;
 use App\Cliente;
-use App\Filial;
-use App\Os;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class AgendaController extends Controller
 {
+    function __construct() { $this->authorize('gerente'); }
+
     /**
      * Display a listing of the resource.
      *
@@ -19,10 +19,9 @@ class AgendaController extends Controller
      */
     public function index()
     {
-        $agendas = Agenda::join('os', 'os.agenda_id', '=', 'agenda.id')
-            ->where('os.status', '<>' ,'concluido')
-            ->orderBy('data', 'asc')
-            ->get();
+        // Workaround para ordenar por nome do cliente (relation field)
+        $agendas = Agenda::getActiveAgenda();
+
         return view('operacional.agenda.index', compact('agendas'));
     }
 
@@ -35,7 +34,7 @@ class AgendaController extends Controller
     {
         $action = 'AgendaController@store';
         $agenda = new Agenda();
-        $clientes = Cliente::orderBy('nome', 'asc')->get()->lists('nome', 'id');
+        $clientes = Cliente::dropdown();
 
         return view('operacional.agenda.form', compact('agenda', 'clientes', 'action'));
     }
@@ -74,7 +73,7 @@ class AgendaController extends Controller
     public function edit(Agenda $agenda)
     {
         $action = 'AgendaController@update';
-        $clientes = Cliente::orderBy('nome', 'asc')->get()->lists('nome', 'id');
+        $clientes = Cliente::dropdown();
 
         return view('operacional.agenda.form', compact('agenda', 'clientes', 'action'));
     }

@@ -12,6 +12,16 @@
     ]) !!}
 
         <ol class="cf-ol">
+
+            @can('administrador', Auth::user())
+            <li>
+                <label for="filial_id"><span>Filial</span></label>
+                {!! Form::select('filial_id', $filiais, $funcionario->filial_id) !!}
+            </li>
+            @else
+                {!! Form::hidden('filial_id', Auth::user()->funcionario->filial->id) !!}
+            @endcan
+
             <li>
                 <label for="nome"><span>Nome</span></label>
                 {!! Form::text('nome', null, ['class' => 'required']  ) !!}

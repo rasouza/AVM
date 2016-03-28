@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests;
-use App\Os;
+use App\Agenda;
 
 
 class ProcessosController extends Controller
@@ -17,8 +17,8 @@ class ProcessosController extends Controller
      */
     public function index()
     {
-        $oses = Os::where('status', 'confirmado')->get();
-        return view('operacional.processos.index', compact('oses'));
+        $agendas = Agenda::getActiveAgenda();
+        return view('operacional.processos.index', compact('agendas'));
     }
 
 }

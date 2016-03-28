@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Validator;
-use File;
 
 use Illuminate\Support\ServiceProvider;
 
@@ -17,6 +16,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Validator::extend('non_exists', 'App\Validators\FileValidator@nonExists');
+        Validator::extend('operador_exists', 'App\Validators\FileValidator@operadorExists');
     }
 
     /**

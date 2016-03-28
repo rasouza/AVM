@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Funcionario;
-use App\Vendedor;
 use App\Os;
+use App\Agenda;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 class OsController extends Controller
 {
+    function __construct() { $this->authorize('gerente'); }
+    
     /**
      * Display a listing of the resource.
      *
@@ -18,14 +20,9 @@ class OsController extends Controller
      */
     public function index()
     {
-        $oses = Os::join('agenda', 'agenda.id', '=', 'os.agenda_id')
-            ->join('clientes', 'clientes.id', '=', 'agenda.cliente_id')
-            ->where('os.status', '<>', 'concluido')
-            ->orderBy('agenda.data', 'asc')
-            ->orderBy('clientes.nome', 'asc')
-            ->select('os.*')
-            ->get();
-        return view('operacional.os.index', compact('oses'));
+        $agendas = Agenda::getActiveAgenda();
+
+        return view('operacional.os.index', compact('agendas'));
     }
 
     /**

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Funcionario;
 use App\Uf;
+use App\Filial;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,10 +12,7 @@ use Illuminate\Support\Facades\Auth;
 
 class FuncionariosController extends Controller
 {
-    function __construct()
-    {
-        $this->authorize('gerente', Auth::user());
-    }
+    function __construct() { $this->authorize('gerente'); }
 
     /**
      * Display a listing of the resource.
@@ -23,7 +21,10 @@ class FuncionariosController extends Controller
      */
     public function index()
     {
-        $funcionario = Funcionario::with('uf')->orderBy('nome', 'asc')->get();
+        $funcionario = Funcionario::with('uf')
+            ->active()
+            ->orderBy('nome', 'asc')
+            ->get();
         return view('administracao.funcionarios.index', [ 'funcionarios' => $funcionario ]);
     }
 
@@ -36,10 +37,9 @@ class FuncionariosController extends Controller
     {
         $action = 'FuncionariosController@store';
         $funcionario = new Funcionario();
-        $ufs = Uf::orderBy('sigla', 'asc')
-            ->get()
-            ->lists('sigla', 'id');
-        return view('administracao.funcionarios.form', compact('funcionario', 'ufs', 'action'));
+        $filiais = Filial::dropdown();
+        $ufs = Uf::dropdown();
+        return view('administracao.funcionarios.form', compact('funcionario', 'filiais', 'ufs', 'action'));
     }
 
     /**
@@ -79,11 +79,9 @@ class FuncionariosController extends Controller
     public function edit(Funcionario $funcionario)
     {
         $action = 'FuncionariosController@update';
-
-        $ufs = Uf::orderBy('sigla', 'asc')
-            ->get()
-            ->lists('sigla', 'id');
-        return view('administracao.funcionarios.form', compact('funcionario', 'ufs', 'action'));
+        $filiais = Filial::dropdown();
+        $ufs = Uf::dropdown();
+        return view('administracao.funcionarios.form', compact('funcionario', 'filiais', 'ufs', 'action'));
     }
 
     /**

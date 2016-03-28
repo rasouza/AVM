@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class FichasController extends Controller
 {
-    function __construct()
-    {
-        $this->authorize('gerente', Auth::user());
-    }
+    function __construct() { $this->authorize('gerente'); }
 
     /**
      * Display a listing of the resource.
@@ -25,7 +22,7 @@ class FichasController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::orderBy('nome', 'asc')->get();
+        $clientes = Cliente::active()->orderBy('nome', 'asc')->get();
         return view('comercial.fichas.index', compact('clientes'));
     }
 
@@ -42,8 +39,8 @@ class FichasController extends Controller
         if ($request->has('cliente'))
             $ficha->cliente()->associate(Cliente::find($request->cliente));
 
-        $ufs = Uf::orderBy('sigla', 'asc')->lists('sigla', 'id');
-        $clientes = Cliente::orderBy('nome', 'asc')->lists('nome', 'id');
+        $ufs = Uf::dropdown();
+        $clientes = Cliente::dropdown();
 
         return view('comercial.fichas.form', compact('ficha', 'action', 'ufs', 'clientes'));
     }
@@ -81,8 +78,8 @@ class FichasController extends Controller
     {
         $action = 'FichasController@update';
 
-        $ufs = Uf::orderBy('sigla', 'asc')->lists('sigla', 'id');
-        $clientes = Cliente::orderBy('nome', 'asc')->lists('nome', 'id');
+        $ufs = Uf::dropdown();
+        $clientes = Cliente::dropdown();
 
         return view('comercial.fichas.form', compact('ficha', 'action', 'ufs', 'clientes'));
     }

@@ -13,12 +13,12 @@
             </tr>
             <tr>
                 <th class="features">Filial</th>
-                <td>{{ $os->agenda->filial->nome }}</td>
+                <td>{{ $os->agenda->filial->nome or '-' }}</td>
             </tr>
 
             <tr>
                 <th class="features">Coordenador</th>
-                <td>{{ ucfirst($os->coordenador->nome) }}</td>
+                <td>{{ $os->coordenador->nome or '-' }}</td>
             </tr>
 
             <tr>

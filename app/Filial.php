@@ -15,4 +15,8 @@ class Filial extends Model
     public function agendas() { return $this->hasMany('App\Agenda'); }
     public function precos() { return $this->hasMany('App\Preco'); }
     public function clientes() { return $this->hasMany('App\Cliente'); }
+
+    public static function dropdown() {
+        return self::orderBy('nome', 'asc')->get()->lists('nome', 'id');
+    }
 }

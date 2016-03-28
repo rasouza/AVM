@@ -3,20 +3,20 @@
     <div class="alert alert-error"><b>Cuidado!</b> Existem duplicidades no processo atual</div>
 @endif
 
-{{-- Arquivos de mesmo nome --}}
-@if ($errors->has('file'))
-    <div class="alert alert-error"><b>Erro!</b> Esse arquivo já foi baixado</div>
-@endif
+{{-- Erro no validador --}}
+@foreach($errors->all() as $error)
+    <div class="alert alert-error"><b>Erro!</b> {{ $error }}</div>
+@endforeach
 
 <div class="container">
     <div class="row">
         <div class="span6">
             <dl class="dl-horizontal">
                 <dt>Cliente</dt>
-                <dd>{{ $os->agenda->cliente->nome }}</dd>
+                <dd>{{ $os->agenda->cliente->nome or '-' }}</dd>
 
                 <dt>Gerente responsável</dt>
-                <dd>{{ $os->agenda->cliente->ficha->gerente }}</dd>
+                <dd>{{ $os->agenda->cliente->ficha->gerente or '-' }}</dd>
 
                 <dt>Qtde de Coletores</dt>
                 <dd>{{  count($os->inventariantes) }}</dd>

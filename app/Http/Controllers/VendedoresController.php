@@ -25,7 +25,11 @@ class VendedoresController extends Controller
      */
     public function index()
     {
-        $vendedores = Vendedor::with('cargo', 'funcionario')->get();
+        $vendedores = Vendedor::with(['cargo', 'funcionario'])
+            ->whereHas('funcionario', function($q) {
+                $q->active();
+            })
+            ->get();
 
         return view('administracao.vendedores.index', compact('vendedores', 'funcionarios'));
     }
@@ -40,13 +44,8 @@ class VendedoresController extends Controller
         $action = 'VendedoresController@store';
         $vendedor = new Vendedor();
 
-        if ($request->has('funcionario'))
-            $vendedor->funcionario()->associate(Funcionario::find($request->funcionario));
-
-        $cargos = Cargo::orderBy('nome', 'asc')->get()->lists('nome', 'id');
-        $funcionarios = Funcionario::orderBy('nome', 'asc')->get()->lists('nome', 'id');
-
-
+        $cargos = Cargo::dropdown();
+        $funcionarios = Funcionario::dropdown();
 
         return view('administracao.vendedores.form', compact('vendedor', 'action', 'cargos', 'funcionarios'));
     }
@@ -95,8 +94,8 @@ class VendedoresController extends Controller
     {
         $action = 'VendedoresController@update';
 
-        $cargos = Cargo::orderBy('nome', 'asc')->get()->lists('nome', 'id');
-        $funcionarios = Funcionario::orderBy('nome', 'asc')->get()->lists('nome', 'id');
+        $cargos = Cargo::dropdown();
+        $funcionarios = Funcionario::dropdown();
 
         return view('administracao.vendedores.form', compact('vendedor', 'action', 'cargos', 'funcionarios'));
     }

@@ -23,7 +23,7 @@
             <tbody>
                 @foreach($processos as $processo)
                     <tr>
-                        <td>{{ $processo->operador }}</td>
+                        <td>{{ $processo->funcionario->nome }}</td>
                         <td>{{ $processo->quantidade }}</td>
                         <td>{!! Form::text('horas', null, ['style' => 'width: 20px;']) !!}</td>
                     </tr>

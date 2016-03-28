@@ -20,7 +20,6 @@ class FilialServiceProvider extends ServiceProvider
     public function boot()
     {
         Preco::saving(function($preco) { $preco->filial_id = Auth::user()->funcionario->filial->id; });
-        Funcionario::saving(function($funcionario) { $funcionario->filial_id = Auth::user()->funcionario->filial->id; });
         Cliente::saving(function($cliente) { $cliente->filial_id = Auth::user()->funcionario->filial->id; });
         Agenda::saving(function($agenda) { $agenda->filial_id = Auth::user()->funcionario->filial->id; });
     }

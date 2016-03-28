@@ -85,15 +85,18 @@
                 <!-- START NAV -->
                 <div id="nav">
                     <ul class="level-1 black">
-                        @can('gerente', Auth::user())
+                        @can('gerente')
                             <li><a href="#">Administra&ccedil;&atilde;o</a>
                                 <ul class="sub-menu">
-                                    @can('administrador', Auth::user())
+                                    @can('administrador')
                                         <li><a href="{{ url('administracao/filiais') }}">Filiais</a></li>
+                                        <li><a href="{{ url('administracao/cargos') }}">Cargos e Funções</a></li>
+                                    @endcan
+                                    @can('franqueado')
                                         <li><a href="{{ url('administracao/precos') }}">Tabela de Preços</a></li>
                                     @endcan
                                     <li><a href="{{ url('administracao/funcionarios') }}">Funcionários</a></li>
-                                    <li><a href="{{ url('administracao/cargos') }}">Cargos e Funções</a></li>
+
                                     <li><a href="{{ url('administracao/vendedores') }}">Vendedores e Gerentes</a></li>
                                     <li><a href="#">Cash</a>
                                         <ul class="sub-menu">
@@ -109,7 +112,7 @@
                             </li>
                         @endcan
 
-                        @can('gerente', Auth::user())
+                        @can('gerente')
                             <li><a href="#">Comercial</a>
                                 <ul class="sub-menu">
                                     <li><a href="{{ url('comercial/clientes') }}">Clientes</a></li>
@@ -122,7 +125,7 @@
 
                         <li><a href="#">Operacional</a>
                             <ul class="sub-menu">
-                                @can('gerente', Auth::user())
+                                @can('gerente')
                                     <li><a href="{{ url('operacional/agenda') }}">Agenda</a></li>
                                     <li><a href="{{ url('operacional/os') }}">Ordem de Serviço</a></li>
                                     <li><a href="{{ url('operacional/backups') }}">Backup</a></li>
@@ -140,7 +143,7 @@
                             </ul>
                         </li>
 
-                        @can('administrador', Auth::user())
+                        @can('administrador')
                             <li><a href="#">Financeiro</a>
                                 <ul class="sub-menu">
                                     <li><a href="#">Fornecedor</a></li>

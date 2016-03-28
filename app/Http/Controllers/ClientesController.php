@@ -13,10 +13,7 @@ use Illuminate\Support\Facades\DB;
 
 class ClientesController extends Controller
 {
-    function __construct()
-    {
-        $this->authorize('gerente', Auth::user());
-    }
+    function __construct() { $this->authorize('gerente'); }
 
     /**
      * Display a listing of the resource.
@@ -25,7 +22,7 @@ class ClientesController extends Controller
      */
     public function index()
     {
-        $clientes = Cliente::orderBy('nome', 'asc')->get();
+        $clientes = Cliente::active()->orderBy('nome', 'asc')->get();
         return view('comercial.clientes.index', compact('clientes'));
     }
 

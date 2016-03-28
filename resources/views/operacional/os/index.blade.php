@@ -4,7 +4,7 @@
 @section('sidebar') @endsection
 @section('content')
     <table width="100%" class="short-table">
-        @if($oses->count() == 0)
+        @if($agendas->count() == 0)
             <tr>
                 <th class="features" colspan="4">Nenhuma O.S. foi cadastrada.</th>
             </tr>
@@ -21,16 +21,16 @@
             </thead>
 
             <tbody>
-            @foreach($oses as $os)
+            @foreach($agendas as $agenda)
                 <tr>
 
-                    <th class="features">{{ $os->agenda->cliente->nome }} {{ $os->agenda->data }}</th>
-                    <td><a href="{{ action('AmbientesController@edit', ['os' => $os]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
-                    <td><a href="{{ action('AgendaController@edit', [$os->agenda]) }}"><img src="{{ asset('images/icons/moleskine32.png') }}" alt="Agenda"/></a></td>
-                    <td><a href="{{ action('OsController@show', $os) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
-                    <td><a href="{{ action('OsController@edit', $os) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
+                    <th class="features">{{ $agenda->cliente->nome }} {{ $agenda->data }}</th>
+                    <td><a href="{{ action('AmbientesController@edit', ['os' => $agenda->os]) }}"><img src="{{ asset('images/icons/testimonial32.png') }}" alt="O.S."/></a></td>
+                    <td><a href="{{ action('AgendaController@edit', [$agenda]) }}"><img src="{{ asset('images/icons/moleskine32.png') }}" alt="Agenda"/></a></td>
+                    <td><a href="{{ action('OsController@show', $agenda->os) }}"><img src="{{ asset('images/icons/search.png') }}" alt="Visualizar"/></a></td>
+                    <td><a href="{{ action('OsController@edit', $agenda->os) }}"><img src="{{ asset('images/icons/pencil32.png') }}" alt="Editar"/></a></td>
                     <td>
-                        {!! Form::open(['action' => ['OsController@destroy', $os], 'method' => 'delete']) !!}
+                        {!! Form::open(['action' => ['OsController@destroy', $agenda->os], 'method' => 'delete']) !!}
                         <button class="small button red delete" style="border: none">Excluir</button>
                         {!! Form::close() !!}
                     </td>

@@ -10,10 +10,7 @@ use Illuminate\Support\Facades\Auth;
 
 class PrecosController extends Controller
 {
-    function __construct()
-    {
-        $this->authorize('administrador', Auth::user());
-    }
+    function __construct() { $this->authorize('franqueado'); }
 
     /**
      * Display a listing of the resource.

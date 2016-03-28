@@ -15,16 +15,23 @@ use App\Processo;
 
 class ProcessoController extends Controller
 {
-    public function __construct()
-    {
-        $os = Route::current()->os;
+    public function __construct() {
+        $this->authorize('coordenador');
+
+        $os = Route::current()->os->load('ambientes.processos');
+
+        if($os->ambientes->count() == 0)
+            return redirect()
+                ->action('AmbientesController@edit', [$os])
+                ->with('error', 'sem ambiente')
+                ->send();
+
         $total = $os->total();
         $inventariados = $os->inventariados();
         $auditados = $os->auditados();
         $progresso = $os->progresso();
         $pecas = $os->pecas();
         $duplicidades = $os->getDuplicidades();
-        $os = $os->with('ambientes.processos')->first();
 
         view()->share(compact('os', 'total', 'inventariados', 'auditados', 'progresso', 'pecas', 'duplicidades'));
     }
@@ -38,19 +45,21 @@ class ProcessoController extends Controller
     {
         $file = $request->file('file');
         $name = $file->getClientOriginalName();
-
-        $this->validate($request, ['file' => 'mimes:txt|non_exists']);
+        $operador = (int) substr(explode('_', $name)[1], 0, -4);
+        $inventariantes = implode(',', $os->inventariantes);
+        $this->validate($request, ['file' => "mimes:txt|non_exists|operador_exists:$operador,$inventariantes"]);
 
         $file->move('processos/', $name);
 
         $fh = fopen("processos/$name", 'r');
         while (($row = fgetcsv($fh, null, ',')) !== FALSE) {
+
             $os->getAmbiente($row[0])->processos()->create([
                 'setor' => $row[0],
                 'codigo' => $row[1],
                 'quantidade' => $row[2],
                 'auditado' => false,
-                'operador' => substr(explode('_', $name)[1], 0, -4) // TODO: Mudar para (int) quando receber codigo
+                'funcionario_id' => $operador
             ]);
         }
 
@@ -96,8 +105,8 @@ class ProcessoController extends Controller
             
         }
         $processos = $os->processos()
-            ->groupBy('operador')
-            ->selectRaw('sum(quantidade) as quantidade, operador')
+            ->groupBy('funcionario_id')
+            ->selectRaw('sum(quantidade) as quantidade, funcionario_id')
             ->get();
         return view('operacional.processo.operadores', compact('processos'));
     }

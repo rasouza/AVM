@@ -4,21 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+
 class Funcionario extends Model
 {
-    protected $fillable = [
-        'uf_id',
-        'nome',
-        'endereco',
-        'bairro',
-        'cep',
-        'cidade',
-        'telefone',
-        'email',
-        'cpf',
-        'rg',
-        'pis'
-    ];
+    use Traits\ActiveScope;
+    
+    protected $guarded = [];
+
+    public function getNomeAttribute($v) { return ucfirst($v); }
 
     public function filial() { return $this->belongsTo('App\Filial'); }
     public function vendedor() { return $this->hasOne('App\Vendedor'); }
@@ -34,5 +27,12 @@ class Funcionario extends Model
             ->where('cargos.nome', ucfirst($cargo))
             ->select('funcionarios.*')
             ->get();
+    }
+
+    public static function dropdown() {
+        return self::active()
+            ->orderBy('nome', 'asc')
+            ->get()
+            ->lists('nome', 'id');
     }
 }

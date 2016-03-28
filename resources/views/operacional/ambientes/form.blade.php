@@ -8,7 +8,11 @@
 
 @endsection
 @section('content')
-    <div id="usermessagea"></div>
+    <div id="usermessagea">
+        @if (session('error') == 'sem ambiente')
+            <p class="error">Crie um ou mais ambientes antes de começar o processo</p>
+        @endif
+    </div>
 
     {!! Form::open(['action' => 'AmbientesController@update', 'method' => 'put', 'class' => 'form-contact', 'id' => 'form-contact']) !!}
         {!! Form::hidden('os_id', $os->id) !!}
