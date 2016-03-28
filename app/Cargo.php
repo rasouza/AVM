@@ -4,6 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Auth;
+use Gate;
+
 class Cargo extends Model
 {
     protected $fillable = ['nome'];
@@ -11,6 +14,11 @@ class Cargo extends Model
     public function vendedores() { return $this->hasMany('App\Vendedor'); }
 
     public static function dropdown() {
-        return self::orderBy('nome', 'asc')->get()->lists('nome', 'id');
+        $cargos = self::orderBy('nome', 'asc');
+
+        if (Gate::denies('administrador'))
+            $cargos->where('id', '>', Auth::user()->cargo->id);
+
+        return $cargos->get()->lists('nome', 'id');
     }
 }
