@@ -50,8 +50,8 @@ Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
         Route::get('{os}/duplicidades', 'ProcessoController@duplicidades');
         Route::get('{os}/restantes', 'ProcessoController@restantes');
         Route::match(['get', 'post'], '{os}/auditoria', 'ProcessoController@auditoria');
-        Route::get('{os}/operadores', 'ProcessoController@operadores');
-        Route::get('{os}/divergencia', 'ProcessoController@divergencia');
+        Route::match(['get', 'post'], '{os}/operadores', 'ProcessoController@operadores');
+        Route::match(['get', 'post'], '{os}/divergencia', 'ProcessoController@divergencia');
         Route::get('{os}/finalizar', 'ProcessoController@finalizar');
         Route::get('{os}/excluir/{setor}', 'ProcessoController@destroy');
     });

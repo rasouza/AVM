@@ -22,11 +22,19 @@
 
             <tbody>
                 @foreach($processos as $processo)
-                    <tr>
-                        <td>{{ $processo->funcionario->nome }}</td>
-                        <td>{{ $processo->quantidade }}</td>
-                        <td>{!! Form::text('horas', null, ['style' => 'width: 20px;']) !!}</td>
-                    </tr>
+                    @if (is_null($processo->funcionario))
+                        <tr>
+                            <td>Gerente responsável</td>
+                            <td>{{ $processo->quantidade }}</td>
+                            <td>-</td>
+                        </tr>
+                    @else
+                        <tr>
+                            <td>{{ $processo->funcionario->nome }}</td>
+                            <td>{{ $processo->quantidade }}</td>
+                            <td>{!! Form::text('horas', null, ['style' => 'width: 20px;']) !!}</td>
+                        </tr>
+                    @endif
                 @endforeach
             </tbody>
         </table>

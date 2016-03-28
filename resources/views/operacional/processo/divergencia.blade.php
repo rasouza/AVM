@@ -1,7 +1,13 @@
 @extends('layouts.processos')
 @section('content')
 
-    @include('operacional.processo.cabecalho', ['link' => 'Duplicidades'])
+    @include('operacional.processo.cabecalho', ['link' => 'Divergencia'])
+    <div class="form-actions">
+        {!! Form::open(['action' => ['ProcessoController@divergencia', $os], 'method' => 'post', 'files' => true]) !!}
+            {!! Form::file('file') !!}
+            {!! Form::submit('Abrir') !!}
+        {!! Form::close() !!}
+    </div>
     <div id="divDT">
         <table class="table table-hover">
             <thead>
@@ -16,14 +22,22 @@
             </thead>
 
             <tbody>
-            @foreach($duplicidades as $processo)
+            @foreach($divergencias as $processo)
                 <tr>
                     <td>{{ $processo->ambiente }}</td>
                     <td>{{ $processo->setor }}</td>
                     <td>{{ $processo->codigo }}</td>
                     <td>{{ $processo->quantidade }}</td>
                     <td>{{ $processo->funcionario }}</td>
-                    <td><a href="{{ action("ProcessoController@duplicidades", [$os, 'processo' => $processo->id]) }}"><img src="{{ asset('images/icons/remove16.png') }}" /></td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>{{ $processo->ambiente }}</td>
+                    <td>{{ $processo->setor }}</td>
+                    <td>{{ $processo->codigo }}</td>
+                    <td>{{ $processo->qtd_divergente }}</td>
+                    <td>{{ $os->agenda->cliente->ficha->gerente or '-' }}</td>
+                    <td><a href="{{ action("ProcessoController@divergencia", [$os, 'processo' => $processo->id_divergente, 'antigo' => $processo->id]) }}"><img src="{{ asset('images/icons/tick16.png') }}" /></a></td>
                 </tr>
 
             @endforeach
@@ -40,6 +54,7 @@
         jQuery('#divDT table').dataTable({
             "sDom": "<'row'<'span6'l><'span6'f>r>t<'row'<'span6'i><'span6'p>>",
             "bPaginate": false,
+
             "bFilter": false,
             "bAutoWidth": true,
             "fnDrawCallback": function ( oSettings ) {

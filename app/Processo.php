@@ -15,4 +15,8 @@ class Processo extends Model
     public function ambiente() { return $this->belongsTo('App\Ambiente'); }
     public function funcionario() { return $this->belongsTo('App\Funcionario'); }
     
+    public function scopeActive($query) {
+        return $query->where('divergencia', false);
+    }
+    
 }

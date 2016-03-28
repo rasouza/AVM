@@ -41,16 +41,21 @@ class ProcessoController extends Controller
         return redirect()->action('ProcessoController@principal', [$os]);
     }
 
-    public function parse(Os $os, Request $request)
+    public function parse(Os $os, Request $request, $divergencia = 0)
     {
         $file = $request->file('file');
         $name = $file->getClientOriginalName();
-        $operador = (int) substr(explode('_', $name)[1], 0, -4);
-        $inventariantes = implode(',', $os->inventariantes);
-        $this->validate($request, ['file' => "mimes:txt|non_exists|operador_exists:$operador,$inventariantes"]);
+
+        // Se for divergencia não precisa validar
+        if ($divergencia)
+            $operador = 0;
+        else {
+            $operador = (int)substr(explode('_', $name)[1], 0, -4);
+            $inventariantes = implode(',', $os->inventariantes);
+            $this->validate($request, ['file' => "mimes:txt|non_exists|operador_exists:$operador,$inventariantes"]);
+        }
 
         $file->move('processos/', $name);
-
         $fh = fopen("processos/$name", 'r');
         while (($row = fgetcsv($fh, null, ',')) !== FALSE) {
 
@@ -58,7 +63,8 @@ class ProcessoController extends Controller
                 'setor' => $row[0],
                 'codigo' => $row[1],
                 'quantidade' => $row[2],
-                'auditado' => false,
+                'auditado' => $divergencia,
+                'divergencia' => $divergencia,
                 'funcionario_id' => $operador
             ]);
         }
@@ -102,12 +108,32 @@ class ProcessoController extends Controller
     public function restantes() { return view('operacional.processo.restantes'); }
     public function operadores(Os $os, Request $request) {
         if ($request->isMethod('post')) {
-            
+            //TODO: incluir horas inventariadas para cada operador
         }
         $processos = $os->processos()
             ->groupBy('funcionario_id')
             ->selectRaw('sum(quantidade) as quantidade, funcionario_id')
             ->get();
         return view('operacional.processo.operadores', compact('processos'));
+    }
+
+    public function finalizar(Os $os) {
+        if ($os->progresso() < 100)
+            return redirect()->back();
+    }
+
+    public function divergencia(Os $os, Request $request) {
+        if ($request->isMethod('post'))
+            $this->parse($os, $request, 1);
+
+        if ($request->has('processo')) {
+            Processo::find($request->antigo)->delete();
+            $processo = Processo::find($request->processo);
+            $processo->divergencia = false;
+            $processo->save();
+        }
+
+        $divergencias = $os->getDivergencia();
+        return view('operacional.processo.divergencia', compact('divergencias'));
     }
 }

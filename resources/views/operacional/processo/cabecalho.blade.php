@@ -33,7 +33,6 @@
             {!! Form::open(['action' => ['ProcessoController@parse', $os], 'method' => 'post', 'files' => true]) !!}
             <div class="form-actions">
                 <label>Enviar carga do coletor</label>
-                {!! Form::hidden('os_id', $os->id) !!}
                 {!! Form::file('file') !!}
                 {!! Form::submit('Abrir') !!}
             </div>
@@ -64,7 +63,7 @@
         <li @if($link == 'Operadores') class="active" @endif>
             {!! link_to_action('ProcessoController@operadores', 'Operadores', ['os' => $os]) !!}
         </li>
-        <li @if($link == 'Divergência') class="active" @endif>
+        <li @if($link == 'Divergencia') class="active" @endif>
             {!! link_to_action('ProcessoController@divergencia', 'Divergência', ['os' => $os]) !!}
         </li>
         <li @if ($auditados < $total) class="disabled" @endif>

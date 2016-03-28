@@ -8,33 +8,35 @@
         Codigo:{!! Form::text('codigo') !!}
         {!! Form::submit('Procurar', ['class' => 'btn small button']) !!}
         @if(isset($processos))
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th>Ambiente</th>
-                        <th>Setor</th>
-                        <th>Código</th>
-                        <th>Quantidade</th>
-                        <th>Operador</th>
-                    </tr>
-                </thead>
+            <div id="divDT">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th>Ambiente</th>
+                            <th>Setor</th>
+                            <th>Código</th>
+                            <th>Quantidade</th>
+                            <th>Operador</th>
+                        </tr>
+                    </thead>
 
-                <tbody>
-                @forelse($processos as $processo)
-                    <tr>
-                        <td>{{ $processo->ambiente->nome }}</td>
-                        <td>{{ $processo->setor }}</td>
-                        <td>{{ $processo->codigo }}</td>
-                        <td>{{ $processo->quantidade }}</td>
-                        <td>{{ $processo->operador }}</td>
-                    </tr>
-                @empty
-                    <tr>
-                        <td colspan="5">Nenhum item encontrado</td>
-                    </tr>
-                @endforelse
-                </tbody>
-            </table>
+                    <tbody>
+                    @forelse($processos as $processo)
+                        <tr>
+                            <td>{{ $processo->ambiente->nome }}</td>
+                            <td>{{ $processo->setor }}</td>
+                            <td>{{ $processo->codigo }}</td>
+                            <td>{{ $processo->quantidade }}</td>
+                            <td>{{ $processo->funcionario->nome or '-' }}</td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="5">Nenhum item encontrado</td>
+                        </tr>
+                    @endforelse
+                    </tbody>
+                </table>
+            </div>
         @endif
     {!! Form::close() !!}
 
