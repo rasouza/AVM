@@ -60,6 +60,7 @@ class Os extends Model
 				    AND a.quantidade <> b.quantidade
 				    AND a.divergencia <> b.divergencia
 				    AND a.ambiente_id = ?
+				ORDER BY a.codigo ASC, a.setor ASC
 			";
             $result = DB::select($sql, [$ambiente->id]);
             if (!empty($result))
