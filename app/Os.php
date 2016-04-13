@@ -16,7 +16,8 @@ class Os extends Model
     public function agenda() { return $this->belongsTo('App\Agenda'); }
     public function processos() { return $this->hasManyThrough('App\Processo', 'App\Ambiente')->active(); }
     public function ambientes() { return $this->hasMany('App\Ambiente'); }
-    
+    public function horas() { return $this->hasMany('App\Hora'); }
+
     public function getAmbiente($setor) {
         foreach ($this->ambientes as $ambiente)
             if ($setor >= $ambiente->inicio && $setor <= $ambiente->fim)

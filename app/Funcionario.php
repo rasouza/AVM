@@ -19,6 +19,7 @@ class Funcionario extends Model
     public function uf() { return $this->belongsTo('App\Uf'); }
     public function cargo() { return $this->vendedor->cargo(); }
     public function os() { return $this->hasMany('App\Os', 'coordenador_id'); }
+    public function horas() { return $this->hasMany('App\Hora'); }
 
     public static function getAllByCargo($cargo)
     {

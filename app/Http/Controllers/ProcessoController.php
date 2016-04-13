@@ -108,13 +108,21 @@ class ProcessoController extends Controller
     public function restantes() { return view('operacional.processo.restantes'); }
     public function operadores(Os $os, Request $request) {
         if ($request->isMethod('post')) {
-            //TODO: incluir horas inventariadas para cada operador
+            $os->horas()->delete();
+            $operadores = $request->operadores;
+            $horas = $request->horas;
+            foreach(array_combine($operadores, $horas) as $operador => $hora)
+                $os->horas()->create([
+                    'funcionario_id' => $operador,
+                    'horas'          => $hora
+                ]);
         }
-        $processos = $os->processos()
-            ->groupBy('funcionario_id')
-            ->selectRaw('sum(quantidade) as quantidade, funcionario_id')
+        $operadores = $os->processos()
+            ->leftJoin('horas', 'processos.funcionario_id', '=', 'horas.funcionario_id')
+            ->groupBy('processos.funcionario_id')
+            ->selectRaw('sum(quantidade) as quantidade, processos.funcionario_id, horas')
             ->get();
-        return view('operacional.processo.operadores', compact('processos'));
+        return view('operacional.processo.operadores', compact('operadores', 'os'));
     }
 
     public function finalizar(Os $os, Request $request) {

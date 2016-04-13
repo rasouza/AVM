@@ -9,33 +9,34 @@
     @include('operacional.processo.cabecalho', ['link' => 'Operadores'])
 
     <div id="divDT">
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Operador</th>
-                    <th>Quantidade</th>
-                    <th width="10">Horas</th>
-
-                </tr>
-            </thead>
-
-            <tbody>
-                @foreach($processos as $processo)
+        {!! Form::open(['action' => ['ProcessoController@operadores', $os], 'method' => 'post']) !!}
+            <table class="table table-hover">
+                <thead>
                     <tr>
-                        <td>{{ $processo->funcionario->nome or 'Divergente' }}</td>
-                        <td>{{ $processo->quantidade }}</td>
-                        <td>
-                            @if(is_null($processo->funcionario))
-                                -
-                            @else
-                                {!! Form::text('horas', null, ['style' => 'width: 20px;']) !!}
-                            @endif
-                        </td>
+                        <th>Operador</th>
+                        <th>Quantidade</th>
+                        <th width="10">Horas</th>
+
                     </tr>
-                @endforeach
-            </tbody>
-        </table>
+                </thead>
+
+                <tbody>
+                    @foreach($operadores as $operador)
+                        <tr>
+                            <td>{{ $operador->funcionario->nome or 'Divergente' }}</td>
+                            <td>{{ $operador->quantidade }}</td>
+                            <td>
+                                @if(is_null($operador->funcionario))
+                                    -
+                                @else
+                                    {!! Form::hidden('operadores[]', $operador->funcionario_id, ['id' => 'id']) !!}
+                                    {!! Form::text('horas[]', $operador->horas, ['style' => 'width: 35px;']) !!}
+                                @endif
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
         {!! Form::submit('Enviar', ['class' => 'btn small button']) !!}
     </div>
 
