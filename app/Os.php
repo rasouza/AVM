@@ -25,6 +25,7 @@ class Os extends Model
         return new Ambiente();
     }
 
+    // Funções do cabeçalho
     public function getDuplicidades() {
         $duplicidades = [];
         foreach ($this->ambientes as $ambiente) {
@@ -45,11 +46,14 @@ class Os extends Model
 
         return $duplicidades;
     }
-
     public function getDivergencia() {
         $duplicidades = [];
         foreach ($this->ambientes as $ambiente) {
-            $sql = "SELECT a.id, funcionarios.nome AS funcionario, ambientes.nome AS ambiente, a.setor, a.codigo, a.quantidade, c.id AS id_divergente, c.quantidade AS qtd_divergente FROM processos a INNER JOIN (SELECT * FROM processos WHERE divergencia = 1 AND ambiente_id = ?) c ON a.setor = c.setor AND a.codigo = c.codigo INNER JOIN funcionarios ON funcionarios.id = a.funcionario_id INNER JOIN ambientes ON ambientes.id = a.ambiente_id WHERE EXISTS (SELECT b.id FROM processos b WHERE a.setor = b.setor AND a.codigo = b.codigo AND a.quantidade <> b.quantidade AND a.id < b.id)";
+            $sql = "SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
+				INNER JOIN (SELECT setor, codigo FROM processos WHERE ambiente_id = ? GROUP BY setor, codigo HAVING max(quantidade) <> min(quantidade) AND max(divergencia) <> min(divergencia)) b
+					ON a.setor = b.setor AND a.codigo = b.codigo
+				INNER JOIN ambientes c ON a.ambiente_id = c.id  
+				LEFT JOIN funcionarios d ON d.id = a.funcionario_id";
             $result = DB::select($sql, [$ambiente->id]);
             if (!empty($result))
                 $duplicidades[] = $result;
@@ -60,7 +64,6 @@ class Os extends Model
 
         return $duplicidades;
     }
-
     public function total() {
         $sum = 0;
         $ambientes = $this->ambientes;
@@ -69,9 +72,49 @@ class Os extends Model
 
         return $sum;
     }
-
     public function inventariados() { return min($this->processos()->groupBy('setor')->get()->count(), $this->total()); }
     public function auditados() { return min($this->processos()->where('auditado', true)->groupBy('setor')->get()->count(), $this->total()); }
     public function progresso() { return 100*($this->inventariados() + $this->auditados()) / (2 * $this->total()); }
     public function pecas() { return (int) $this->processos()->sum('quantidade'); }
+    
+    public function finalizar($req) {
+        if (!file_exists('os/'))
+            mkdir('os/');
+        $fp = fopen("os/{$this->id}.txt", 'w');
+
+        $processos = $this->processos()
+            ->groupBy('codigo')
+            ->selectRaw('sum(quantidade) as soma, codigo')
+            ->get();
+
+        foreach ($processos as $processo) {
+            fwrite(
+                $fp,
+                Os::formatar($processo->codigo, $req['rbCodigo'], $req['codigo'])
+                .$req['separador']
+                .Os::formatar($processo->soma, $req['rbQuantidade'], $req['quantidade'])
+                .PHP_EOL
+            );
+        }
+        fclose($fp);
+
+        //TODO: Mandar email
+        //TODO: Finalizar OS
+    }
+
+    public static function formatar($val, $type, $len) {
+        switch ($type) {
+            case 'zero':
+                return str_pad($val, $len, '0', STR_PAD_LEFT);
+                break;
+
+            case 'espaco':
+                return str_pad($val, $len);
+                break;
+
+            default:
+                return $val;
+                break;
+        }
+    }
 }

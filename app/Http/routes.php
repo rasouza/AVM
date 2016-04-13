@@ -42,6 +42,8 @@ Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
     Route::get('relatorios', 'RelatoriosController@index');
 
     Route::group(['prefix' => 'processo', 'middleware' => 'auth'], function() {
+        Route::get('create', 'ProcessoController@create');
+        Route::get('index', 'ProcessoController@index');
 
         Route::post('{os}/parse', 'ProcessoController@parse');
 
@@ -52,7 +54,7 @@ Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
         Route::match(['get', 'post'], '{os}/auditoria', 'ProcessoController@auditoria');
         Route::match(['get', 'post'], '{os}/operadores', 'ProcessoController@operadores');
         Route::match(['get', 'post'], '{os}/divergencia', 'ProcessoController@divergencia');
-        Route::get('{os}/finalizar', 'ProcessoController@finalizar');
+        Route::match(['get', 'post'], '{os}/finalizar', 'ProcessoController@finalizar');
         Route::get('{os}/excluir/{setor}', 'ProcessoController@destroy');
     });
 });

@@ -28,18 +28,15 @@
                     <td>{{ $processo->setor }}</td>
                     <td>{{ $processo->codigo }}</td>
                     <td>{{ $processo->quantidade }}</td>
-                    <td>{{ $processo->funcionario }}</td>
-                    <td></td>
+                    <td>{{ $processo->funcionario or 'Divergente' }}</td>
+                    <td>
+                        @if($processo->divergencia)
+                            <a href="{{ action("ProcessoController@divergencia", [$os, 'processo' => $processo->id]) }}">
+                                <img src="{{ asset('images/icons/tick16.png') }}" />
+                            </a>
+                        @endif
+                    </td>
                 </tr>
-                <tr>
-                    <td>{{ $processo->ambiente }}</td>
-                    <td>{{ $processo->setor }}</td>
-                    <td>{{ $processo->codigo }}</td>
-                    <td>{{ $processo->qtd_divergente }}</td>
-                    <td>{{ $os->agenda->cliente->ficha->gerente or '-' }}</td>
-                    <td><a href="{{ action("ProcessoController@divergencia", [$os, 'processo' => $processo->id_divergente, 'antigo' => $processo->id]) }}"><img src="{{ asset('images/icons/tick16.png') }}" /></a></td>
-                </tr>
-
             @endforeach
             </tbody>
         </table>
