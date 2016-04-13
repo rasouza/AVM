@@ -117,18 +117,34 @@ class ProcessoController extends Controller
         return view('operacional.processo.operadores', compact('processos'));
     }
 
-    public function finalizar(Os $os) {
+    public function finalizar(Os $os, Request $request) {
         if ($os->progresso() < 100)
             return redirect()->back();
+
+        if ($request->isMethod('post')) {
+            $os->finalizar($request->only('rbCodigo', 'codigo', 'rbQuantidade', 'quantidade', 'separador'));
+
+            return 'O.S. Finalizada';
+        }
+
+        return view('operacional.processo.finalizar', compact('os'));
     }
 
     public function divergencia(Os $os, Request $request) {
-        if ($request->isMethod('post'))
+        if ($request->isMethod('post')) {
+            $os->processos()->where('divergencia', true)->delete();
             $this->parse($os, $request, 1);
+        }
 
         if ($request->has('processo')) {
-            Processo::find($request->antigo)->delete();
             $processo = Processo::find($request->processo);
+
+            $os->processos()
+                ->where('codigo', $processo->codigo)
+                ->where('setor', $processo->setor)
+                ->where('divergencia', false)
+                ->delete();
+
             $processo->divergencia = false;
             $processo->save();
         }
