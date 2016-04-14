@@ -48,7 +48,8 @@ class Os extends Model
                 ON a.setor = b.setor AND a.codigo = b.codigo 
             INNER JOIN ambientes c ON a.ambiente_id = c.id  
             INNER JOIN funcionarios d ON d.id = a.funcionario_id
-            WHERE a.divergencia = 0
+            WHERE ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).") 
+                AND a.divergencia = 0
             ORDER BY a.codigo, a.setor
         ";
 
@@ -61,6 +62,7 @@ class Os extends Model
                 ON a.setor = b.setor AND a.codigo = b.codigo
             INNER JOIN ambientes c ON a.ambiente_id = c.id  
             LEFT JOIN funcionarios d ON d.id = a.funcionario_id
+            WHERE a.ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).")
             ORDER BY a.setor, a.codigo
         ";
 
