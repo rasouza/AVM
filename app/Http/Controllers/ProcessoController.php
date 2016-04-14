@@ -140,7 +140,7 @@ class ProcessoController extends Controller
 
     public function divergencia(Os $os, Request $request) {
         if ($request->isMethod('post')) {
-            $os->processos()->where('divergencia', true)->delete();
+            $os->processos_divergentes()->where('divergencia', true)->delete();
             $this->parse($os, $request, 1);
         }
 

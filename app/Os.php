@@ -15,6 +15,7 @@ class Os extends Model
     public function coordenador() { return $this->belongsTo('App\Funcionario', 'coordenador_id'); }
     public function agenda() { return $this->belongsTo('App\Agenda'); }
     public function processos() { return $this->hasManyThrough('App\Processo', 'App\Ambiente')->active(); }
+    public function processos_divergentes() { return $this->hasManyThrough('App\Processo', 'App\Ambiente'); }
     public function ambientes() { return $this->hasMany('App\Ambiente'); }
     public function horas() { return $this->hasMany('App\Hora'); }
 
@@ -51,16 +52,12 @@ class Os extends Model
         $duplicidades = [];
         foreach ($this->ambientes as $ambiente) {
             $sql = "
-                SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
-                INNER JOIN processos b ON a.setor = b.setor AND a.codigo = b.codigo
-				INNER JOIN ambientes c ON a.ambiente_id = c.id  
-				LEFT JOIN funcionarios d ON d.id = a.funcionario_id
-				WHERE a.setor = b.setor
-				    AND a.codigo = b.codigo
-				    AND a.quantidade <> b.quantidade
-				    AND a.divergencia <> b.divergencia
-				    AND a.ambiente_id = ?
-				ORDER BY a.codigo ASC, a.setor ASC
+                SELECT  a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
+                INNER JOIN (SELECT * FROM processos WHERE ambiente_id = ? GROUP BY setor, codigo HAVING min(quantidade) <> max(quantidade) ) b
+                    ON a.setor = b.setor AND a.codigo = b.codigo
+                INNER JOIN ambientes c ON a.ambiente_id = c.id  
+                LEFT JOIN funcionarios d ON d.id = a.funcionario_id
+                ORDER BY a.setor, a.codigo
 			";
             $result = DB::select($sql, [$ambiente->id]);
             if (!empty($result))
