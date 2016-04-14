@@ -117,11 +117,7 @@ class ProcessoController extends Controller
                     'horas'          => $hora
                 ]);
         }
-        $operadores = $os->processos()
-            ->leftJoin('horas', 'processos.funcionario_id', '=', 'horas.funcionario_id')
-            ->groupBy('processos.funcionario_id')
-            ->selectRaw('sum(quantidade) as quantidade, processos.funcionario_id, horas')
-            ->get();
+        $operadores = $os->getOperadores();
         return view('operacional.processo.operadores', compact('operadores', 'os'));
     }
 

@@ -27,47 +27,46 @@ class Os extends Model
         return new Ambiente();
     }
 
+    public function getOperadores() {
+        return $this->processos()
+            ->join('ambientes AS a', 'processos.ambiente_id', '=', 'a.id')
+            ->join('os', 'a.os_id', '=', 'os.id')
+            ->leftJoin('horas', function ($j) {
+                $j->on('processos.funcionario_id', '=', 'horas.funcionario_id')
+                    ->on('horas.os_id', '=', 'os.id');
+            })
+            ->groupBy('processos.funcionario_id')
+            ->selectRaw('sum(quantidade) as quantidade, processos.funcionario_id, horas')
+            ->get();
+    }
+
     // Funções do cabeçalho
     public function getDuplicidades() {
-        $duplicidades = [];
-        foreach ($this->ambientes as $ambiente) {
-            $subsql = "SELECT setor, codigo, count(*) AS qty FROM processos WHERE ambiente_id = ? AND divergencia = 0 GROUP BY setor, codigo HAVING count(*) > 1";
-            $sql = "SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a 
-              INNER JOIN ($subsql) b ON a.setor = b.setor AND a.codigo = b.codigo 
-              INNER JOIN ambientes c ON a.ambiente_id = c.id  
-              INNER JOIN funcionarios d ON d.id = a.funcionario_id
-              WHERE ambiente_id = ? AND a.divergencia = 0
-              ORDER BY a.codigo ASC, a.setor ASC";
-            $result = DB::select($sql, [$ambiente->id, $ambiente->id]);
-            if (!empty($result))
-                $duplicidades[] = $result;
-        }
+        $sql = "
+            SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a 
+            INNER JOIN (SELECT setor, codigo, count(*) AS qty FROM processos WHERE ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).") AND divergencia = 0 GROUP BY setor, codigo HAVING count(*) > 1) b 
+                ON a.setor = b.setor AND a.codigo = b.codigo 
+            INNER JOIN ambientes c ON a.ambiente_id = c.id  
+            INNER JOIN funcionarios d ON d.id = a.funcionario_id
+            WHERE a.divergencia = 0
+            ORDER BY a.codigo, a.setor
+        ";
 
-        if (!empty($duplicidades))
-            $duplicidades = reset($duplicidades);
-
-        return $duplicidades;
+        return DB::select($sql);
     }
     public function getDivergencia() {
-        $duplicidades = [];
-        foreach ($this->ambientes as $ambiente) {
-            $sql = "
-                SELECT  a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
-                INNER JOIN (SELECT * FROM processos WHERE ambiente_id = ? GROUP BY setor, codigo HAVING min(quantidade) <> max(quantidade) ) b
-                    ON a.setor = b.setor AND a.codigo = b.codigo
-                INNER JOIN ambientes c ON a.ambiente_id = c.id  
-                LEFT JOIN funcionarios d ON d.id = a.funcionario_id
-                ORDER BY a.setor, a.codigo
-			";
-            $result = DB::select($sql, [$ambiente->id]);
-            if (!empty($result))
-                $duplicidades[] = $result;
-        }
+        $sql = "
+            SELECT  a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
+            INNER JOIN (SELECT * FROM processos WHERE ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).") GROUP BY setor, codigo HAVING min(quantidade) <> max(quantidade) ) b
+                ON a.setor = b.setor AND a.codigo = b.codigo
+            INNER JOIN ambientes c ON a.ambiente_id = c.id  
+            LEFT JOIN funcionarios d ON d.id = a.funcionario_id
+            ORDER BY a.setor, a.codigo
+        ";
 
-        if (!empty($duplicidades))
-            $duplicidades = reset($duplicidades);
 
-        return $duplicidades;
+
+        return DB::select($sql);
     }
     public function total() {
         $sum = 0;
