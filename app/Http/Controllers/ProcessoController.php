@@ -58,15 +58,16 @@ class ProcessoController extends Controller
         $file->move('processos/', $name);
         $fh = fopen("processos/$name", 'r');
         while (($row = fgetcsv($fh, null, ',')) !== FALSE) {
-
-            $os->getAmbiente($row[0])->processos()->create([
-                'setor' => $row[0],
-                'codigo' => $row[1],
-                'quantidade' => $row[2],
-                'auditado' => $divergencia,
-                'divergencia' => $divergencia,
-                'funcionario_id' => $operador
-            ]);
+            if (array(null) !== $row) {
+                $os->getAmbiente($row[0])->processos()->create([
+                    'setor' => $row[0],
+                    'codigo' => $row[1],
+                    'quantidade' => $row[2],
+                    'auditado' => $divergencia,
+                    'divergencia' => $divergencia,
+                    'funcionario_id' => $operador
+                ]);
+            }
         }
 
         return redirect()->action('ProcessoController@principal', [$os]);
