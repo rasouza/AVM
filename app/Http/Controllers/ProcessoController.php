@@ -12,6 +12,7 @@ use DB;
 
 use App\Os;
 use App\Processo;
+use Mail;
 
 class ProcessoController extends Controller
 {
@@ -128,8 +129,16 @@ class ProcessoController extends Controller
 
         if ($request->isMethod('post')) {
             $os->finalizar($request->only('rbCodigo', 'codigo', 'rbQuantidade', 'quantidade', 'separador'));
-
-            return 'O.S. Finalizada';
+            Mail::send('emails.os', compact('os'), function($m) use ($os) {
+                $m->from('contato@avminventarios.com.br');
+                $m->subject("Inventario - {$os->agenda->cliente->nome}");
+                $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
+                $m->to($os->email);
+            });
+            
+            $os->status = 'concluido';
+            $os->save();
+            return "E-mail enviado para {$os->email}";
         }
 
         return view('operacional.processo.finalizar', compact('os'));

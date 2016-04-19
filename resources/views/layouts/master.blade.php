@@ -13,7 +13,7 @@
 
         <!-- BEGIN .styles -->
         <!-- DataTables CSS -->
-        <link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/css/jquery.dataTables.css">
+        <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/jquery.dataTables.css') }}">
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/bootstrap.min.css') }}"/>
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/style.css') }}" />
         <link rel="stylesheet" type="text/css" media="screen" href="{{ asset('css/prettyPhoto.css') }}" />
@@ -50,7 +50,7 @@
         <script type='text/javascript' src="{{ asset('js/jquery.tweetable.js') }}"></script>
         <script type='text/javascript' src="{{ asset('js/cufon-yui.js') }}"></script>
         <script type='text/javascript' src="{{ asset('js/waukegan.font.js') }}"></script>
-        <script type="text/javascript" charset="utf8" src="http://ajax.aspnetcdn.com/ajax/jquery.dataTables/1.9.4/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" charset="utf8" src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
         <!-- END .scripts -->
 
         <!-- [favicon] begin -->
