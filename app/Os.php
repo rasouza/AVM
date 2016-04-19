@@ -103,9 +103,28 @@ class Os extends Model
             );
         }
         fclose($fp);
+    }
 
-        //TODO: Mandar email
-        //TODO: Finalizar OS
+    public function finalizarCSV() {
+        if (!file_exists('os/'))
+            mkdir('os/');
+        $fp = fopen("os/{$this->id}.csv", 'w');
+
+        foreach ($this->processos as $processo) {
+            $ambiente = mb_convert_encoding($processo->ambiente->nome, 'UTF-16LE', 'UTF-8');
+            // Converte decimal para inteiro
+            $quantidade = (fmod($processo->quantidade,1) == 0)? intval($processo->quantidade) : $processo->quantidade;
+            $operador = ($processo->funcionario)? mb_convert_encoding($processo->funcionario->nome, 'UTF-16LE', 'UTF-8') : 'Divergente';
+            fputcsv($fp, [
+                $ambiente,
+                $processo->setor,
+                $processo->codigo,
+                $quantidade,
+                $operador
+            ]);
+        }
+
+        fclose($fp);
     }
 
     public static function formatar($val, $type, $len) {

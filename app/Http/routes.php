@@ -39,7 +39,11 @@ Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
     Route::resource('os', 'OsController');
     Route::resource('ambientes', 'AmbientesController');
     Route::resource('processos', 'ProcessosController');
+
     Route::get('relatorios', 'RelatoriosController@index');
+    Route::get('relatorios/word/{os}', 'RelatoriosController@word');
+    Route::get('relatorios/excel/{os}', 'RelatoriosController@excel');
+    Route::get('relatorios/create', 'RelatoriosController@create');
 
     Route::group(['prefix' => 'processo', 'middleware' => 'auth'], function() {
         Route::get('create', 'ProcessoController@create');

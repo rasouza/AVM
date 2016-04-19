@@ -135,6 +135,8 @@ class ProcessoController extends Controller
                 $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
                 $m->to($os->email);
             });
+
+            $os->finalizarCSV();
             
             $os->status = 'concluido';
             $os->save();
