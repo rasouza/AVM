@@ -24,11 +24,8 @@
                     @forelse($ambientes as $ambiente)
                         <li>
                             Nome {!! Form::text('nome[]', $ambiente->nome, ['style' => 'width: 100px']) !!}
-
                             In&iacute;cio {!! Form::text('inicio[]', $ambiente->inicio, ['style' => 'width: 30px']) !!}
-
                             Fim {!! Form::text('fim[]', $ambiente->fim, ['style' => 'width: 30px']) !!}
-
                             <a class="remover">
                                 <img src="{{ asset('images/icons/remove16.png') }}" style="border: none;" />
                             </a>
@@ -36,11 +33,8 @@
                         @empty
                             <li>
                                 Nome {!! Form::text('nome[]', null, ['style' => 'width: 100px']) !!}
-
                                 In&iacute;cio {!! Form::text('inicio[]', null, ['style' => 'width: 30px']) !!}
-
                                 Fim {!! Form::text('fim[]', null, ['style' => 'width: 30px']) !!}
-
                                 <a class="remover">
                                     <img src="{{ asset('images/icons/remove16.png') }}" style="border: none;" />
                                 </a>
