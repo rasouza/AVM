@@ -12,5 +12,6 @@ before_script:
   - mysql -e 'create database avm;'
   - composer self-update
   - composer install --no-interaction
+  - php artisan migrate --seed
 
 script: vendor/bin/phpunit
