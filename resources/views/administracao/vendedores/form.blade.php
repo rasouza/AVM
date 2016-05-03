@@ -8,12 +8,12 @@
         <ol class="cf-ol">
             <li>
                 <label for="funcionario"><span>Funcionário</span></label>
-                {!! Form::select('funcionario', $funcionarios, $vendedor->funcionario_id !!}
+                {!! Form::select('funcionario', $funcionarios, $vendedor->funcionario_id) !!}
             </li>
 
             <li>
                 <label for="cargo"><span>Cargo</span></label>
-                {!! Form::select('cargo', $cargos, $vendedor->cargo_id !!}
+                {!! Form::select('cargo', $cargos, $vendedor->cargo) !!}
             </li>
 
             <li>
