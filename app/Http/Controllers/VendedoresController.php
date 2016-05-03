@@ -62,6 +62,7 @@ class VendedoresController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'funcionario' => 'unique:vendedores,funcionario_id',
             'password' => 'required'
         ]);
 
