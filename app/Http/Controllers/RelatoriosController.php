@@ -39,6 +39,7 @@ class RelatoriosController extends Controller
     /* Workaroud */
     public function create() {}
 
+    public function txt(Os $os) { return response()->download("os/{$os->id}.txt"); }
     public function word(Os $os) { return response()->download("os/{$os->id}.pdf"); }
     public function excel(Os $os) { return response()->download("os/{$os->id}.csv"); }
 }

@@ -19,7 +19,7 @@
                     <th class="features">
                         {{ $agenda->cliente->nome }} ({{$agenda->data}})
                     </th>
-                    <td><a href="{{ asset("os/{$agenda->os->id}.txt") }}" class="small button green">Baixar</a></td>
+                    <td><a href="{{ action('RelatoriosController@txt', $agenda->os)  }}" class="small button green">Baixar</a></td>
                 </tr>
             @empty
                 <tr>
