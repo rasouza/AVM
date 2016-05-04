@@ -34,9 +34,11 @@ class AmbientesController extends Controller
      */
     public function update(Request $request)
     {
+
         $os = Os::find($request->os_id);
         $processos = $os->processos;
 
+        // Cria os ambientes
         $os->ambientes()->delete();
         $ambientes = [];
         for ($i = 0; $i < count($request->nome); $i++) {
@@ -48,15 +50,36 @@ class AmbientesController extends Controller
                 array_push($ambientes, $ambiente);
             }
         }
-        $os->ambientes()->saveMany($ambientes);
 
-        // Reatribui todos os processos para os ambientes certos
-        foreach ($processos as $processo) {
-            $ambiente = $os->getAmbiente($processo->setor);
-            $processo->ambiente()->associate($ambiente)->save();
+        // Verifica se existe conflito de range entre os ambientes
+        foreach($ambientes as $ambiente) {
+            $outros_ambientes = array_diff($ambientes,[$ambiente]);
+            $range = range($ambiente->inicio, $ambiente->fim);
+            $conflito = collect($outros_ambientes)->contains(function ($k, $v) use ($range) {
+                $r = range($v->inicio,$v->fim);
+                return array_intersect($range,$r) != null;
+            });
+
+            if ($conflito) break;
         }
 
-        echo "Ambientes cadastrados com sucesso";
+
+        if (!$conflito) {
+            $os->ambientes()->saveMany($ambientes);
+
+            // Reatribui todos os processos para os ambientes certos
+            foreach ($processos as $processo) {
+                $ambiente = $os->getAmbiente($processo->setor);
+                $processo->ambiente()->associate($ambiente)->save();
+            }
+
+            echo "Ambientes cadastrados com sucesso";
+        }
+        else {
+            echo "<b style='color: red'>Setores em conflito! Arrume e envie novamente</b>";
+        }
+
+
     }
 
 }
