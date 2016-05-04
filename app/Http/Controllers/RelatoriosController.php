@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Os;
 use App\Agenda;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,10 +19,21 @@ class RelatoriosController extends Controller
     public function index()
     {
         $agendas = Agenda::whereHas('os', function($q) { $q->where('status', 'concluido'); })
-            ->orderBy('data')
+            ->where('data', '>', new Carbon('6 months ago'))
+            ->orderBy('data', 'DESC')
             ->get();
 
         return view('operacional.relatorios.index', compact('agendas'));
+    }
+
+    public function backup()
+    {
+        $agendas = Agenda::whereHas('os', function($q) { $q->where('status', 'concluido'); })
+            ->where('data', '>', new Carbon('6 months ago'))
+            ->orderBy('data', 'DESC')
+            ->get();
+
+        return view('operacional.relatorios.backup', compact('agendas'));
     }
 
     /**

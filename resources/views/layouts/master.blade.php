@@ -128,7 +128,7 @@
                                 @can('gerente')
                                     <li><a href="{{ url('operacional/agenda') }}">Agenda</a></li>
                                     <li><a href="{{ url('operacional/os') }}">Ordem de Serviço</a></li>
-                                    <li><a href="{{ url('operacional/backups') }}">Backup</a></li>
+                                    <li><a href="{{ url('operacional/relatorios/backup') }}">Backup</a></li>
                                     <li><a href="#">Inventário</a>
                                         <ul class="sub-menu">
                                             <li><a href="{{  url('operacional/os') }}">Cadastro de Ambientes</a></li>
