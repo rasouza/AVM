@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
+use PDF;
 
 class Os extends Model
 {
@@ -125,6 +126,10 @@ class Os extends Model
         }
 
         fclose($fp);
+    }
+
+    public function finalizarPDF() {
+        PDF::loadView('relatorios.pdf', ['os' => $this])->save("os/{$this->id}.pdf");
     }
 
     public static function formatar($val, $type, $len) {

@@ -137,6 +137,7 @@ class ProcessoController extends Controller
             });
 
             $os->finalizarCSV();
+            $os->finalizarPDF();
             
             $os->status = 'concluido';
             $os->save();

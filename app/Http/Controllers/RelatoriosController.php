@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Os;
 use App\Agenda;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use PDF;
 
 use App\Http\Requests;
 
@@ -23,7 +23,7 @@ class RelatoriosController extends Controller
             ->orderBy('data', 'DESC')
             ->get();
 
-        return view('operacional.relatorios.index', compact('agendas'));
+        return view('relatorios.index', compact('agendas'));
     }
 
     public function backup()
@@ -33,21 +33,12 @@ class RelatoriosController extends Controller
             ->orderBy('data', 'DESC')
             ->get();
 
-        return view('operacional.relatorios.backup', compact('agendas'));
+        return view('relatorios.backup', compact('agendas'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
+    /* Workaroud */
+    public function create() {}
 
-   public function word() {}
-   public function excel(Os $os) {
-       return response()->download("os/{$os->id}.csv");
-   }
+    public function word(Os $os) { return response()->download("os/{$os->id}.pdf"); }
+    public function excel(Os $os) { return response()->download("os/{$os->id}.csv"); }
 }
