@@ -130,7 +130,7 @@ class ProcessoController extends Controller
         if ($request->isMethod('post')) {
             $os->finalizar($request->only('rbCodigo', 'codigo', 'rbQuantidade', 'quantidade', 'separador'));
             Mail::send('emails.os', compact('os'), function($m) use ($os) {
-                $m->from('contato@avminventarios.com.br');
+                $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
                 $m->subject("Inventario - {$os->agenda->cliente->nome}");
                 $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
                 $m->to($os->email);
