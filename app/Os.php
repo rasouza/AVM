@@ -98,8 +98,8 @@ class Os extends Model
                 $fp,
                 Os::formatar($processo->codigo, $req['rbCodigo'], $req['codigo'])
                 .$req['separador']
-                .Os::formatar($processo->soma, $req['rbQuantidade'], $req['quantidade'])
-                .PHP_EOL
+                .Os::formatar(floatval($processo->soma), $req['rbQuantidade'], $req['quantidade'])
+                ."\r\n"
             );
         }
         fclose($fp);
@@ -119,7 +119,7 @@ class Os extends Model
                 $ambiente,
                 $processo->setor,
                 $processo->codigo,
-                $quantidade,
+                floatval($quantidade),
                 $operador
             ]);
         }

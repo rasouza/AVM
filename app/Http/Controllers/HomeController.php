@@ -16,6 +16,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        dd(fmod(1.1, 1));
+        dd(intval(1.2));
         return view('home');
     }
 
