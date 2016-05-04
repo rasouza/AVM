@@ -52,8 +52,8 @@ jQuery(document).ready(function($){
     // Mask Input
     $('[name=telefone]').mask('(99) 9999-9999?9');
     $('#numero').mask('999',{placeholder:' '});
-    $('[name=percentual]').mask('99,99');
-    $('.money').maskMoney();
+    $('[name=percentual], .money').mask('99,99');
+    // $('.money').maskMoney();
     $('.horario').mask('99:99');
     $('[name=cnpj]').mask('99.999.999/9999-99');
     $('[name=cep]').mask('99999-999');
