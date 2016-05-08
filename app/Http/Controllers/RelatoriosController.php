@@ -21,6 +21,7 @@ class RelatoriosController extends Controller
     public function index()
     {
         $agendas = Agenda::whereHas('os', function($q) { $q->where('status', 'concluido'); })
+            ->active()
             ->where('data', '>', new Carbon('6 months ago'))
             ->orderBy('data', 'DESC')
             ->get();
@@ -31,6 +32,7 @@ class RelatoriosController extends Controller
     public function backup()
     {
         $agendas = Agenda::whereHas('os', function($q) { $q->where('status', 'concluido'); })
+            ->active()
             ->where('data', '>', new Carbon('6 months ago'))
             ->orderBy('data', 'DESC')
             ->get();
