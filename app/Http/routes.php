@@ -41,6 +41,8 @@ Route::group(['prefix' => 'operacional', 'middleware' => 'auth'], function() {
     Route::resource('processos', 'ProcessosController');
 
     Route::get('relatorios', 'RelatoriosController@index');
+    Route::get('relatorios/horas/{funcionarios}', 'RelatoriosController@horas');
+    Route::get('relatorios/funcionarios', 'RelatoriosController@funcionarios');
     Route::get('relatorios/backup', 'RelatoriosController@backup');
     Route::get('relatorios/backup/{os}', 'RelatoriosController@txt');
     Route::get('relatorios/word/{os}', 'RelatoriosController@word');
