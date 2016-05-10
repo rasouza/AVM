@@ -22,9 +22,9 @@
                 <dd>{{  count($os->inventariantes) }}</dd>
 
                 <dt>Setores restantes</dt>
-                <dd>Inventariar: {{ $total - $inventariados }} ({{ (1-$inventariados/$total)*100 }}%)</dd>
+                <dd>Inventariar: {{ $total - $inventariados }} ({{ round((1-$inventariados/$total)*100) }}%)</dd>
 
-                <dd>Auditar: {{ $total - $auditados }} ({{ (1-$auditados/$total)*100 }}%)</dd>
+                <dd>Auditar: {{ $total - $auditados }} ({{ round((1-$auditados/$total)*100) }}%)</dd>
                 <dt>Total inventariado</dt>
                 <dd>{{ $os->pecas() }} pe&ccedil;as</dd>
             </dl>

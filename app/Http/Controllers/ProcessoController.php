@@ -79,7 +79,7 @@ class ProcessoController extends Controller
         if ($request->isMethod('post')) {
             $processos = $os->processos()
                 ->where('setor', $request->setor)
-                ->OrWhere('codigo', $request->codigo)
+                ->OrWhere('codigo', 'LIKE', "{$request->codigo}%")
                 ->get();
         }
         return view('operacional.processo.detalhe', compact('processos'));
@@ -103,6 +103,8 @@ class ProcessoController extends Controller
                 foreach ($request->processos as $setor)
                     $this->destroy($os, $setor);
             }
+
+            return redirect()->action('ProcessoController@auditoria');
         }
         $processos = $os->processos()->where('auditado', false)->groupBy('setor')->get();
         return view('operacional.processo.auditoria', compact('processos'));
