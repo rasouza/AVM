@@ -57,7 +57,7 @@ class RelatoriosController extends Controller
         Date::setLocale('pt-BR');
 
         $horas = DB::table('horas')
-            ->selectRaw('horas.*, SUM(processos.quantidade) quantidade, clientes.nome cliente, agenda.data')
+            ->selectRaw('horas.*, SUM(processos.quantidade) quantidade, clientes.nome cliente, agenda.data, CONCAT(MONTH(agenda.data), \'/\', YEAR(agenda.data)) grupo')
             ->leftJoin('os', 'horas.os_id', '=', 'os.id')
             ->leftJoin('ambientes', 'ambientes.os_id', '=', 'os.id')
             ->leftJoin('processos', 'ambientes.id', '=', 'processos.ambiente_id')
@@ -67,47 +67,33 @@ class RelatoriosController extends Controller
             ->where('processos.funcionario_id', $funcionario->id)
             ->groupBy('processos.funcionario_id')
             ->groupBy('os.id')
-            ->get();
-        $grupos = DB::table('horas')
-            ->selectRaw('MONTH(agenda.data) mes, YEAR(agenda.data) ano')
-            ->leftJoin('os', 'horas.os_id', '=', 'os.id')
-            ->leftJoin('ambientes', 'ambientes.os_id', '=', 'os.id')
-            ->leftJoin('processos', 'ambientes.id', '=', 'processos.ambiente_id')
-            ->leftJoin('agenda', 'agenda.id', '=', 'os.agenda_id')
-            ->leftJoin('clientes', 'agenda.cliente_id', '=', 'clientes.id')
-            ->where('horas.funcionario_id', $funcionario->id)
-            ->where('processos.funcionario_id', $funcionario->id)
-            ->groupBy('processos.funcionario_id')
-            ->groupBy('os.id')
-            ->distinct()
             ->get();
 
-        $horas = collect($horas)->map(function($v) {
-            $v->data = new Date($v->data);
-            return $v;
-        });
-        $grupos = collect($grupos)->map(function($v) use($horas) {
+        $grupos = collect($horas)->groupBy('grupo')->map(function($v, $k) {
             $pecas = 0;
             $tempo = 0;
             $media = 0;
-            foreach ($horas as $hora) {
-                if($hora->data->month == $v->mes && $hora->data->year == $v->ano) {
-                    $pecas += $hora->quantidade;
-                    $tempo += $hora->horas;
-                    $media += $hora->quantidade / $hora->horas;
-                }
+
+            $k = explode('/', $k);
+            $data = Date::createFromDate($k[1], $k[0], 1);
+
+            foreach ($v as $hora) {
+                $pecas += $hora->quantidade;
+                $tempo += $hora->horas;
+                $media += $hora->quantidade / $hora->horas;
+                $hora->data = new Date($hora->data);
             }
 
             return [
                 'quantidade' => $pecas,
-                'horas' => $tempo,
+                'tempo' => $tempo,
                 'media' => $media,
-                'data' => Date::createFromDate($v->ano, $v->mes, 1)
-                ];
+                'data' => $data,
+                'horas' => $v
+            ];
         });
 
-
-        return view('relatorios.horas', compact('funcionario', 'horas', 'grupos'));
+        return view('relatorios.horas', compact('funcionario', 'grupos'));
     }
 
     /* Workaroud */

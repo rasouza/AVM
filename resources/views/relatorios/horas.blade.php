@@ -15,21 +15,21 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach($horas as $hora)
-                    @if($hora->data->month == $grupo['data']->month && $hora->data->year == $grupo['data']->year)
+                @foreach($grupo['horas'] as $hora)
+
                         <tr>
                             <th class="features">{{ $hora->cliente }} (dia {{ $hora->data->format('j') }})</th>
                             <td>{{ number_format($hora->quantidade, 2, ',', '') }}</td>
                             <td>{{ number_format($hora->horas, 2, ',', '') }}</td>
                             <td>{{ number_format(($hora->quantidade / $hora->horas), 2, ',', '') }}</td>
                         </tr>
-                    @endif
+
                 @endforeach
 
                 <tr>
                     <th class="features">Total</th>
                     <td><b>{{ number_format($grupo['quantidade'], 2, ',', '') }}</b></td>
-                    <td><b>{{ number_format($grupo['horas'], 2, ',', '') }}</b></td>
+                    <td><b>{{ number_format($grupo['tempo'], 2, ',', '') }}</b></td>
                     <td><b>{{ number_format($grupo['media'], 2, ',', '') }}</b></td>
                 </tr>
             </tbody>
