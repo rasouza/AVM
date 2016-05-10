@@ -77,10 +77,19 @@ class ProcessoController extends Controller
     public function principal() { return view('operacional.processo.principal'); }
     public function detalhe(Os $os, Request $request) {
         if ($request->isMethod('post')) {
-            $processos = $os->processos()
-                ->where('setor', $request->setor)
-                ->OrWhere('codigo', 'LIKE', "{$request->codigo}%")
-                ->get();
+            if($request->setor != null && $request->codigo == null)
+                $processos = $os->processos()
+                    ->where('setor', $request->setor)
+                    ->get();
+            elseif($request->setor == null && $request->codigo != null)
+                $processos = $os->processos()
+                    ->where('codigo', 'LIKE', "{$request->codigo}%")
+                    ->get();
+            elseif($request->setor != null && $request->codigo != null)
+                $processos = $os->processos()
+                    ->where('setor', $request->setor)
+                    ->where('codigo', 'LIKE', "{$request->codigo}%")
+                    ->get();
         }
         return view('operacional.processo.detalhe', compact('processos'));
     }
