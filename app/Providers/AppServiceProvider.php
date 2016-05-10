@@ -5,6 +5,7 @@ namespace App\Providers;
 use Validator;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\AliasLoader;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,10 @@ class AppServiceProvider extends ServiceProvider
     {
         if ($this->app->environment() == 'local') {
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
+            $this->app->register('Barryvdh\Debugbar\ServiceProvider');
+
+            $loader = AliasLoader::getInstance();
+            $loader->alias('Debugbar', 'Barryvdh\Debugbar\Facade');
         }
     }
 }

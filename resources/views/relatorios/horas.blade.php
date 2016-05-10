@@ -4,21 +4,33 @@
 @section('sidebar') @endsection
 @section('content')
     @foreach($grupos as $grupo)
-        <h2>{{ ucfirst((new Date($grupo->created_at))->format('F')) }}/{{ $grupo->ano }}</h2>
+        <h2>{{ ucfirst($grupo['data']->format('F')) }}/{{ $grupo['data']->year }}</h2>
         <table width="100%" class="short-table">
+            <thead>
+                <tr>
+                    <th>O.S.</th>
+                    <th>Peças</th>
+                    <th>Horas</th>
+                    <th>Peça/h</th>
+                </tr>
+            </thead>
             <tbody>
                 @foreach($horas as $hora)
-                    @if($hora->created_at->month == $grupo->mes && $hora->created_at->year == $grupo->ano)
+                    @if($hora->data->month == $grupo['data']->month && $hora->data->year == $grupo['data']->year)
                         <tr>
-                            <th class="features">{{ $hora->os->agenda->cliente->nome }} (dia {{ $hora->created_at->format('j') }})</th>
-                            <td>{{ $hora->horas }}</td>
+                            <th class="features">{{ $hora->cliente }} (dia {{ $hora->data->format('j') }})</th>
+                            <td>{{ number_format($hora->quantidade, 2, ',', '') }}</td>
+                            <td>{{ number_format($hora->horas, 2, ',', '') }}</td>
+                            <td>{{ number_format(($hora->quantidade / $hora->horas), 2, ',', '') }}</td>
                         </tr>
                     @endif
                 @endforeach
 
                 <tr>
                     <th class="features">Total</th>
-                    <td><b>{{ $grupo->horas }}</b></td>
+                    <td><b>{{ number_format($grupo['quantidade'], 2, ',', '') }}</b></td>
+                    <td><b>{{ number_format($grupo['horas'], 2, ',', '') }}</b></td>
+                    <td><b>{{ number_format($grupo['media'], 2, ',', '') }}</b></td>
                 </tr>
             </tbody>
         </table>

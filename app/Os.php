@@ -41,6 +41,8 @@ class Os extends Model
             ->get();
     }
 
+    
+
     // Funções do cabeçalho
     public function getDuplicidades() {
         $sql = "
