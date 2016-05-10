@@ -104,7 +104,7 @@ class ProcessoController extends Controller
                     $this->destroy($os, $setor);
             }
 
-            return redirect()->action('ProcessoController@auditoria');
+            return redirect()->action('ProcessoController@auditoria', [$os]);
         }
         $processos = $os->processos()->where('auditado', false)->groupBy('setor')->get();
         return view('operacional.processo.auditoria', compact('processos'));
