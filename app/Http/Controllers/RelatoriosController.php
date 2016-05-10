@@ -54,6 +54,8 @@ class RelatoriosController extends Controller
 
     public function horas(Funcionario $funcionario)
     {
+        Date::setLocale('pt-BR');
+
         $horas = DB::table('horas')
             ->selectRaw('horas.*, SUM(processos.quantidade) quantidade, clientes.nome cliente, agenda.data')
             ->leftJoin('os', 'horas.os_id', '=', 'os.id')
