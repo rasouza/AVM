@@ -113,6 +113,8 @@ class Os extends Model
             mkdir('os/');
         $fp = fopen("os/{$this->id}.csv", 'w');
 
+        fputcsv($fp, ['ambiente', 'setor', 'codigo', 'quantidade', 'operador']);
+
         foreach ($this->processos as $processo) {
             $ambiente = mb_convert_encoding($processo->ambiente->nome, 'UTF-16LE', 'UTF-8');
             // Converte decimal para inteiro
