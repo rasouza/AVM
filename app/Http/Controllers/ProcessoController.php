@@ -140,17 +140,35 @@ class ProcessoController extends Controller
 
         if ($request->isMethod('post')) {
             $os->finalizar($request->only('rbCodigo', 'codigo', 'rbQuantidade', 'quantidade', 'separador'));
-            Mail::send('emails.os', compact('os'), function($m) use ($os) {
-                $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
-                $m->subject("Inventario - {$os->agenda->cliente->nome}");
-                $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
-                $m->to($os->email);
-            });
+//            Mail::send('emails.os', compact('os'), function($m) use ($os) {
+//                $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
+//                $m->subject("Inventario - {$os->agenda->cliente->nome}");
+//                $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
+//                $m->to($os->email);
+//            });
 
             $os->finalizarCSV();
-            $os->finalizarPDF();
+            $os->finalizarPDF($request->only(
+                'liberacao',
+                'inicio',
+                'termino',
+                'final',
+                'periodo',
+                'duracao',
+                'auditadas',
+                'etiqueta',
+                'fora',
+                'entregue',
+                'ocioso',
+                'cbLugares',
+                'criacao',
+                'duvida',
+                'ciente',
+                'revista',
+                'observacoes'
+            ));
             
-            $os->status = 'concluido';
+            //$os->status = 'concluido';
             $os->save();
             return "E-mail enviado para {$os->email}";
         }

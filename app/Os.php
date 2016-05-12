@@ -132,8 +132,11 @@ class Os extends Model
         fclose($fp);
     }
 
-    public function finalizarPDF() {
-        PDF::loadView('relatorios.pdf', ['os' => $this])->save("os/{$this->id}.pdf");
+    public function finalizarPDF($data) {
+        $inventariantes = collect($this->inventariantes)->map(function ($v) {
+            return Funcionario::find($v);
+        });
+        PDF::loadView('relatorios.pdf', ['os' => $this, compact($inventariantes), $data])->save("os/{$this->id}.pdf");
     }
 
     public static function formatar($val, $type, $len) {

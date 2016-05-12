@@ -427,7 +427,7 @@ ol.cf-ol{margin:0!important; padding:0!important;}
 ol.cf-ol li{background:none!important; margin:18px 0!important;padding:0; list-style:none!important; text-align:left;line-height:1.3em;}
 .form-contact label{width:124px; margin:4px 10px 0 0; display:-moz-inline-box;/*for mozilla*/display:inline-block;/*for Opera & IE*/text-align:left;vertical-align:top;color:#696969;font-weight:bold}
 .form-contact label span{width:124px;/* must be the same as above!*/display:block; }
-.form-contact input, .form-contact textarea, .form-contact select{padding:3px;background:#fff url('../images/bg/gradient-input.png') repeat-x; border:1px solid #cacaca; vertical-align:top;color:#696969}
+.form-contact input, .form-contact textarea, .form-contact select{padding:3px;background:#fff url('../images/bg/gradient-input.png') repeat-x; border:1px solid #cacaca; color:#696969}
 .form-contact input:focus, .form-contact textarea:focus, .form-contact select:focus{border-color:#aaa; }
 .form-contact textarea, .form-contact input{width:308px; }
 .form-contact select{width:316px;/* attempt to have equal length */padding:2px 0;}

@@ -15,19 +15,25 @@
         <h2>Dados do Cliente</h2>
 
         <p><b>Cliente:</b> {{ $os->agenda->cliente->nome }} <b>Data:</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
-        <p><b>Hora da Liberação:</b> ________ <b>Hora do Início do Inventário: </b> ________ </p>
-        <p> <b>Hora do Termino do Inventário: </b> ________ <b>Hora Final:</b> ________ </p>
-        <p><b>Período:</b> ( ) Manhã ( ) Tarde ( ) Noite <b>Tempo de Duração do Inventário:</b> ________</p>
+        <p><b>Hora da Liberação:</b> {{ $liberacao }} <b>Hora do Início do Inventário: </b> {{ $inicio }} </p>
+        <p> <b>Hora do Termino do Inventário: </b> {{ $termino }} <b>Hora Final:</b> {{ $final }} </p>
+        <p><b>Período:</b> {{ $periodo }} <b>Tempo de Duração do Inventário:</b> {{ $duracao }}</p>
         <p><b>Responsável da AVM:</b> {{ $os->coordenador->nome }} <b>Responsável do Cliente:</b> {{ ucfirst($os->agenda->cliente->ficha->gerente) }} </p>
 
         <h2>Estatísticas do Inventário</h2>
 
-        <p><b>Qtde de Peças Inventariadas:</b> {{ $os->inventariados() }}</p>
-        <p><b>Qtde de Peças Auditadas:</b> ________ (______)%.</p>
-        <p><b>Qtde de Peças s/ Etiquetas (Manuais):</b> ________ (______)%.</p>
-        <p><b>Qtde de Peças de Fora do Inventario:</b> ________ <b>Entregue para:</b> ____________________________</p>
+        <p><b>Qtde de Peças Inventariadas:</b> {{ $os->pecas() }}</p>
+        <p><b>Qtde de Peças Auditadas:</b> {{ $auditadas }} ({{ round($auditadas/$os->pecas()) }})%.</p>
+        <p><b>Qtde de Peças s/ Etiquetas (Manuais):</b> {{ $etiqueta }} ({{ round($etiqueta/$os->pecas()) }})%.</p>
+        <p><b>Qtde de Peças de Fora do Inventario:</b> {{ $fora }} <b>Entregue para:</b> {{$entregue}}</p>
 
-        <p><b>Número de Inventariantes:</b> {{ count($os->inventariantes) }} <b>Tempo Ocioso:</b> ________</p>
+        <p><b>Número de Inventariantes:</b> {{ count($os->inventariantes) }} <b>Tempo Ocioso:</b> {{ $ocioso }}</p>
+
+        <ul>
+            @foreach($inventariantes as $inventariante)
+                <li>{{ $inventariante->nome }}</li>
+            @endforeach
+        </ul>
 
         <h2>Setorização</h2>
 
@@ -35,10 +41,10 @@
             <p>{{$ambiente->nome}} <b>Início:</b> {{ $ambiente->inicio }} <b>Fim:</b> {{ $ambiente->fim }}</p>
         @endforeach
 
-        <p>Vitrine ( ) Estoque ( ) Reserva ( ) Loja ( ) Transferências ( ) Conserto ( ) Produção ( ) Outro</p>
+        <p>{{ $lugares }}</p>
 
         <h2>De acordo</h2>
-        <p><b>A Criação dos setores foi acompanhada:</b> ( ) Sim ( ) Não ( ) Parcial</p>
+        <p><b>A Criação dos setores foi acompanhada:</b> </p>
         <p><b>O cliente está ciente que todos os setores criados foram processados no sistema:</b> ( ) Sim ( ) Não</p>
         <p><b>O cliente tem alguma dúvida sobre algum procedimento do Inventário:</b> ( ) Sim ( ) Não</p>
         <p><b>Revista Pessoal:</b> ( ) Sim ( ) Não ( ) Todos ( ) Sorteio</p>
