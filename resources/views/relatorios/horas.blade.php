@@ -27,7 +27,7 @@
                 @endforeach
 
                 <tr>
-                    <th class="features">Total</th>
+                    <th class="features">Total ({{ count($grupo['horas']) }})</th>
                     <td><b>{{ number_format($grupo['quantidade'], 2, ',', '') }}</b></td>
                     <td><b>{{ number_format($grupo['tempo'], 2, ',', '') }}</b></td>
                     <td><b>{{ number_format($grupo['media'], 2, ',', '') }}</b></td>
