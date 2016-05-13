@@ -23,8 +23,8 @@
         <h2>Estatísticas do Inventário</h2>
 
         <p><b>Qtde de Peças Inventariadas:</b> {{ $os->pecas() }}</p>
-        <p><b>Qtde de Peças Auditadas:</b> {{ $data['auditadas'] }} ({{ round(100*$data['auditadas']/$os->pecas()) }})%.</p>
-        <p><b>Qtde de Peças s/ Etiquetas (Manuais):</b> {{ $data['etiqueta'] }} ({{ round(100*$data['etiqueta']/$os->pecas()) }})%.</p>
+        <p><b>Qtde de Peças Auditadas:</b> {{ $data['auditadas'] }} ({{ ceil(100*$data['auditadas']/$os->pecas()) }})%.</p>
+        <p><b>Qtde de Peças s/ Etiquetas (Manuais):</b> {{ $data['etiqueta'] }} ({{ ceil(100*$data['etiqueta']/$os->pecas()) }})%.</p>
         <p><b>Qtde de Peças de Fora do Inventario:</b> {{ $data['fora'] }} <b>Entregue para:</b> {{$data['entregue']}}</p>
 
         <p><b>Número de Inventariantes:</b> {{ count($os->inventariantes) }} <b>Tempo Ocioso:</b> {{ $data['ocioso'] }}</p>
