@@ -136,7 +136,7 @@ class Os extends Model
         $inventariantes = collect($this->inventariantes)->map(function ($v) {
             return Funcionario::find($v);
         });
-        PDF::loadView('relatorios.pdf', ['os' => $this, compact('inventariantes'), 'data' => $data])->save("os/{$this->id}.pdf");
+        PDF::loadView('relatorios.pdf', ['os' => $this, 'inventariantes' => $inventariantes, 'data' => $data])->save("os/{$this->id}.pdf");
     }
 
     public static function formatar($val, $type, $len) {
