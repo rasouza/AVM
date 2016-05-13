@@ -52,7 +52,7 @@
 
         <h2>Observações</h2>
 
-        {{ $data['observacoes'] }}
+        {{ nl2br($data['observacoes']) }}
 
 
         <br/>
