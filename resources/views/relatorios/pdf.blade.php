@@ -15,7 +15,7 @@
         <h2>Dados do Cliente</h2>
 
         <p><b>Cliente:</b> {{ $os->agenda->cliente->nome }} <b>Data:</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
-        <p><b>Hora da Liberação:</b> {{ $data['liberacao'] }} <b>Hora do Início do Inventário: </b> {{ $data['inicio }} </p>
+        <p><b>Hora da Liberação:</b> {{ $data['liberacao'] }} <b>Hora do Início do Inventário: </b> {{ $data['inicio'] }} </p>
         <p> <b>Hora do Termino do Inventário: </b> {{ $data['termino'] }} <b>Hora Final:</b> {{ $data['final'] }} </p>
         <p><b>Período:</b> {{ $periodo }} <b>Tempo de Duração do Inventário:</b> {{ $data['duracao'] }}</p>
         <p><b>Responsável da AVM:</b> {{ $os->coordenador->nome }} <b>Responsável do Cliente:</b> {{ ucfirst($os->agenda->cliente->ficha->gerente) }} </p>
