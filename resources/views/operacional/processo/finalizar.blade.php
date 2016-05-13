@@ -192,7 +192,7 @@
         </li>
         <li>
             <label for="revista"><span>Revista pessoal:</span></label>
-            {!! Form::select('revista', ['Sim' => 'Sim', 'Não' => 'Não'] , null , ['class' => 'form-control']) !!}
+            {!! Form::select('revista', ['Sim' => 'Sim', 'Não' => 'Não', 'Todos' => 'Todos', 'Sorteio' => 'Sorteio'] , null , ['class' => 'form-control']) !!}
         </li>
 
         <li>

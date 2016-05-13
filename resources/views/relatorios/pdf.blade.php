@@ -17,7 +17,7 @@
         <p><b>Cliente:</b> {{ $os->agenda->cliente->nome }} <b>Data:</b> {{ \Carbon\Carbon::now()->format('d/m/Y') }}</p>
         <p><b>Hora da Liberação:</b> {{ $data['liberacao'] }} <b>Hora do Início do Inventário: </b> {{ $data['inicio'] }} </p>
         <p> <b>Hora do Termino do Inventário: </b> {{ $data['termino'] }} <b>Hora Final:</b> {{ $data['final'] }} </p>
-        <p><b>Período:</b> {{ $periodo }} <b>Tempo de Duração do Inventário:</b> {{ $data['duracao'] }}</p>
+        <p><b>Período:</b> {{ $data['periodo'] }} <b>Tempo de Duração do Inventário:</b> {{ $data['duracao'] }}</p>
         <p><b>Responsável da AVM:</b> {{ $os->coordenador->nome }} <b>Responsável do Cliente:</b> {{ ucfirst($os->agenda->cliente->ficha->gerente) }} </p>
 
         <h2>Estatísticas do Inventário</h2>
@@ -44,10 +44,10 @@
         <p>{{ $data['lugares'] }}</p>
 
         <h2>De acordo</h2>
-        <p><b>A Criação dos setores foi acompanhada:</b> </p>
-        <p><b>O cliente está ciente que todos os setores criados foram processados no sistema:</b> ( ) Sim ( ) Não</p>
-        <p><b>O cliente tem alguma dúvida sobre algum procedimento do Inventário:</b> ( ) Sim ( ) Não</p>
-        <p><b>Revista Pessoal:</b> ( ) Sim ( ) Não ( ) Todos ( ) Sorteio</p>
+        <p><b>A Criação dos setores foi acompanhada:</b> {{ $data['criacao'] }}</p>
+        <p><b>O cliente está ciente que todos os setores criados foram processados no sistema:</b> {{ $data['ciente'] }}</p>
+        <p><b>O cliente tem alguma dúvida sobre algum procedimento do Inventário:</b> {{ $data['duvida'] }}</p>
+        <p><b>Revista Pessoal:</b> {{ $data['revista'] }}</p>
 
         <br/>
         <br/>
