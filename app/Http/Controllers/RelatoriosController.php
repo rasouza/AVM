@@ -65,6 +65,7 @@ class RelatoriosController extends Controller
             ->leftJoin('clientes', 'agenda.cliente_id', '=', 'clientes.id')
             ->where('horas.funcionario_id', $funcionario->id)
             ->where('processos.funcionario_id', $funcionario->id)
+            ->where('agenda.data', '>', new Carbon('12 months ago'))
             ->groupBy('processos.funcionario_id')
             ->groupBy('os.id')
             ->get();
