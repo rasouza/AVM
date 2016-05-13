@@ -167,7 +167,6 @@ class ProcessoController extends Controller
                 $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
                 $m->subject("Inventario - {$os->agenda->cliente->nome}");
                 $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
-                $m->attach("os/{$os->id}.csv", ["as" => 'mapeamento', 'mime' => 'text/csv']);
                 $m->attach("os/{$os->id}.pdf", ["as" => 'relatorio', 'mime' => 'application/pdf']);
                 $m->to($os->email);
             });
