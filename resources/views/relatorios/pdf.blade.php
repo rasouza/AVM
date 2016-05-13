@@ -41,7 +41,7 @@
             <p>{{$ambiente->nome}} <b>Início:</b> {{ $ambiente->inicio }} <b>Fim:</b> {{ $ambiente->fim }}</p>
         @endforeach
 
-        <p>{{ $data['lugares'] }}</p>
+        <p>{{ $data['cbLugares'] }}</p>
 
         <h2>De acordo</h2>
         <p><b>A Criação dos setores foi acompanhada:</b> {{ $data['criacao'] }}</p>
