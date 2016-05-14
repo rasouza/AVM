@@ -98,16 +98,7 @@
                                     <li><a href="{{ url('administracao/funcionarios') }}">Funcionários</a></li>
 
                                     <li><a href="{{ url('administracao/vendedores') }}">Vendedores e Gerentes</a></li>
-                                    <li><a href="#">Cash</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Listagem de Cash</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Premiação</a>
-                                        <ul class="sub-menu">
-                                            <li><a href="#">Listagem da Premiação</a></li>
-                                        </ul>
-                                    </li>
+
                                 </ul>
                             </li>
                         @endcan
