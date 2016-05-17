@@ -11,7 +11,7 @@ use App\Os;
 
 class AmbientesController extends Controller
 {
-    function __construct() { $this->authorize('gerente'); }
+    function __construct() { $this->authorize('coordenador'); }
 
     /**
      * Show the form for editing the specified resource.
