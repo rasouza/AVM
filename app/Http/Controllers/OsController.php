@@ -11,7 +11,7 @@ use App\Http\Requests;
 
 class OsController extends Controller
 {
-    function __construct() { $this->authorize('gerente'); }
+    function __construct() {  }
     
     /**
      * Display a listing of the resource.
@@ -20,6 +20,7 @@ class OsController extends Controller
      */
     public function index()
     {
+        $this->authorize('coordenador');
         $agendas = Agenda::getActiveAgenda();
 
         return view('operacional.os.index', compact('agendas'));
@@ -33,6 +34,7 @@ class OsController extends Controller
      */
     public function show(Os $os)
     {
+        $this->authorize('gerente');
         return view('operacional.os.show', compact('os'));
     }
 
@@ -44,6 +46,7 @@ class OsController extends Controller
      */
     public function edit(Os $os)
     {
+        $this->authorize('gerente');
         $action = 'OsController@update';
         $necessarios = ceil($os->agenda->pecas/(300*6));
         $inventariantes = Funcionario::getAllByCargo('inventariante')->lists('nome', 'id');
@@ -61,7 +64,7 @@ class OsController extends Controller
      */
     public function update(Request $request, Os $os)
     {
-
+        $this->authorize('gerente');
         $req = $request->except('action', 'sendbutton');
         if (isset($req['inventariantes']))
             $req['inventariantes'] = array_unique($req['inventariantes']);
@@ -77,6 +80,7 @@ class OsController extends Controller
      */
     public function destroy(Os $os)
     {
+        $this->authorize('gerente');
         $os->agenda()->delete();
         $os->delete();
         return redirect()->action('OsController@index');
