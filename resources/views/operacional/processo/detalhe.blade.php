@@ -9,6 +9,7 @@
         {!! Form::submit('Procurar', ['class' => 'btn small button']) !!}
         @if(isset($processos))
             <div id="divDT">
+                <span>Total: {{ $processos->sum('quantidade') }}</span>
                 <table class="table table-hover">
                     <thead>
                         <tr>
