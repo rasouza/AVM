@@ -13,10 +13,12 @@
                 <tr>
                     <th style="width: auto"></th>
                     <th>Ambientes</th>
-                    <th>Agenda</th>
-                    <th>Visualizar</th>
-                    <th>Editar</th>
-                    <th></th>
+                    @can('gerente')
+                        <th>Agenda</th>
+                        <th>Visualizar</th>
+                        <th>Editar</th>
+                        <th></th>
+                    @endcan
                 </tr>
             </thead>
 
@@ -35,8 +37,6 @@
                             <button class="small button red delete" style="border: none">Excluir</button>
                             {!! Form::close() !!}
                         </td>
-                    @else
-                        <td colspan="4"></td>
                     @endcan
                 </tr>
             </tbody>

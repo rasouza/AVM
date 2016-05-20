@@ -37,7 +37,7 @@ class Agenda extends Model
 
         if (Gate::denies('gerente'))
             $agendas = $agendas->whereHas('os', function($q) {
-                $q->where('coordenador_id', Auth::user()->id);
+                $q->where('coordenador_id', Auth::user()->funcionario_id);
             });
 
         return $agendas->get(['agenda.*']);
