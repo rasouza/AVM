@@ -17,7 +17,7 @@ class Agenda extends Model
     protected $casts = ['data' => 'date'];
 
     public function setDataAttribute($v) { if(!empty($v)) $this->attributes['data'] = Carbon::createFromFormat('d/m/Y', $v)->format('Y-m-d'); }
-    public function getDataAttribute($v) { if(!is_null($v)) return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
+    public function getDataAttribute($v) { if(!is_null($v)  && $v != '0000-00-00') return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
 
     public function cliente() { return $this->belongsTo('App\Cliente'); }
     public function filial() { return $this->belongsTo('App\Filial'); }

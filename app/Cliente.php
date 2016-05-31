@@ -18,9 +18,9 @@ class Cliente extends Model
     ];
 
 
-    public function getPropostaEndAttribute($v) { if(!is_null($v)) return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
+    public function getPropostaEndAttribute($v) { if(!is_null($v) && $v != '0000-00-00') return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
     public function setPropostaEndAttribute($v) { if(!empty($v)) $this->attributes['propostaEnd'] = Carbon::createFromFormat('d/m/Y', $v)->format('Y-m-d'); }
-    public function getPropostaBeginAttribute($v) { if(!is_null($v)) return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
+    public function getPropostaBeginAttribute($v) { if(!is_null($v) && $v != '0000-00-00') return Carbon::createFromFormat('Y-m-d', $v)->format('d/m/Y'); }
     public function setPropostaBeginAttribute($v) {
         if(!empty($v))
             $this->attributes['propostaBegin'] = Carbon::createFromFormat('d/m/Y', $v)->format('Y-m-d');
