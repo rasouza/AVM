@@ -11,24 +11,15 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    return [
-        'name' => $faker->name,
-        'email' => $faker->email,
-        'password' => bcrypt(str_random(10)),
-        'remember_token' => str_random(10),
-    ];
-});
-
 $factory->define(App\Agenda::class, function (Faker\Generator $faker) {
-   return [
+    return [
 //       'cliente_id' => factory(App\Cliente::class)->create()->id,
        'filial_id' => factory(App\Filial::class)->create()->id,
-       'data' => $faker->date(),
+       'data' => $faker->date('d/m/Y'),
        'periodo' => 'Semestral',
        'inicio' => $faker->time(),
        'pecas' => $faker->numerify()
-   ];
+    ];
 });
 
 $factory->define(App\Filial::class, function (Faker\Generator $faker) {
@@ -44,10 +35,18 @@ $factory->define(App\Cargo::class, function (Faker\Generator $faker) {
     ];
 });
 
-//$factory->define(App\Vendedor::class, function (Faker\Generator $faker) {
-//    return [
-//        'cargo_id' => factory(App\Cargo::class)->create()->id,
-//        'nome' => $faker->name,
-//        'password' => $faker->password()
-//    ];
-//});
+$factory->define(App\Funcionario::class, function (Faker\Generator $faker) {
+    return [
+        'uf_id' => App\Uf::all()->random(1)->id,
+        'filial_id' => factory(App\Filial::class)->create()->id,
+        'nome' => $faker->name
+    ];
+});
+
+$factory->define(App\Vendedor::class, function (Faker\Generator $faker) {
+    return [
+        'cargo_id' => factory(App\Cargo::class)->create()->id,
+        'funcionario_id' => factory(App\Funcionario::class)->create()->id,
+        'password' => $faker->password()
+    ];
+});
