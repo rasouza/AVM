@@ -10,11 +10,11 @@
         @else
             <thead>
                 <tr>
+                    <th style="width: auto"></th>
+                    <th>O.S.</th>
+                    <th>Visualizar</th>
+                    <th>Editar</th>
                     <th></th>
-                    <th style="width: 100px;">O.S.</th>
-                    <th style="width: 100px;">Visualizar</th>
-                    <th style="width: 100px;">Editar</th>
-                    <th style="width: 100px;"></th>
                 </tr>
             </thead>
 
