@@ -68,6 +68,7 @@ class RelatoriosController extends Controller
             ->where('agenda.data', '>', new Carbon('12 months ago'))
             ->groupBy('processos.funcionario_id')
             ->groupBy('os.id')
+            ->orderBy('agenda.data', 'DESC')
             ->get();
 
         $grupos = collect($horas)->groupBy('grupo')->map(function($v, $k) {
