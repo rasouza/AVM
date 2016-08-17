@@ -18,7 +18,7 @@
         <p><b>Hora da Liberação:</b> {{ $data['liberacao'] }} <b>Hora do Início do Inventário: </b> {{ $data['inicio'] }} </p>
         <p> <b>Hora do Termino do Inventário: </b> {{ $data['termino'] }} <b>Hora Final:</b> {{ $data['final'] }} </p>
         <p><b>Período:</b> {{ $data['periodo'] }} <b>Tempo de Duração do Inventário:</b> {{ $data['duracao'] }}</p>
-        <p><b>Responsável da AVM:</b> {{ $os->coordenador->nome or 'Nenhum' }} <b>Responsável do Cliente:</b> {{ ucfirst($os->agenda->cliente->ficha->gerente) or 'Nenhum' }} </p>
+        <p><b>Responsável da AVM:</b> {{ $os->coordenador->nome or 'Nenhum' }} <b>Responsável do Cliente:</b> {{ $os->agenda->cliente->ficha->gerente or 'Nenhum' }} </p>
 
         <h2>Estatísticas do Inventário</h2>
 
