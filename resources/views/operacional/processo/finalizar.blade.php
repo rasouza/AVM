@@ -36,6 +36,7 @@
             {!! Form::radio('rbFakeCodigo', 'nada', true,  ['style' => 'width: 13px; height: 13px']) !!} Nada
             {!! Form::radio('rbFakeCodigo', 'espaco', null,  ['style' => 'width: 13px; height: 13px']) !!} Espaços
             {!! Form::radio('rbFakeCodigo', 'zero', null,  ['style' => 'width: 13px; height: 13px']) !!} Zeros
+            {!! Form::radio('rbFakeCodigo', 'direita', null,  ['style' => 'width: 13px; height: 13px']) !!} Zeros a direita
         </li>
 
         <li>
@@ -54,6 +55,7 @@
             {!! Form::radio('rbFakeQtde', 'nada', true,  ['style' => 'width: 13px; height: 13px']) !!} Nada
             {!! Form::radio('rbFakeQtde', 'espaco', null,  ['style' => 'width: 13px; height: 13px']) !!} Espaços
             {!! Form::radio('rbFakeQtde', 'zero', null,  ['style' => 'width: 13px; height: 13px']) !!} Zeros
+            {!! Form::radio('rbFakeQtde', 'direita', null,  ['style' => 'width: 13px; height: 13px']) !!} Zeros a direita
         </li>
 
         <li>

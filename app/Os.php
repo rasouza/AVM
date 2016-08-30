@@ -149,6 +149,10 @@ class Os extends Model
                 return str_pad($val, $len);
                 break;
 
+            case 'direita':
+                return str_pad($val, $len, '0', STR_PAD_RIGHT);
+                break;
+
             default:
                 return $val;
                 break;
