@@ -37,7 +37,7 @@ class Os extends Model
                     ->on('horas.os_id', '=', 'os.id');
             })
             ->groupBy('processos.funcionario_id')
-            ->selectRaw('sum(quantidade) as quantidade, processos.funcionario_id, horas')
+            ->selectRaw('sum(quantidade) as quantidade, processos.funcionario_id, horas, comentario')
             ->get();
     }
 

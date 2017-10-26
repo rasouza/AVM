@@ -16,6 +16,7 @@
                         <th>Operador</th>
                         <th>Quantidade</th>
                         <th width="10">Horas</th>
+                        <th>Comentários</th>                        
 
                     </tr>
                 </thead>
@@ -31,6 +32,14 @@
                                 @else
                                     {!! Form::hidden('operadores[]', $operador->funcionario_id, ['id' => 'id']) !!}
                                     {!! Form::text('horas[]', $operador->horas, ['style' => 'width: 35px;']) !!}
+                                @endif
+                            </td>
+                            
+                            <td>
+                                @if(is_null($operador->funcionario))
+                                    -
+                                @else
+                                    {!! Form::text('comentarios[]', $operador->comentario) !!}
                                 @endif
                             </td>
                         </tr>

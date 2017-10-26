@@ -124,10 +124,12 @@ class ProcessoController extends Controller
             $os->horas()->delete();
             $operadores = $request->operadores;
             $horas = $request->horas;
-            foreach(array_combine($operadores, $horas) as $operador => $hora)
+            $comentarios = $request->comentarios;
+            foreach(array_map(null, $operadores, $horas, $comentarios) as $operador)
                 $os->horas()->create([
-                    'funcionario_id' => $operador,
-                    'horas'          => $hora
+                    'funcionario_id' => $operador[0],
+                    'horas'          => $operador[1],
+                    'comentario'     => $operador[2]
                 ]);
         }
         $operadores = $os->getOperadores();

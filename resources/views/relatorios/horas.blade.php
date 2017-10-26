@@ -12,6 +12,7 @@
                     <th>Peças</th>
                     <th>Horas</th>
                     <th>Peça/h</th>
+                    <th style="width: auto">Comentários</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,6 +23,7 @@
                             <td>{{ number_format($hora->quantidade, 2, ',', '') }}</td>
                             <td>{{ number_format($hora->horas, 2, ',', '') }}</td>
                             <td>{{ number_format(($hora->quantidade / $hora->horas), 2, ',', '') }}</td>
+                            <td>{{ $hora->comentario }}</td>
                         </tr>
 
                 @endforeach
@@ -31,6 +33,7 @@
                     <td><b>{{ number_format($grupo['quantidade'], 2, ',', '') }}</b></td>
                     <td><b>{{ number_format($grupo['tempo'], 2, ',', '') }}</b></td>
                     <td><b>{{ number_format($grupo['media'], 2, ',', '') }}</b></td>
+                    <td></td>
                 </tr>
             </tbody>
         </table>
