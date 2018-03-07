@@ -10,4 +10,8 @@ class Hora extends Model
 
     public function os() { return $this->belongsTo('App\Os'); }
     public function funcionario() { return $this->belongsTo('App\Funcionario'); }
+
+    public function setHorasAttribute($v) {
+        $this->attributes['horas'] = $v ? $v : 4; // Horas trabalhadas 4 por default
+    }
 }
