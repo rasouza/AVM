@@ -29,7 +29,7 @@
                         <td>
                             {!! Form::checkbox('processos[]', $processo->setor) !!}
                         </td>
-                        <td>{{ $processo->setor }}</td>
+                        <td>{{ number_format($processo->setor,0,'.','') }}</td>
                         <td>{{ $processo->ambiente->soma($processo->setor) }}</td>
                         <td>{{ $processo->ambiente->operador($processo->setor) }}</td>
 

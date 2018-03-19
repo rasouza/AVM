@@ -38,7 +38,7 @@
         <h2>Setorização</h2>
 
         @foreach($os->ambientes as $ambiente)
-            <p>{{$ambiente->nome}} <b>Início:</b> {{ $ambiente->inicio }} <b>Fim:</b> {{ $ambiente->fim }}</p>
+            <p>{{$ambiente->nome}} <b>Início:</b> {{ number_format($ambiente->inicio,0,'.','') }} <b>Fim:</b> {{ number_format($ambiente->fim,0,'.','') }}</p>
         @endforeach
 
         <p><b>{{ $data['cbLugares'] }}</b></p>

@@ -19,7 +19,7 @@
             @foreach($duplicidades as $processo)
                 <tr>
                     <td>{{ $processo->ambiente }}</td>
-                    <td>{{ $processo->setor }}</td>
+                    <td>{{ number_format($processo->setor,0,'.','') }}</td>
                     <td>{{ $processo->codigo }}</td>
                     <td>{{ $processo->quantidade }}</td>
                     <td>{{ $processo->funcionario }}</td>

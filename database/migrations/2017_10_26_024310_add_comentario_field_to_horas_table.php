@@ -13,7 +13,9 @@ class AddComentarioFieldToHorasTable extends Migration
     public function up()
     {
         Schema::table('horas', function (Blueprint $table) {
-            $table->string('comentario')->after('horas');
+            $table->string('comentario')
+                ->nullable()
+                ->after('horas');
         });
     }
 

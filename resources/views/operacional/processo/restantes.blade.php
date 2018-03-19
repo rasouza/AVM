@@ -22,7 +22,7 @@
                         @if($ambiente->inventariado($setor) == 'Não')
                             <tr>
                                 <td>{{ $ambiente->nome }}</td>
-                                <td>{{ $setor }}</td>
+                                <td>{{ number_format($setor,0,'.','') }}</td>
                                 <td>{{ $ambiente->soma($setor) }}</td>
                                 <td>{{ $ambiente->operador($setor) }}</td>
                             </tr>
