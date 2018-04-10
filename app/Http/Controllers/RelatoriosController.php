@@ -10,10 +10,6 @@ use PDF;
 use Date;
 use DB;
 
-use Debugbar;
-
-use App\Http\Requests;
-
 class RelatoriosController extends Controller
 {
     /**

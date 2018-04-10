@@ -45,13 +45,14 @@ class Os extends Model
 
     // Funções do cabeçalho
     public function getDuplicidades() {
+        $ambienteIds = implode(',', $this->ambientes->pluck('id')->all());
         $sql = "
             SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a 
-            INNER JOIN (SELECT setor, codigo, count(*) AS qty FROM processos WHERE ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).") AND divergencia = 0 GROUP BY setor, codigo HAVING count(*) > 1) b 
+            INNER JOIN (SELECT setor, codigo, count(*) AS qty FROM processos WHERE ambiente_id IN ($ambienteIds) AND divergencia = 0 GROUP BY setor, codigo HAVING count(*) > 1) b 
                 ON a.setor = b.setor AND a.codigo = b.codigo 
             INNER JOIN ambientes c ON a.ambiente_id = c.id  
             INNER JOIN funcionarios d ON d.id = a.funcionario_id
-            WHERE ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).") 
+            WHERE ambiente_id IN ($ambienteIds) 
                 AND a.divergencia = 0
             ORDER BY a.codigo, a.setor
         ";
@@ -59,13 +60,14 @@ class Os extends Model
         return DB::select($sql);
     }
     public function getDivergencia() {
+        $ambienteIds = implode(',', $this->ambientes->pluck('id')->all());
         $sql = "
             SELECT  a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
-            INNER JOIN (SELECT * FROM processos WHERE ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).") GROUP BY setor, codigo HAVING min(quantidade) <> max(quantidade) ) b
+            INNER JOIN (SELECT * FROM processos WHERE ambiente_id IN ($ambienteIds) GROUP BY setor, codigo HAVING min(quantidade) <> max(quantidade) ) b
                 ON a.setor = b.setor AND a.codigo = b.codigo
             INNER JOIN ambientes c ON a.ambiente_id = c.id  
             LEFT JOIN funcionarios d ON d.id = a.funcionario_id
-            WHERE a.ambiente_id IN (".implode(',', $this->ambientes->pluck('id')->all()).")
+            WHERE a.ambiente_id IN ($ambienteIds)
             ORDER BY a.setor, a.codigo
         ";
 
