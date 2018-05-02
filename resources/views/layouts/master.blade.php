@@ -30,6 +30,9 @@
         <!-- END .styles -->
 
         <!-- BEGIN .scripts -->
+        <script src="https://cdn.logrocket.io/LogRocket.min.js" crossorigin="anonymous"></script>
+        <script>window.LogRocket && window.LogRocket.init('wutnmi/avm');</script>
+        
         <script type='text/javascript' src="{{ asset('js/jquery.js') }}"></script>
         <script type='text/javascript' src="{{ asset('js/ui.core.1.8.js') }}"></script>
 
