@@ -19,7 +19,7 @@ class ProcessoController extends Controller
     public function __construct() {
         $this->authorize('coordenador');
 
-        $os = Route::current()->os->load('ambientes.processos');
+        $os = Route::current()->os;
 
         if($os->ambientes->count() == 0)
             return redirect()
@@ -97,8 +97,7 @@ class ProcessoController extends Controller
         if ($request->has('processo'))
             Processo::find($request->processo)->delete();
 
-        $duplicidades = $os->getDuplicidades();
-        return view('operacional.processo.duplicidades', compact('duplicidades'));
+        return view('operacional.processo.duplicidades');
     }
     public function auditoria(Os $os, Request $request) {
         if ($request->isMethod('post')) {
