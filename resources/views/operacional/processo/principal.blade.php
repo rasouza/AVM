@@ -19,15 +19,15 @@
 
             <tbody>
                 @foreach($os->ambientes as $ambiente)
-                    @for($setor = $ambiente->inicio; $setor <= $ambiente->fim; $setor++)
+                    @foreach($ambiente->setores() as $num => $setor)                    
                         <tr>
                             <td>{{ $ambiente->nome }}</td>
-                            <td>{{ number_format($setor,0,'.','') }}</td>
-                            <td>{{ $ambiente->soma($setor) }}</td>
-                            <td>{{ $ambiente->inventariado($setor) }}</td>
-                            <td>{{ $ambiente->operador($setor) }}</td>
+                            <td>{{ number_format($num,0,'.','') }}</td>
+                            <td>{{ $setor->qtd or '-' }}</td>
+                            <td>{{ $setor ? 'Sim' : 'Não' }}</td>
+                            <td>{{ $setor->funcionario or '-' }}</td>
                         </tr>
-                    @endfor
+                    @endforeach
                 @endforeach
             </tbody>
         </table>

@@ -3,11 +3,25 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Ambiente extends Model
 {
     public function processos() { return $this->hasMany('App\Processo')->active(); }
     public function os() { return $this->belongsTo('App\Os'); }
+
+    public function setores() {
+        $inventariados =  $this->processos()
+            ->select('processos.setor', 'funcionarios.nome as funcionario', DB::raw('SUM(processos.quantidade) as qtd'))
+            ->join('funcionarios', 'processos.funcionario_id', '=', 'funcionarios.id')
+            ->groupBy('setor')
+            ->get();
+        $setores = [];
+        for($setor = $this->inicio; $setor <= $this->fim; $setor++) {
+            $setores[$setor] = $inventariados->where('setor', $setor)->first();
+        }
+        return $setores;
+    }
 
     public function soma($setor)
     {

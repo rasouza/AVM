@@ -18,16 +18,16 @@
 
             <tbody>
                 @foreach($os->ambientes as $ambiente)
-                    @for($setor = $ambiente->inicio; $setor <= $ambiente->fim; $setor++)
-                        @if($ambiente->inventariado($setor) == 'Não')
-                            <tr>
-                                <td>{{ $ambiente->nome }}</td>
-                                <td>{{ number_format($setor,0,'.','') }}</td>
-                                <td>{{ $ambiente->soma($setor) }}</td>
-                                <td>{{ $ambiente->operador($setor) }}</td>
-                            </tr>
+                    @foreach($ambiente->setores() as $num => $setor)
+                        @if(!$setor)                  
+                        <tr>
+                            <td>{{ $ambiente->nome }}</td>
+                            <td>{{ number_format($num,0,'.','') }}</td>
+                            <td>-</td>
+                            <td>-</td>
+                        </tr>
                         @endif
-                    @endfor
+                    @endforeach
                 @endforeach
             </tbody>
         </table>

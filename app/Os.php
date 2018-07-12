@@ -12,6 +12,10 @@ class Os extends Model
     protected $guarded = [];
     protected $casts = ['inventariantes' => 'array'];
 
+    private $_inventariado = null;
+    private $_auditado = null;
+    private $_total = null;
+
     public function layout() { return $this->belongsTo('App\Layout'); }
     public function coordenador() { return $this->belongsTo('App\Funcionario', 'coordenador_id'); }
     public function agenda() { return $this->belongsTo('App\Agenda'); }
@@ -41,8 +45,6 @@ class Os extends Model
             ->get();
     }
 
-    
-
     // Funções do cabeçalho
     public function getDuplicidades() {
         $ambienteIds = implode(',', $this->ambientes->pluck('id')->all());
@@ -71,8 +73,6 @@ class Os extends Model
             ORDER BY a.setor, a.codigo
         ";
 
-
-
         return DB::select($sql);
     }
     public function total() {
@@ -81,11 +81,25 @@ class Os extends Model
         foreach ($ambientes as $ambiente)
             $sum += $ambiente->fim - $ambiente->inicio + 1;
 
+        $this->_total = $sum;
         return $sum;
     }
-    public function inventariados() { return min($this->processos()->groupBy('setor')->get()->count(), $this->total()); }
-    public function auditados() { return min($this->processos()->where('auditado', true)->groupBy('setor')->get()->count(), $this->total()); }
-    public function progresso() { return 100*($this->inventariados() + $this->auditados()) / (2 * $this->total()); }
+    public function inventariados() { 
+        $this->_inventariado = $this->processos()
+                ->groupBy('setor')
+                ->get()
+                ->count();
+        return min($this->_total, $this->_inventariado); 
+    }
+    public function auditados() { 
+        $this->_auditado = $this->processos()
+                ->where('auditado', true)
+                ->groupBy('setor')
+                ->get()
+                ->count(); 
+        return min($this->_auditado, $this->_total); 
+    }
+    public function progresso() { return 100*($this->_inventariado + $this->_auditado / (2 * $this->_total)); }
     public function pecas() { return (int) $this->processos()->sum('quantidade'); }
     
     public function finalizar($req) {

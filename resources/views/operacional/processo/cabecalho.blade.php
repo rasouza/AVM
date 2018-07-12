@@ -26,7 +26,7 @@
 
                 <dd>Auditar: {{ $total - $auditados }} ({{ round((1-$auditados/$total)*100) }}%)</dd>
                 <dt>Total inventariado</dt>
-                <dd>{{ $os->pecas() }} pe&ccedil;as</dd>
+                <dd>{{ $pecas }} pe&ccedil;as</dd>
             </dl>
         </div>
         <div class="span5 offset1">
