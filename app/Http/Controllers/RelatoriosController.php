@@ -9,6 +9,7 @@ use App\Funcionario;
 use PDF;
 use Date;
 use DB;
+use Storage;
 
 class RelatoriosController extends Controller
 {
@@ -97,7 +98,16 @@ class RelatoriosController extends Controller
     /* Workaroud */
     public function create() {}
 
-    public function txt(Os $os) { return response()->download("os/{$os->id}.txt"); }
-    public function word(Os $os) { return response()->download("os/{$os->id}.pdf"); }
-    public function excel(Os $os) { return response()->download("os/{$os->id}.csv"); }
+    public function txt(Os $os) {
+        Storage::disk('local')->put("os/{$os->id}.txt", Storage::get("os/{$os->id}/os.txt"));
+        return response()->download("download/os/{$os->id}.txt");
+    }
+    public function word(Os $os) {
+        Storage::disk('local')->put("os/{$os->id}.pdf", Storage::get("os/{$os->id}/relatorio.pdf"));
+        return response()->download("download/os/{$os->id}.pdf");
+    }
+    public function excel(Os $os) {
+        Storage::disk('local')->put("os/{$os->id}.csv", Storage::get("os/{$os->id}/relatorio.csv"));
+        return response()->download("download/os/{$os->id}.csv");
+    }
 }

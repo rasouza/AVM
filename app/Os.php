@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use PDF;
+use Storage;
 
 class Os extends Model
 {
@@ -49,12 +50,12 @@ class Os extends Model
     public function getDuplicidades() {
         $ambienteIds = implode(',', $this->ambientes->pluck('id')->all());
         $sql = "
-            SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a 
-            INNER JOIN (SELECT setor, codigo, count(*) AS qty FROM processos WHERE ambiente_id IN ($ambienteIds) AND divergencia = 0 GROUP BY setor, codigo HAVING count(*) > 1) b 
-                ON a.setor = b.setor AND a.codigo = b.codigo 
-            INNER JOIN ambientes c ON a.ambiente_id = c.id  
+            SELECT a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
+            INNER JOIN (SELECT setor, codigo, count(*) AS qty FROM processos WHERE ambiente_id IN ($ambienteIds) AND divergencia = 0 GROUP BY setor, codigo HAVING count(*) > 1) b
+                ON a.setor = b.setor AND a.codigo = b.codigo
+            INNER JOIN ambientes c ON a.ambiente_id = c.id
             INNER JOIN funcionarios d ON d.id = a.funcionario_id
-            WHERE ambiente_id IN ($ambienteIds) 
+            WHERE ambiente_id IN ($ambienteIds)
                 AND a.divergencia = 0
             ORDER BY a.codigo, a.setor
         ";
@@ -67,7 +68,7 @@ class Os extends Model
             SELECT  a.*, c.nome AS ambiente, d.nome AS funcionario FROM processos a
             INNER JOIN (SELECT * FROM processos WHERE ambiente_id IN ($ambienteIds) GROUP BY setor, codigo HAVING min(quantidade) <> max(quantidade) ) b
                 ON a.setor = b.setor AND a.codigo = b.codigo
-            INNER JOIN ambientes c ON a.ambiente_id = c.id  
+            INNER JOIN ambientes c ON a.ambiente_id = c.id
             LEFT JOIN funcionarios d ON d.id = a.funcionario_id
             WHERE a.ambiente_id IN ($ambienteIds)
             ORDER BY a.setor, a.codigo
@@ -84,44 +85,39 @@ class Os extends Model
         $this->_total = $sum;
         return $sum;
     }
-    public function inventariados() { 
+    public function inventariados() {
         $this->_inventariado = $this->processos()
                 ->groupBy('setor')
                 ->get()
                 ->count();
-        return min($this->_total, $this->_inventariado); 
+        return min($this->_total, $this->_inventariado);
     }
-    public function auditados() { 
+    public function auditados() {
         $this->_auditado = $this->processos()
                 ->where('auditado', true)
                 ->groupBy('setor')
                 ->get()
-                ->count(); 
-        return min($this->_auditado, $this->_total); 
+                ->count();
+        return min($this->_auditado, $this->_total);
     }
     public function progresso() { return 100*($this->_inventariado + $this->_auditado / (2 * $this->_total)); }
     public function pecas() { return (int) $this->processos()->sum('quantidade'); }
-    
-    public function finalizar($req) {
-        if (!file_exists('os/'))
-            mkdir('os/');
-        $fp = fopen("os/{$this->id}.txt", 'w');
 
+    public function finalizar($req) {
         $processos = $this->processos()
             ->groupBy('codigo')
             ->selectRaw('sum(quantidade) as soma, codigo')
             ->get();
 
         foreach ($processos as $processo) {
-            fwrite(
-                $fp,
+            Storage::disk('local')->append(
+                "os/{$this->id}.txt",
                 Os::formatar($processo->codigo, $req['rbCodigo'], $req['codigo'])
                 .$req['separador']
                 .Os::formatar(floatval($processo->soma), $req['rbQuantidade'], $req['quantidade'])
-                ."\r\n"
             );
         }
-        fclose($fp);
+        Storage::put("os/{$this->id}/os.txt", Storage::disk('local')->get("os/{$this->id}.txt"));
     }
 
     public function finalizarCSV() {
@@ -146,6 +142,7 @@ class Os extends Model
         }
 
         fclose($fp);
+        Storage::put("os/{$this->id}/relatorio.csv", Storage::disk('local')->get("os/{$this->id}.csv"));
     }
 
     public function finalizarPDF($data) {
@@ -153,6 +150,7 @@ class Os extends Model
             return Funcionario::find($v);
         });
         PDF::loadView('relatorios.pdf', ['os' => $this, 'inventariantes' => $inventariantes, 'data' => $data])->save("os/{$this->id}.pdf");
+        Storage::put("os/{$this->id}/relatorio.pdf", Storage::disk('local')->get("os/{$this->id}.pdf"));
     }
 
     public static function formatar($val, $type, $len) {
