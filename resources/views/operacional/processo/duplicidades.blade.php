@@ -16,7 +16,7 @@
             </thead>
 
             <tbody>
-            @foreach($duplicidades as $processo)
+            @foreach($os->getDuplicidades() as $processo)
                 <tr>
                     <td>{{ $processo->ambiente }}</td>
                     <td>{{ number_format($processo->setor,0,'.','') }}</td>
