@@ -144,25 +144,25 @@ class ProcessoController extends Controller
 
 
             $os->finalizarCSV();
-            $os->finalizarPDF($request->only(
-                'liberacao',
-                'inicio',
-                'termino',
-                'final',
-                'periodo',
-                'duracao',
-                'auditadas',
-                'etiqueta',
-                'fora',
-                'entregue',
-                'ocioso',
-                'cbLugares',
-                'criacao',
-                'duvida',
-                'ciente',
-                'revista',
-                'observacoes'
-            ));
+            // $os->finalizarPDF($request->only(
+            //     'liberacao',
+            //     'inicio',
+            //     'termino',
+            //     'final',
+            //     'periodo',
+            //     'duracao',
+            //     'auditadas',
+            //     'etiqueta',
+            //     'fora',
+            //     'entregue',
+            //     'ocioso',
+            //     'cbLugares',
+            //     'criacao',
+            //     'duvida',
+            //     'ciente',
+            //     'revista',
+            //     'observacoes'
+            // ));
 
             Mail::send('emails.os', compact('os'), function($m) use ($os) {
                 $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
@@ -171,7 +171,7 @@ class ProcessoController extends Controller
                 $m->attach("os/{$os->id}.pdf", ["as" => 'relatorio', 'mime' => 'application/pdf']);
                 $m->to($os->email);
             });
-            
+
             $os->status = 'concluido';
             $os->save();
             return "E-mail enviado para {$os->email}";
