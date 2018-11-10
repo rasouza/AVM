@@ -149,7 +149,7 @@ class Os extends Model
         $inventariantes = collect($this->inventariantes)->map(function ($v) {
             return Funcionario::find($v);
         });
-        PDF::loadView('relatorios.pdf', ['os' => $this, 'inventariantes' => $inventariantes, 'data' => $data])->save("download/os/{$this->id}.pdf");
+        @PDF::loadView('relatorios.pdf', ['os' => $this, 'inventariantes' => $inventariantes, 'data' => $data])->save("download/os/{$this->id}.pdf");
         Storage::put("os/{$this->id}/relatorio.pdf", Storage::disk('local')->get("os/{$this->id}.pdf"));
     }
 
