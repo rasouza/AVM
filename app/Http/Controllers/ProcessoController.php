@@ -164,13 +164,13 @@ class ProcessoController extends Controller
                 'observacoes'
             ));
 
-            Mail::send('emails.os', compact('os'), function($m) use ($os) {
-                $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
-                $m->subject("Inventario - {$os->agenda->cliente->nome}");
-                $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
-                // $m->attach("os/{$os->id}.pdf", ["as" => 'relatorio', 'mime' => 'application/pdf']);
-                $m->to($os->email);
-            });
+            // Mail::send('emails.os', compact('os'), function($m) use ($os) {
+            //     $m->from('contato@avminventarios.com.br', 'AVM Inventarios');
+            //     $m->subject("Inventario - {$os->agenda->cliente->nome}");
+            //     $m->attach("os/{$os->id}.txt", ["as" => 'inventario', 'mime' => 'text/plain']);
+            //     $m->attach("os/{$os->id}.pdf", ["as" => 'relatorio', 'mime' => 'application/pdf']);
+            //     $m->to($os->email);
+            // });
 
             $os->status = 'concluido';
             $os->save();
