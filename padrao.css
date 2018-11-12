@@ -1,0 +1,123 @@
+@font-face {
+
+ font-family: 'Futura';
+
+ src: url("Futura.eot");
+ /* FOR IEs */
+
+ src: local('Futura'), url('Futura.ttf') format('truetype');
+ /* for other web browsers */
+
+}
+
+body,td,th {
+
+	font-family: Futura, sans-serif;
+
+}
+
+body {
+
+	margin-left: 0px;
+
+	margin-top: 0px;
+
+	margin-right: 0px;
+
+	margin-bottom: 0px;
+
+	background-repeat: no-repeat;
+
+	background-attachment: fixed;
+
+}
+
+a:link {
+
+	color: #010444;
+
+	text-decoration: none;
+
+}
+
+a:visited {
+
+	text-decoration: none;
+
+	color: #010444;
+
+}
+
+a:hover {
+
+	text-decoration: none;
+
+	color: #bcbec0;
+
+}
+
+a:active {
+
+	text-decoration: none;
+
+	color: #bcbec0;
+
+}
+
+.padrao-12-cinza {
+
+	font-family: Futura, sans-serif;
+
+	font-size: 12px;
+
+	color: #36444D;
+	
+	line-height: 16pt;
+
+}
+
+
+.padrao-14-cinza {
+
+	font-family: Futura, sans-serif;
+
+	font-size: 14px;
+
+	color: #939598;
+	
+	line-height: 17pt;
+
+}
+
+
+
+.padrao-16-cinza {
+
+	font-family: Futura, sans-serif;
+
+	font-size: 16px;
+
+	color: #808284;
+
+}
+
+
+.titulos {
+
+	font-family: Futura, sans-serif;
+
+	font-size: 24px;
+
+	color: #010444;
+
+}
+
+.subtitulos {
+
+	font-family: Futura, sans-serif;
+
+	font-size: 16px;
+
+	color: #010444;
+
+}
