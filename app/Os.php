@@ -100,7 +100,7 @@ class Os extends Model
                 ->count();
         return min($this->_auditado, $this->_total);
     }
-    public function progresso() { return 100*($this->_inventariado + $this->_auditado / (2 * $this->_total)); }
+    public function progresso() { return 100*(($this->_inventariado + $this->_auditado) / (2 * $this->_total)); }
     public function pecas() { return (int) $this->processos()->sum('quantidade'); }
 
     public function finalizar($req) {
