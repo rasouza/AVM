@@ -115,6 +115,7 @@ class Os extends Model
                 Os::formatar($processo->codigo, $req['rbCodigo'], $req['codigo'])
                 .$req['separador']
                 .Os::formatar(floatval($processo->soma), $req['rbQuantidade'], $req['quantidade'])
+                .PHP_EOL
             );
         }
         Storage::put("os/{$this->id}/os.txt", Storage::disk('local')->get("os/{$this->id}.txt"));
